@@ -9,53 +9,48 @@ import OurProjectSection from "@/components/section/OurProject";
 import ServicesSection from "@/components/section/Services";
 
 export default function Home() {
-  // const smoothScrollTo = (targetY) => {
-  //   const startY = window.scrollY;
-  //   const distance = targetY - startY;
-  //   const duration = 1;
-  //   const frameRate = 60;
-  //   const totalFrames = duration * frameRate;
-
-  //   let frame = 0;
-
-  //   const scrollStep = () => {
-  //     frame++;
-  //     const progress = frame / totalFrames;
-  //     const scrollPosition = startY + distance * progress;
-
-  //     window.scrollTo(0, scrollPosition);
-
-  //     if (frame < totalFrames) {
-  //       requestAnimationFrame(scrollStep);
-  //     } else {
-  //       window.scrollTo(0, targetY);
-  //     }
-  //   };
-
-  //   requestAnimationFrame(scrollStep);
-  // };
-
   // useEffect(() => {
   //   const lastScrollPosition = sessionStorage.getItem("scrollPosition");
 
   //   window.scrollTo(0, 0);
 
-  //   setTimeout(() => {
-  //     if (lastScrollPosition) {
-  //       smoothScrollTo(Number(lastScrollPosition));
-  //     }
-  //   }, 200);
-  // }, []);
+  //   const smoothScrollTo = (targetPosition, duration) => {
+  //     const startPosition = window.scrollY;
+  //     const distance = targetPosition - startPosition;
+  //     let startTime = null;
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
+  //     const animation = (currentTime) => {
+  //       if (startTime === null) startTime = currentTime;
+  //       const timeElapsed = currentTime - startTime;
+  //       const run = ease(timeElapsed, startPosition, distance, duration);
+  //       window.scrollTo(0, run);
+  //       if (timeElapsed < duration) requestAnimationFrame(animation);
+  //     };
+
+  //     const ease = (t, b, c, d) => {
+  //       t /= d / 2;
+  //       if (t < 1) return (c / 2) * t * t + b;
+  //       t--;
+  //       return (-c / 2) * (t * (t - 2) - 1) + b;
+  //     };
+
+  //     requestAnimationFrame(animation);
+  //   };
+
+  //   if (lastScrollPosition) {
+  //     setTimeout(() => {
+  //       smoothScrollTo(parseInt(lastScrollPosition, 10), 1000);
+  //     }, 100);
+  //   }
+
+  //   const handleBeforeUnload = () => {
   //     sessionStorage.setItem("scrollPosition", window.scrollY);
   //   };
 
-  //   window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
 
   //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
   //   };
   // }, []);
 
@@ -65,9 +60,10 @@ export default function Home() {
         <Navbar />
         <HeroSection />
         <ServicesSection />
-        <AboutSection />
+        {/* <OurClient /> */}
         {/* <OurProductSection /> */}
         <OurProjectSection />
+        <AboutSection />
         <ContactSection />
       </div>
       <ContactBottom />
