@@ -50,7 +50,7 @@ export default function OurProjectSection() {
 
   return (
     <div className="px-[5%] md:px-[3%] pt-[7%] pb-[7%]">
-      <p className="text-right text-2xl text-primary-600 font-medium">Our Completed Project</p>
+      <p className="text-center text-2xl text-primary-600 font-medium">Our Completed Project</p>
       <div className="flex justify-center w-full pt-[3%]">
         <div className="w-full rounded-lg backdrop-blur-2xl">
           <div className="py-[1%] px-[5%]">

@@ -82,6 +82,11 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen">
       <div>
+        {/* <div className=" hidden absolute top-[4%] right-[5%] z-30 md:block">
+          <Link href={"#contact"} className="bg-primary-400 py-2 px-4 rounded-lg text-white hover:bg-primary-600">
+            Request Demo
+          </Link>
+        </div> */}
         <Navbar />
         <HeroSection />
         <ServicesSection />

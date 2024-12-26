@@ -52,27 +52,25 @@ export default function HeroSection() {
         </div>
       </div> */}
       <div className="relative">
-        <Image
-          src={"https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-          className="w-full h-screen object-cover"
-          width={1000}
-          height={1000}
-          quality={100}
-          alt="Hero"
-          priority
-        />
+        {/* Background Image */}
+        <Image src={"/hero/background.jpg"} className="w-full h-screen object-cover opacity-50" width={1000} height={1000} quality={100} alt="Hero" priority />
+
+        {/* Black Transparent Overlay */}
+        <div className="absolute inset-0 bg-black opacity-80"></div>
+
+        {/* Content */}
         <div className="absolute inset-0 text-white flex flex-col gap-[4%] justify-center w-full items-center px-[5%] lg:px-[20%] text-center">
           <h1 className="text-2xl md:text-6xl font-bold">Let Us Make Fit Product Based On Your Vision</h1>
           <p className="text-xs text-center lg:px-[15%] md:text-base">
-            Prambanan Software House is a software development service company where can execute your vision as fit as possible. Pay for feature you need and Save time without develop unecesarry feature that you don&apos;t need.
+            Prambanan Digital is a software development service company where can execute your vision as fit as possible. Pay for feature you need and Save time without developing unnecessary feature that you don't need.
           </p>
           <div className="flex gap-4 md:gap-10">
-            <Link href={"#contact"} className="px-5 py-2 border border-primary-400 rounded-full hover:bg-primary-600">
-              Contact Us
+            <Link href={"#contact"} className="text-lg px-7 py-3 bg-primary-400 rounded-full hover:bg-primary-600">
+              Request Demo
             </Link>
-            <Link href={"#services"} className="px-5 py-2 bg-primary-400 rounded-full hover:bg-primary-600">
+            {/* <Link href={"#services"} className="px-5 py-2 bg-primary-400 rounded-full hover:bg-primary-600">
               Learn More
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
