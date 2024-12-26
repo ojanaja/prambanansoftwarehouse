@@ -62,7 +62,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 text-white flex flex-col gap-[4%] justify-center w-full items-center px-[5%] lg:px-[20%] text-center">
           <h1 className="text-2xl md:text-6xl font-bold">Let Us Make Fit Product Based On Your Vision</h1>
           <p className="text-xs text-center lg:px-[15%] md:text-base">
-            Prambanan Digital is a software development service company where can execute your vision as fit as possible. Pay for feature you need and Save time without developing unnecessary feature that you don't need.
+            Prambanan Digital is a software development service company where can execute your vision as fit as possible. Pay for feature you need and Save time without developing unnecessary feature that you don&apos;t need.
           </p>
           <div className="flex gap-4 md:gap-10">
             <Link href={"#contact"} className="text-lg px-7 py-3 bg-primary-400 rounded-full hover:bg-primary-600">
