@@ -7,8 +7,33 @@ import Footer from "@/components/section/Footer";
 import HeroSection from "@/components/section/Hero";
 import OurProjectSection from "@/components/section/OurProject";
 import ServicesSection from "@/components/section/Services";
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function Home() {
+  const [scrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolling(window.scrollY > 500);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    const scrollStep = -window.scrollY / (500 / 15);
+    const scrollInterval = setInterval(() => {
+      if (window.scrollY !== 0) {
+        window.scrollBy(0, scrollStep);
+      } else {
+        clearInterval(scrollInterval);
+      }
+    }, 20);
+  };
+
   // useEffect(() => {
   //   const lastScrollPosition = sessionStorage.getItem("scrollPosition");
 
@@ -65,6 +90,11 @@ export default function Home() {
         <OurProjectSection />
         <AboutSection />
         <ContactSection />
+        {scrolling && (
+          <button onClick={scrollToTop} className="fixed bottom-28 right-5 bg-transparent text-gray-500 p-4 border border-gray-400 rounded-full shadow-lg hover:bg-gray-300 transition text-xl z-50">
+            <FaArrowUp />
+          </button>
+        )}
       </div>
       <ContactBottom />
       <Footer />

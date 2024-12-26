@@ -7,14 +7,14 @@ export default function Footer() {
         <div className="flex justify-between">
           <div className="flex flex-col gap-1.5 w-full">
             <h1 className="uppercase font-bold text-xl">Contact</h1>
-            <p>prambanansoftware@gmail.com</p>
+            <p>admin@prambanandigital.id</p>
             <p>(+62)-812-2177-9294 (Fauzan)</p>
           </div>
           <div className="flex flex-col gap-1.5 w-full">
             <h1 className="uppercase font-bold text-xl">Follow</h1>
-            <a href="https://www.instagram.com/prambanansoftware/" target="_blank" className="flex gap-2 items-center">
+            <a href="https://www.instagram.com/prambanandigital/" target="_blank" className="flex gap-2 items-center">
               <FaInstagram className="text-2xl" />
-              <p className="text-sm">prambanansoftware</p>
+              <p className="text-sm">prambanandigital</p>
             </a>
           </div>
           <div className="flex flex-col gap-1.5 w-3/4">
