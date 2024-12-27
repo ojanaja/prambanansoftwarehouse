@@ -1,3 +1,4 @@
+"use client";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import ProjectCard from "../card/ProjectCard";
 import "@splidejs/react-splide/css";
@@ -8,49 +9,51 @@ export default function OurProjectSection() {
       id: 1,
       company: "Ivolks Creative",
       name: "Website Company Profile",
-      imageUrl: "/projects/ivolks.jpg",
+      imageUrl: "/projects/ivolks.webp",
     },
     {
       id: 2,
       company: "Yayasan Maqdis",
       name: "Aplikasi Hamim",
-      imageUrl: "/projects/hamim.jpg",
+      imageUrl: "/projects/hamim.webp",
     },
     {
       id: 3,
       company: "BPLJ PUPR",
       name: "Website Layanan Manajemen Rapat",
-      imageUrl: "/projects/bplj.jpg",
+      imageUrl: "/projects/bplj.webp",
     },
     {
       id: 4,
       company: "Onifarms",
       name: "Aplikasi Smart Farming",
-      imageUrl: "/projects/onifarms.jpg",
+      imageUrl: "/projects/onifarms.webp",
     },
     {
       id: 5,
       company: "PT Pertamina Geothermal Energy",
       name: "Website Sosialisasi Sistem Tata Kerja (STK)",
-      imageUrl: "/projects/pertamina.jpg",
+      imageUrl: "/projects/pertamina.webp",
     },
     {
       id: 6,
       company: "Stylish",
       name: "Aplikasi E-Commerce",
-      imageUrl: "/projects/stylish.jpg",
+      imageUrl: "/projects/stylish.webp",
     },
     {
       id: 7,
       company: "Edutrain (PTIPD UIN SGD Bandung)",
-      name: "Website Penyedia Sertifikasi",
-      imageUrl: "/projects/edutrain.jpg",
+      name: "Website Pelatihan Bersertifikat",
+      imageUrl: "/projects/edutrain.webp",
     },
   ];
 
   return (
     <div className="px-[5%] md:px-[3%] pt-[7%] pb-[7%]">
-      <p className="text-center text-2xl text-primary-600 font-medium">Our Completed Project</p>
+      <p className="text-center text-2xl text-primary-600 font-medium">
+        Our Completed Project
+      </p>
       <div className="flex justify-center w-full pt-[3%]">
         <div className="w-full rounded-lg backdrop-blur-2xl">
           <div className="py-[1%] px-[5%]">
@@ -75,10 +78,15 @@ export default function OurProjectSection() {
                     perPage: 1,
                   },
                 },
-              }}>
+              }}
+            >
               {projects.map((project) => (
                 <SplideSlide key={project.id}>
-                  <ProjectCard company={project.company} name={project.name} imageUrl={project.imageUrl} />
+                  <ProjectCard
+                    company={project.company}
+                    name={project.name}
+                    imageUrl={project.imageUrl}
+                  />
                 </SplideSlide>
               ))}
             </Splide>

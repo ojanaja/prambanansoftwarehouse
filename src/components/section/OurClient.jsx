@@ -1,3 +1,4 @@
+"use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -69,11 +70,20 @@ export default function OurClient() {
             spaceBetween: 0,
           },
         }}
-        className="clients-slider">
+        className="clients-slider"
+      >
         {clients.map((client, index) => (
           <SwiperSlide key={index} className="flex justify-center items-center">
             <div className="relative w-28 h-28">
-              <Image src={client.imageUrl} alt={client.name} className="grayscale hover:grayscale-0 cursor-pointer object-contain w-full h-full" width={500} height={500} priority title={client.name} />
+              <Image
+                src={client.imageUrl}
+                alt={client.name}
+                className="grayscale hover:grayscale-0 cursor-pointer object-contain w-full h-full"
+                width={500}
+                height={500}
+                priority
+                title={client.name}
+              />
             </div>
           </SwiperSlide>
         ))}

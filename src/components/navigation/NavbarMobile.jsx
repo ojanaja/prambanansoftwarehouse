@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { RxCross2 } from "react-icons/rx";
@@ -12,11 +13,19 @@ export default function NavbarMobile({ isOpen, onClose }) {
       }}
       exit={{ opacity: 0, x: "100%" }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[1000] md:hidden">
+      className="fixed inset-0 z-[1000] md:hidden"
+    >
       <div className="bg-white w-full h-full px-[5%] py-5 text-black">
         <div className="flex justify-between items-center">
           <div className="w-16 logo px-3 cursor-pointer p-2">
-            <Image src="/logo/prambanan_logo3.png" className="w-auto h-auto" alt="Logo Prambanan" width={100} height={100} priority />
+            <Image
+              src="/logo/prambanan_logo3.png"
+              className="w-auto h-auto"
+              alt="Logo Prambanan"
+              width={100}
+              height={100}
+              priority
+            />
           </div>
           <button onClick={onClose}>
             <RxCross2 className="text-4xl" />
@@ -31,13 +40,15 @@ export default function NavbarMobile({ isOpen, onClose }) {
           variants={{
             hidden: { opacity: 0 },
             show: { opacity: 1, transition: { staggerChildren: 0.2 } },
-          }}>
+          }}
+        >
           {/* Each motion.ul is now animated individually */}
           <motion.ul
             variants={{
               hidden: { opacity: 0 },
               show: { opacity: 1 },
-            }}>
+            }}
+          >
             <li className="text-4xl">
               <a href="/">Home</a>
             </li>
@@ -46,7 +57,8 @@ export default function NavbarMobile({ isOpen, onClose }) {
             variants={{
               hidden: { opacity: 0 },
               show: { opacity: 1 },
-            }}>
+            }}
+          >
             <li className="text-4xl">
               <a href="#services" onClick={() => onClose()}>
                 Services
@@ -57,7 +69,8 @@ export default function NavbarMobile({ isOpen, onClose }) {
             variants={{
               hidden: { opacity: 0 },
               show: { opacity: 1 },
-            }}>
+            }}
+          >
             <li className="text-4xl">
               <a href="#about" onClick={() => onClose()}>
                 About Us
@@ -79,7 +92,8 @@ export default function NavbarMobile({ isOpen, onClose }) {
             variants={{
               hidden: { opacity: 0 },
               show: { opacity: 1 },
-            }}>
+            }}
+          >
             <li className="text-3xl border p-3 border-black w-fit rounded-lg">
               <a href="#contact" onClick={() => onClose()}>
                 Request Demo

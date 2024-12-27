@@ -1,3 +1,4 @@
+"use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,8 +15,14 @@ export default function ProductSlider() {
     <Swiper spaceBetween={30} slidesPerView={1.5} loop={true}>
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <div className="relative w-full h-96 bg-cover bg-center md:rounded-3xl shadow-lg" style={{ backgroundImage: `url(${image})` }}>
-            <div className="absolute top-4 left-4 text-3xl font-bold text-white">{index + 1}</div> {/* Nomor urut */}
+          <div
+            className="relative w-full h-96 bg-cover bg-center md:rounded-3xl shadow-lg"
+            style={{ backgroundImage: `url(${image})` }}
+          >
+            <div className="absolute top-4 left-4 text-3xl font-bold text-white">
+              {index + 1}
+            </div>{" "}
+            {/* Nomor urut */}
           </div>
         </SwiperSlide>
       ))}

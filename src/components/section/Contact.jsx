@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { sendEmail } from "@/helper/sendEmail";
 import { toast } from "sonner";
@@ -57,15 +58,28 @@ export default function ContactSection() {
   return (
     <div id="contact">
       <div className="flex items-center justify-center md:py-[11%] md:px-[5%]">
-        <div className="relative w-full max-w-5xl md:p-8 p-4 bg-cover bg-center md:rounded-3xl shadow-lg" style={{ backgroundImage: "url('form/background.jpg')" }}>
+        <div
+          className="relative w-full max-w-5xl md:py-4 md:px-1 py-4 px-1 bg-cover bg-center md:rounded-3xl shadow-lg"
+          style={{ backgroundImage: "url('form/background.webp')" }}
+        >
           <div className="absolute inset-0 bg-black opacity-50 md:rounded-3xl"></div>
-          <div className="relative z-0 flex flex-col md:flex-row items-start justify-between p-8">
+          <div className="relative z-0 flex flex-col md:flex-row items-center justify-between md:py-8 md:px-10 py-6 px-4 text-center md:text-left">
             <div className="text-white md:w-2/5">
-              <h2 className="text-sm font-semibold mb-2">Optimalkan Bisnis Anda dengan Mudah</h2>
-              <h1 className="text-4xl font-bold mb-4">Coba Aplikasi Kami Secara GRATIS!</h1>
-              <p className="text-sm">Isi form berikut untuk dapatkan akses demo dan rasakan solusi efisien bagi operasional bisnis Anda.</p>
+              <h3 className="text-md font-semibold mb-2">
+                Optimalkan Bisnis Anda dengan Mudah
+              </h3>
+              <h2 className="text-4xl font-bold mb-4">
+                Coba Aplikasi Kami Secara GRATIS!
+              </h2>
+              <p className="text-sm">
+                Isi form berikut untuk dapatkan akses demo dan rasakan solusi
+                efisien bagi operasional bisnis Anda.
+              </p>
             </div>
-            <div className="md:w-2/5 mt-8 md:mt-0">
+            <div className="md:w-2/5 mt-8 md:mt-0 p-4 bg-white rounded-lg">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                Form Request Demo
+              </h3>
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="flex space-x-4">
                   <input
@@ -101,21 +115,45 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
-                  <select name="appType" value={formData.appType} onChange={handleSelectChange} className="w-full p-3 bg-gray-700 bg-opacity-50 text-white rounded-md focus:outline-none placeholder:text-white" required>
+                  <select
+                    name="appType"
+                    value={formData.appType}
+                    onChange={handleSelectChange}
+                    className="w-full p-3 bg-gray-700 bg-opacity-50 text-white rounded-md focus:outline-none placeholder:text-white"
+                    required
+                  >
                     <option value="" disabled>
                       Pilih Jenis Aplikasi
                     </option>
-                    <option value="Sistem Manajemen Kafe">Sistem Manajemen Kafe</option>
-                    <option value="Sistem CRM Bisnis Properti">Sistem CRM Bisnis Properti</option>
-                    <option value="Sistem Operasional Percetakan">Sistem Operasional Percetakan</option>
-                    <option value="Sistem Manajemen Gudang">Sistem Manajemen Gudang</option>
-                    <option value="Sistem Integrasi Bisnis Rental Mobil/Motor">Sistem Integrasi Bisnis Rental Mobil/Motor</option>
-                    <option value="Aplikasi Tour and Travel">Aplikasi Tour and Travel</option>
+                    <option value="Sistem Manajemen Kafe">
+                      Sistem Manajemen Kafe
+                    </option>
+                    <option value="Sistem CRM Bisnis Properti">
+                      Sistem CRM Bisnis Properti
+                    </option>
+                    <option value="Sistem Operasional Percetakan">
+                      Sistem Operasional Percetakan
+                    </option>
+                    <option value="Sistem Manajemen Gudang">
+                      Sistem Manajemen Gudang
+                    </option>
+                    <option value="Sistem Integrasi Bisnis Rental Mobil/Motor">
+                      Sistem Integrasi Bisnis Rental Mobil/Motor
+                    </option>
+                    <option value="Aplikasi Tour and Travel">
+                      Aplikasi Tour and Travel
+                    </option>
                     <option value="E-Commerce">E-Commerce</option>
-                    <option value="Sistem Manajemen Yayasan">Sistem Manajemen Yayasan</option>
+                    <option value="Sistem Manajemen Yayasan">
+                      Sistem Manajemen Yayasan
+                    </option>
                   </select>
                 </div>
-                <button type="submit" className="w-full p-3 bg-red-600 text-white rounded-md" disabled={isSubmitting}>
+                <button
+                  type="submit"
+                  className="w-full p-3 bg-red-600 text-white rounded-md"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? "Sending..." : "Send"}
                 </button>
               </form>
