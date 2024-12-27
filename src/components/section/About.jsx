@@ -36,7 +36,7 @@ export default function AboutSection() {
             <Image
               src={"/about/about.webp"}
               alt="About Us"
-              className="rounded-3xl object-cover w-auto h-[90%]"
+              className="rounded-3xl object-cover w-auto h-[90%] shadow-lg"
               width={1000}
               height={500}
               quality={50}

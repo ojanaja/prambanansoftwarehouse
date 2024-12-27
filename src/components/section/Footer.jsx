@@ -1,4 +1,4 @@
-import { FaInstagram } from "react-icons/fa";
+import { FaEnvelope, FaInstagram, FaPhone } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -8,8 +8,14 @@ export default function Footer() {
           <div className="flex justify-between">
             <div className="flex flex-col gap-1.5 w-full">
               <h1 className="uppercase font-bold text-xl">Contact</h1>
-              <p>prambanandigital@gmail.com</p>
-              <p>(+62) 851-8993-3901 (Min Pram)</p>
+              <p className="flex gap-2">
+                <FaEnvelope className="mt-1" />{" "}
+                <span>prambanandigital@gmail.com</span>
+              </p>
+              <p className="flex gap-2">
+                <FaPhone className="mt-1" />{" "}
+                <span>(+62) 851-8993-3901 (Min Pram)</span>
+              </p>
             </div>
             <div className="flex flex-col gap-1.5 w-full">
               <h1 className="uppercase font-bold text-xl">Follow</h1>

@@ -69,6 +69,14 @@ export default function Navbar() {
                     About Us
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/blog"
+                    className="px-3 backdrop:blur-md py-3 hover:transparent  hover:bg-slate-100 ease-in-out rounded-full transition-all cursor-pointer"
+                  >
+                    Blog
+                  </a>
+                </li>
                 {/* <li>
                   <a href="#contact" className="px-3 backdrop:blur-md py-3 hover:transparent  hover:bg-slate-100 ease-in-out rounded-full transition-all cursor-pointer">
                     Contact

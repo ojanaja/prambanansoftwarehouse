@@ -62,7 +62,7 @@ export default function ContactSection() {
           className="relative w-full max-w-5xl md:py-4 md:px-1 py-4 px-1 bg-cover bg-center md:rounded-3xl shadow-lg"
           style={{ backgroundImage: "url('form/background.webp')" }}
         >
-          <div className="absolute inset-0 bg-black opacity-50 md:rounded-3xl"></div>
+          <div className="absolute inset-0 bg-black opacity-75 md:rounded-3xl"></div>
           <div className="relative z-0 flex flex-col md:flex-row items-center justify-between md:py-8 md:px-10 py-6 px-4 text-center md:text-left">
             <div className="text-white md:w-2/5">
               <h3 className="text-md font-semibold mb-2">
