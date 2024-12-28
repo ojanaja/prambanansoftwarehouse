@@ -4,11 +4,15 @@ import Image from "next/image";
 import { HiMenu } from "react-icons/hi";
 import NavbarMobile from "./NavbarMobile";
 
-export default function Navbar() {
+export default function Navbar({ disabledScroll = false }) {
   const [scrolled, setScrolled] = useState(false);
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
   useEffect(() => {
+    if (disabledScroll) {
+      setScrolled(true);
+      return;
+    }
     const handleScroll = () => {
       if (window.scrollY > 9) {
         setScrolled(true);
