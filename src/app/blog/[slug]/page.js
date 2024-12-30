@@ -75,9 +75,9 @@ export default async function BlogPost({ params: { slug } }) {
               <h1 className="text-lg font-semibold">Tags</h1>
             </div>
             <div className="flex gap-1 break-words flex-wrap py-2">
-              {tags.map((tag) => (
+              {/* {tags.map((tag) => (
                 <span>#{tag.name}</span>
-              ))}
+              ))} */}
             </div>
           </div>
           {/* <div className="bg-gray-100 rounded-lg py-[3%] px-[3%] mt-5">
