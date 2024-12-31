@@ -12,6 +12,7 @@
     "@splidejs/react-splide": "^0.7.12",
     "@vercel/analytics": "^1.4.1",
     "@wisp-cms/client": "^0.0.21",
+    "axios": "^1.7.9",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.11.17",
     "lottie-react": "^2.4.0",

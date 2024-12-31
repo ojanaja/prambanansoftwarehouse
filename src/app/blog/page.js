@@ -2,9 +2,10 @@ import BlogCard from "@/components/card/BlogCard";
 import { wisp } from "@/lib/wisp";
 
 export default async function Blog() {
-  const result = await wisp.getPosts({ limit: 6 });
+  const result = await wisp.getPosts();
   return (
     <div className="grid tablet-landscape:grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mt-16 px-[3%] mb-10 md:mb-0">
+      {/* {console.log(result)} */}
       {result.posts.map((post) => (
         <BlogCard key={post.id} post={post} />
       ))}

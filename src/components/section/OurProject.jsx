@@ -11,12 +11,12 @@ export default function OurProjectSection() {
       name: "Website Company Profile",
       imageUrl: "/projects/ivolks.webp",
     },
-    {
-      id: 2,
-      company: "Yayasan Maqdis",
-      name: "Aplikasi Hamim",
-      imageUrl: "/projects/hamim.webp",
-    },
+    // {
+    //   id: 2,
+    //   company: "Yayasan Maqdis",
+    //   name: "Aplikasi Hamim",
+    //   imageUrl: "/projects/hamim.webp",
+    // },
     {
       id: 3,
       company: "BPLJ PUPR",
@@ -51,9 +51,7 @@ export default function OurProjectSection() {
 
   return (
     <div className="px-[5%] md:px-[3%] pt-[7%] pb-[7%]">
-      <p className="text-center text-2xl text-primary-600 font-medium">
-        Our Completed Project
-      </p>
+      <p className="text-center text-2xl text-primary-600 font-medium">Our Completed Project</p>
       <div className="flex justify-center w-full pt-[3%]">
         <div className="w-full rounded-lg backdrop-blur-2xl">
           <div className="py-[1%] px-[5%]">
@@ -78,15 +76,10 @@ export default function OurProjectSection() {
                     perPage: 1,
                   },
                 },
-              }}
-            >
+              }}>
               {projects.map((project) => (
                 <SplideSlide key={project.id}>
-                  <ProjectCard
-                    company={project.company}
-                    name={project.name}
-                    imageUrl={project.imageUrl}
-                  />
+                  <ProjectCard company={project.company} name={project.name} imageUrl={project.imageUrl} />
                 </SplideSlide>
               ))}
             </Splide>
