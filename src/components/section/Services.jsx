@@ -1,97 +1,118 @@
 "use client";
-import { motion } from "framer-motion";
-import Lottie from "lottie-react";
+import { useRef } from "react";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useTranslations } from "next-intl";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 import CustomSoftware from "../lottie/Custom Software development.json";
 import OptimizeSoftware from "../lottie/Optimize Software.json";
 import AdsIntegration from "../lottie/Social Media Integration.json";
 
+const ANIMATIONS = {
+  custom: CustomSoftware,
+  optimize: OptimizeSoftware,
+  daas: AdsIntegration,
+};
+
 export default function ServicesSection() {
+  const containerRef = useRef(null);
+  const t = useTranslations("services");
+  
+  // Use t.raw to get the array of items from JSON
+  const serviceItems = t.raw("items");
+
+  useGSAP(
+    () => {
+      gsap.from(".service-heading", {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+
+      const serviceCards = gsap.utils.toArray(".service-card");
+      serviceCards.forEach((card, i) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+          },
+          y: 60,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.8,
+          delay: i * 0.15,
+          ease: "power3.out",
+        });
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
     <div
-      className="px-[5%] md:px-[3%] lg:px-[8%] min-h-screen py-[6%] md:pt-[6%] md:py-0"
+      className="section-padding bg-section-alt"
       id="services"
+      ref={containerRef}
     >
-      <h1 className="text-xl text-center font-medium uppercase tracking-widest text-primary-600">
-        Our Services
-      </h1>
-      <p className="py-[2%] mb-5 font-semibold text-center text-xl md:text-3xl">
-        The One-Stop Solution to <br /> Empower Business Towards Success
-      </p>
+      <div className="section-container">
+        {/* Section Header */}
+        <div className="service-heading text-center max-w-2xl mx-auto mb-16">
+          <p className="section-heading">{t("heading")}</p>
+          <h2 className="section-title">
+            {t("title1")} <br className="hidden md:block" />
+            {t("title2")}
+          </h2>
+          <p className="section-subtitle mx-auto">
+            {t("subtitle")}
+          </p>
+        </div>
 
-      <div className="flex flex-col gap-[-10%] pt-[2%]">
-        {/* Section 1 */}
-        <motion.div
-          className="flex flex-col tablet-landscape:flex-col lg:flex-row justify-center gap-5 md:gap-[6%] items-center"
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 50, scale: 0.95 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          {/* <Image src={"/services/custom_software_development1.png"} alt="Services 1" className="md:w-2/5 h-auto" width={1000} height={1000} priority /> */}
-          <div className="md:w-[90%] lg:w-[90%]">
-            <Lottie animationData={CustomSoftware} />
-          </div>
-          <div className="flex flex-col gap-5 md:px-[10%] tablet-landscape:px-[11%] lg:px-0">
-            <h1 className="text-3xl md:text-2xl lg:text-4xl font-bold">
-              Custom Software Development
-            </h1>
-            <p>
-              Tailored software solutions designed to fit your unique business
-              requirements, ensuring maximum functionality and efficiency.
-            </p>
-          </div>
-        </motion.div>
+        {/* Service Cards Grid */}
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {serviceItems.map((service) => (
+            <div key={service.id} className="service-card group">
+              <div className="glass-card-hover p-6 lg:p-8 h-full flex flex-col">
+                {/* Number Tag */}
+                <span className="text-xs font-bold tracking-widest text-primary-400/60 mb-4 uppercase">
+                  {service.number}
+                </span>
 
-        {/* Section 2 */}
-        <motion.div
-          className="flex flex-col tablet-landscape:flex-col lg:flex-row justify-center md:-mt-16 tablet-landscape:-mt-10 lg:-mt-28 md:gap-[6%] items-center"
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 50, scale: 0.95 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <div className="-mt-10 md:-mt-24 lg:mt-0 flex flex-col gap-5 order-2 md:order-1 tablet-landscape:order-2 tablet-landscape:-mt-20 tablet-landscape:px-[11%] md:px-[10%] lg:px-0">
-            <h1 className="text-3xl md:text-2xl lg:text-4xl font-bold">
-              Optimize Your Software
-            </h1>
-            <p>
-              Enhance performance, security, and user experience by improving
-              your existing software to meet modern standards and business
-              needs.
-            </p>
-          </div>
-          <div className="md:w-[90%] lg:w-[70%] tablet-landscape:order-1 lg:order-2">
-            <Lottie animationData={OptimizeSoftware} />
-          </div>
-          {/* <Image src={"/services/optimize_your_software1.png"} alt="Services 2" className="md:w-2/5 order-1 md:order-2" width={1000} height={1000} priority /> */}
-        </motion.div>
+                {/* Lottie */}
+                <div className="w-full max-w-[200px] mx-auto mb-6 transition-transform duration-500 group-hover:scale-105">
+                  <Lottie animationData={ANIMATIONS[service.id]} />
+                </div>
 
-        {/* Section 3 */}
-        <motion.div
-          className="flex flex-col tablet-landscape:flex-col lg:flex-row justify-center mt-12 lg:-mt-20 tablet-landscape:mt-20 gap-10 md:gap-[6%] items-center"
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 50, scale: 0.95 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          {/* <Image src={"/services/developer_as_a_services1.png"} alt="Services 3" className="md:w-2/5" width={1000} height={1000} priority /> */}
-          <div className="md:w-[70%] lg:w-[50%]">
-            <Lottie animationData={AdsIntegration} />
-          </div>
-          <div className="flex flex-col gap-5 md:px-[10%] lg:px-0 md:mt-14 tablet-landscape:mt-14 tablet-landscape:px-[11%] lg:mt-0">
-            <h1 className="text-3xl md:text-2xl lg:text-4xl font-bold">
-              Developer as a Service
-            </h1>
-            <p>
-              Flexible access to skilled developers who integrate seamlessly
-              with your team, helping you scale your projects efficiently
-              without long-term commitments.
-            </p>
-          </div>
-        </motion.div>
+                {/* Text */}
+                <h3 className="text-xl lg:text-2xl font-bold mb-3 group-hover:text-primary-500 transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="text-neutral-500 leading-relaxed text-sm flex-grow">
+                  {service.description}
+                </p>
+
+                {/* Bottom Accent */}
+                <div className="mt-6 pt-4 border-t border-neutral-200/60 dark:border-white/10">
+                  <span className="text-sm font-medium text-primary-400 group-hover:text-primary-500 transition-colors flex items-center gap-2">
+                    {t("learnMore")}
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
