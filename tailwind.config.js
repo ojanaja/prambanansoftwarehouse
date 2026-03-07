@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
+  darkMode: "class",
   theme: {
     extend: {
       screens: {
@@ -8,18 +9,20 @@ module.exports = {
       },
       colors: {
         primary: {
-          50: "#fef3ee",
-          100: "#fde4d7",
-          200: "#f9c5af",
-          300: "#f59c7c",
-          400: "#ef613d",
-          500: "#ec4323",
-          600: "#dd2b19",
-          700: "#b71d17",
-          800: "#921a1a",
-          900: "#761918",
-          950: "#3f0b0d",
+          50: "var(--primary-50)",
+          100: "var(--primary-100)",
+          200: "var(--primary-200)",
+          300: "var(--primary-300)",
+          400: "var(--primary-400)",
+          500: "var(--primary-500)",
+          600: "var(--primary-600)",
+          700: "var(--primary-700)",
+          800: "var(--primary-800)",
+          900: "var(--primary-900)",
+          950: "var(--primary-950)",
         },
+        background: "var(--background)",
+        foreground: "var(--foreground)",
       },
     },
   },

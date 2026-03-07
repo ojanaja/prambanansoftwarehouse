@@ -1,11 +1,18 @@
-import axios from "axios";
+import { supabase } from "@/lib/supabase";
 
 export async function handleFetchDataSlug(slug) {
   try {
-    const response = await axios.get(process.env.NEXT_PUBLIC_URL_WISP_SLUG + slug);
-    return response.data.post;
+    const { data, error } = await supabase
+      .from("posts")
+      .select("*, author:authors(*), tags(*)")
+      .eq("slug", slug)
+      .single();
+
+    if (error) throw error;
+    return data;
   } catch (error) {
     console.error(error);
     console.log(error.message);
+    return null;
   }
 }
