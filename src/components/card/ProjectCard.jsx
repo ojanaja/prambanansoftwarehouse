@@ -1,18 +1,58 @@
 import Image from "next/image";
+import { HiArrowRight } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
-export default function ProjectCard({ company, name, imageUrl }) {
+export default function ProjectCard({ company, name, imageUrl, index = 0 }) {
+  const number = String(index + 1).padStart(2, "0");
+  const t = useTranslations("projects");
+
   return (
-    <div className="border border-gray-300 rounded-2xl flex flex-col h-full">
-      <div className="flex flex-col h-full py-[3%] px-[3%]">
-        <Image src={imageUrl} className="rounded-2xl w-full h-auto object-cover" width={500} height={500} alt={company} priority />
-        <div className="px-[2%] flex flex-col justify-between flex-grow">
-          <h4 className="text-primary-400 pt-[6%] pb-[1%]">{company}</h4>
+    <div className="group relative w-full h-[380px] md:h-[420px] rounded-2xl overflow-hidden cursor-pointer">
+      {/* Accent bar */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-primary-400 z-20" />
 
-          <h1 className="font-semibold text-2xl py-[5%] leading-tight flex-grow">{name}</h1>
+      {/* Full-bleed image */}
+      <Image
+        src={imageUrl}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+        width={600}
+        height={500}
+        alt={name}
+        priority
+      />
 
-          {/* <div className="py-[10%]">
-            <button className="py-2 px-6 border text-primary-400 border-primary-400 rounded-full hover:text-primary-50 hover:bg-primary-600 hover:border-primary-800 transition-all duration-500 ease-in-out">See More</button>
-          </div> */}
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-500 group-hover:from-black/90 group-hover:via-black/40" />
+
+      {/* Number badge */}
+      <div className="absolute top-4 left-4 z-10">
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-bold">
+          {number}
+        </span>
+      </div>
+
+      {/* Bottom content — glassmorphic strip */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 p-5 lg:p-6">
+        <div className="backdrop-blur-xl bg-white/10 dark:bg-white/5 border border-white/15 rounded-xl p-4 lg:p-5 transition-all duration-500 group-hover:bg-white/15 dark:group-hover:bg-white/10">
+          {/* Company tag */}
+          <span className="inline-block text-[11px] font-semibold uppercase tracking-widest text-primary-400 mb-2">
+            {company}
+          </span>
+
+          {/* Project name */}
+          <h3 className="font-bold text-lg text-white leading-snug">
+            {name}
+          </h3>
+
+          {/* Hover CTA */}
+          <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/10 overflow-hidden">
+            <span className="text-sm font-medium text-white/70 group-hover:text-primary-400 transition-colors duration-300">
+              {t("viewCaseStudy")}
+            </span>
+            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary-500/0 group-hover:bg-primary-500 transition-all duration-500 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">
+              <HiArrowRight className="text-white text-sm" />
+            </span>
+          </div>
         </div>
       </div>
     </div>
