@@ -1,0 +1,325 @@
+{
+  "metadata": {
+    "title": "Prambanan Digital | Software House Terbaik di Bandung",
+    "description": "Prambanan Digital adalah software house terkemuka di Bandung, Indonesia. Kami menyediakan solusi software kustom, aplikasi web & mobile, serta solusi enterprise untuk sektor Properti, Kafe, Pertanian, dan Pemerintahan.",
+    "keywords": "Software House Bandung, Jasa Pembuatan Website, Aplikasi Mobile, Software Custom, IT Konsultan, Sistem Manajemen Kafe, CRM Properti, Smart Farming, Solusi Enterprise"
+  },
+  "Index": {
+    "title": "Selamat datang di Prambanan Digital"
+  },
+  "navigation": {
+    "home": "Beranda",
+    "services": "Layanan",
+    "about": "Tentang Kami",
+    "blog": "Blog",
+    "requestDemo": "Request Demo",
+    "light": "Terang",
+    "dark": "Gelap"
+  },
+  "hero": {
+    "badge": "Partner Pengembangan Terpercaya",
+    "heading1": "Ubah Ide Anda Menjadi ",
+    "heading2": "Software Penghasil Revenue",
+    "subtitle": "Kami membangun software kustom yang mendorong hasil bisnis nyata. Bayar hanya untuk fitur yang Anda butuhkan — tanpa fitur berlebihan, tanpa pemborosan. Dari konsep hingga peluncuran, kami menyelesaikan tepat waktu dan sesuai anggaran.",
+    "requestDemo": "Konsultasi Teknologi Gratis",
+    "learnMore": "Lihat Cara Kerjanya",
+    "trustedBy": "Dipercaya oleh 30+ Perusahaan di Indonesia"
+  },
+  "stats": {
+    "items": [
+      { "id": "projects", "value": 50, "suffix": "+", "label": "Proyek Selesai" },
+      { "id": "clients", "value": 30, "suffix": "+", "label": "Klien Puas" },
+      { "id": "experience", "value": 5, "suffix": "+", "label": "Tahun Pengalaman" },
+      { "id": "team", "value": 15, "suffix": "+", "label": "Developer Ahli" }
+    ]
+  },
+  "services": {
+    "heading": "Layanan Kami",
+    "title1": "Solusi Satu Atap untuk",
+    "title2": "Memberdayakan Bisnis Menuju Kesuksesan",
+    "subtitle": "Kami menyediakan solusi perangkat lunak menyeluruh yang dirancang untuk membantu bisnis Anda tumbuh dan sukses di era digital.",
+    "learnMore": "Pelajari lebih lanjut",
+    "items": [
+      {
+        "id": "custom",
+        "number": "01",
+        "title": "Pengembangan Software Kustom",
+        "description": "Solusi perangkat lunak yang dirancang khusus untuk kebutuhan bisnis unik Anda, memastikan fungsionalitas dan efisiensi maksimal."
+      },
+      {
+        "id": "optimize",
+        "number": "02",
+        "title": "Optimasi Software Anda",
+        "description": "Tingkatkan performa, keamanan, dan pengalaman pengguna dengan memperbaiki perangkat lunak Anda agar memenuhi standar modern dan kebutuhan bisnis."
+      },
+      {
+        "id": "daas",
+        "number": "03",
+        "title": "Developer as a Service",
+        "description": "Akses fleksibel ke developer terampil yang terintegrasi dengan tim Anda, membantu Anda menskalakan proyek secara efisien tanpa komitmen jangka panjang."
+      }
+    ]
+  },
+  "techStack": {
+    "heading": "Tech Stack",
+    "title": "Dibangun dengan Teknologi Modern",
+    "subtitle": "Kami menggunakan tools dan framework terkemuka untuk menghasilkan solusi yang tangguh, skalabel, dan berperforma tinggi.",
+    "items": [
+      { "id": "react", "name": "React" },
+      { "id": "nextjs", "name": "Next.js" },
+      { "id": "nodejs", "name": "Node.js" },
+      { "id": "flutter", "name": "Flutter" },
+      { "id": "typescript", "name": "TypeScript" },
+      { "id": "tailwind", "name": "Tailwind" },
+      { "id": "postgresql", "name": "PostgreSQL" },
+      { "id": "firebase", "name": "Firebase" },
+      { "id": "docker", "name": "Docker" },
+      { "id": "aws", "name": "AWS" },
+      { "id": "figma", "name": "Figma" },
+      { "id": "git", "name": "Git" }
+    ]
+  },
+  "whyChooseUs": {
+    "heading": "Mengapa Memilih Kami",
+    "title1": "Keunggulan Kompetitif",
+    "title2": "yang Layak untuk Bisnis Anda",
+    "subtitle": "Kami tidak hanya membangun software — kami membangun keunggulan kompetitif. Inilah mengapa bisnis terkemuka memilih Prambanan Digital.",
+    "items": [
+      {
+        "id": "quality",
+        "title": "Kualitas Premium",
+        "description": "Setiap baris kode ditulis dengan praktik terbaik, pengujian ketat, dan fokus pada kemudahan pemeliharaan jangka panjang."
+      },
+      {
+        "id": "fixedPrice",
+        "title": "Harga Transparan",
+        "description": "Tanpa biaya tersembunyi. Kontrak harga tetap sehingga Anda tahu persis berapa yang harus dibayar sebelum kami mulai."
+      },
+      {
+        "id": "speed",
+        "title": "Pengerjaan Cepat",
+        "description": "Metodologi Agile dan tim berpengalaman memastikan proyek Anda selesai tepat waktu, setiap saat."
+      },
+      {
+        "id": "team",
+        "title": "Tim Ahli",
+        "description": "Developer senior, desainer UI/UX, dan engineer QA bekerja sama untuk memberikan hasil yang luar biasa."
+      }
+    ]
+  },
+  "process": {
+    "heading": "Proses Kami",
+    "title": "Dari Ide ke Peluncuran dalam 4 Langkah",
+    "subtitle": "Pendekatan sistematis yang terbukti memastikan setiap proyek diselesaikan dengan presisi dan keunggulan.",
+    "items": [
+      {
+        "id": "discovery",
+        "number": "01",
+        "title": "Penemuan",
+        "description": "Kami mendalami tujuan bisnis, audiens, dan kebutuhan Anda untuk menetapkan roadmap proyek yang jelas."
+      },
+      {
+        "id": "design",
+        "number": "02",
+        "title": "Desain",
+        "description": "Tim UI/UX kami menciptakan antarmuka yang intuitif dan indah yang disukai pengguna Anda."
+      },
+      {
+        "id": "develop",
+        "number": "03",
+        "title": "Pengembangan",
+        "description": "Engineer ahli membangun solusi Anda dengan kode yang bersih, teruji, dan siap produksi."
+      },
+      {
+        "id": "deploy",
+        "number": "04",
+        "title": "Deploy & Dukungan",
+        "description": "Kami meluncurkan dengan mulus dan memberikan dukungan berkelanjutan untuk memastikan kesuksesan jangka panjang."
+      }
+    ]
+  },
+  "about": {
+    "heading": "Tentang Kami",
+    "description": "Prambanan Digital adalah perusahaan pengembangan software yang berdedikasi untuk mewujudkan visi Anda dengan harga yang tepat. Kami menawarkan model pay-as-you-go, yang memungkinkan Anda untuk berinvestasi hanya pada fitur yang Anda butuhkan, menghemat waktu dan sumber daya dengan menghindari pengembangan yang tidak perlu.",
+    "missionTitle": "Misi Kami",
+    "missionDescription": "Memberdayakan bisnis dari segala ukuran dengan solusi software kustom berkualitas tinggi dan terjangkau yang mendorong pertumbuhan terukur dan efisiensi operasional.",
+    "visionTitle": "Visi Kami",
+    "visionDescription": "Menjadi partner pengembangan software paling terpercaya di Indonesia, yang dikenal karena memberikan nilai luar biasa, harga transparan, dan hubungan klien yang langgeng."
+  },
+  "testimonials": {
+    "heading": "Testimoni",
+    "title": "Dipercaya oleh Bisnis yang Berkembang",
+    "subtitle": "Dengarkan apa kata klien kami tentang bekerja sama dengan Prambanan Digital.",
+    "items": [
+      {
+        "id": "client1",
+        "name": "Ahmad Rizky",
+        "role": "CEO, Ivolks Creative",
+        "rating": 5,
+        "quote": "Prambanan Digital menyelesaikan website perusahaan kami persis seperti yang kami bayangkan. Tim mereka responsif, profesional, dan benar-benar memahami identitas brand kami."
+      },
+      {
+        "id": "client2",
+        "name": "Dewi Sartika",
+        "role": "Project Manager, BPLJ PUPR",
+        "rating": 5,
+        "quote": "Sistem manajemen rapat yang mereka bangun telah mengubah cara departemen kami beroperasi. Integrasi yang mulus dan perhatian yang luar biasa terhadap detail."
+      },
+      {
+        "id": "client3",
+        "name": "Budi Santoso",
+        "role": "Founder, Onifarms",
+        "rating": 5,
+        "quote": "Bekerja dengan Prambanan Digital untuk aplikasi smart farming kami adalah sebuah terobosan. Mereka memahami ruang teknologi pertanian dan memberikan solusi yang benar-benar inovatif."
+      }
+    ]
+  },
+  "faq": {
+    "heading": "FAQ",
+    "title": "Punya Pertanyaan? Kami Punya Jawabannya",
+    "subtitle": "Semua yang perlu Anda ketahui tentang bekerja sama dengan kami.",
+    "items": [
+      {
+        "id": "faq1",
+        "question": "Berapa biaya proyek software kustom?",
+        "answer": "Proyek kami dimulai dari harga tetap yang kompetitif berdasarkan kebutuhan spesifik Anda. Kami memberikan proposal terperinci dengan harga transparan sebelum memulai — tanpa biaya tersembunyi."
+      },
+      {
+        "id": "faq2",
+        "question": "Berapa lama waktu pengembangan aplikasi?",
+        "answer": "Waktu bervariasi tergantung kompleksitas. Aplikasi web standar biasanya memakan waktu 4-8 minggu, sementara sistem yang lebih kompleks bisa memakan waktu 3-6 bulan. Kami memberikan timeline yang jelas saat konsultasi awal."
+      },
+      {
+        "id": "faq3",
+        "question": "Apakah ada dukungan setelah peluncuran?",
+        "answer": "Tentu saja! Kami menawarkan paket maintenance dan dukungan yang fleksibel untuk menjaga software Anda tetap berjalan lancar, termasuk perbaikan bug, pembaruan fitur, dan monitoring performa."
+      },
+      {
+        "id": "faq4",
+        "question": "Bisakah bekerja dengan tech stack yang sudah ada?",
+        "answer": "Ya. Tim kami memiliki keahlian di berbagai teknologi. Kami bisa mengintegrasikan dengan sistem yang sudah ada atau merekomendasikan stack terbaik untuk kebutuhan spesifik Anda."
+      },
+      {
+        "id": "faq5",
+        "question": "Apa itu model 'Developer as a Service'?",
+        "answer": "DaaS memberi Anda akses ke developer terampil kami yang bekerja sebagai perpanjangan tim Anda. Anda mendapatkan talenta yang dibutuhkan tanpa biaya overhead karyawan tetap — skalakan naik atau turun sesuai kebutuhan proyek."
+      }
+    ]
+  },
+  "projects": {
+    "heading": "Portofolio",
+    "title": "Proyek yang Telah Selesai",
+    "subtitle": "Galeri proyek sukses yang telah kami selesaikan untuk klien kami di berbagai industri.",
+    "viewCaseStudy": "Lihat Studi Kasus",
+    "noProjects": "Tidak ada proyek ditemukan dalam kategori ini.",
+    "categories": [
+      { "id": "all", "label": "Semua" },
+      { "id": "webapp", "label": "Web App" },
+      { "id": "mobile", "label": "Mobile App" },
+      { "id": "website", "label": "Website" }
+    ],
+    "items": [
+      {
+        "id": "ivolks",
+        "company": "Ivolks Creative",
+        "name": "Website Company Profile",
+        "category": "website"
+      },
+      {
+        "id": "bplj",
+        "company": "BPLJ PUPR",
+        "name": "Website Layanan Manajemen Rapat",
+        "category": "webapp"
+      },
+      {
+        "id": "onifarms",
+        "company": "Onifarms",
+        "name": "Aplikasi Smart Farming",
+        "category": "mobile"
+      },
+      {
+        "id": "pertamina",
+        "company": "PT Pertamina Geothermal Energy",
+        "name": "Website Sosialisasi Sistem Tata Kerja (STK)",
+        "category": "webapp"
+      },
+      {
+        "id": "stylish",
+        "company": "Stylish",
+        "name": "Aplikasi E-Commerce",
+        "category": "webapp"
+      },
+      {
+        "id": "edutrain",
+        "company": "Edutrain (PTIPD UIN SGD Bandung)",
+        "name": "Website Pelatihan Bersertifikat",
+        "category": "website"
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Mulai Sekarang",
+    "heading1": "Coba Aplikasi Kami Secara",
+    "heading2": "GRATIS!",
+    "description": "Optimalkan Bisnis Anda dengan Mudah. Isi form berikut untuk dapatkan akses demo dan rasakan solusi efisien bagi operasional bisnis Anda.",
+    "formTitle": "Form Request Demo",
+    "namePlaceholder": "Nama",
+    "whatsappPlaceholder": "No Whatsapp",
+    "emailPlaceholder": "Email (Opsional)",
+    "selectAppType": "Pilih Jenis Aplikasi",
+    "options": [
+      { "id": "cafe", "label": "Sistem Manajemen Kafe" },
+      { "id": "crm", "label": "Sistem CRM Bisnis Properti" },
+      { "id": "printing", "label": "Sistem Operasional Percetakan" },
+      { "id": "warehouse", "label": "Sistem Manajemen Gudang" },
+      { "id": "rental", "label": "Sistem Integrasi Bisnis Rental Mobil/Motor" },
+      { "id": "travel", "label": "Aplikasi Tour and Travel" },
+      { "id": "ecommerce", "label": "E-Commerce" },
+      { "id": "foundation", "label": "Sistem Manajemen Yayasan" }
+    ],
+    "whatsappMinDigits": "Nomor Whatsapp minimal 10 digit",
+    "sending": "Sedang mengirim request demo...",
+    "sendSuccess": "Request Demo Berhasil Dikirim",
+    "sendError": "Gagal Mengirim Request Demo",
+    "sendingBtn": "Mengirim...",
+    "sendRequest": "Kirim Request"
+  },
+  "footer": {
+    "description": "Prambanan Digital adalah perusahaan pengembangan perangkat lunak yang berdedikasi untuk mewujudkan visi Anda dengan harga yang tepat.",
+    "contactHeading": "Kontak",
+    "followHeading": "Ikuti Kami",
+    "copyright": "Hak Cipta © 2024 Prambanan Digital. Seluruh Hak Dilindungi."
+  },
+  "ourProduct": {
+    "heading": "Produk Kami",
+    "items": [
+      { "id": "binder", "name": "Binder" },
+      { "id": "ivolks", "name": "Ivolks Creative" },
+      { "id": "easybook", "name": "EasyBook" },
+      { "id": "stylish", "name": "Stylish" },
+      { "id": "onifarm", "name": "OniFarm" },
+      { "id": "pertamina", "name": "Pertamina" }
+    ]
+  },
+  "contactBottom": {
+    "whatsappAriaLabel": "Chat di WhatsApp"
+  },
+  "blog": {
+    "noTitle": "Judul tidak tersedia",
+    "noDescription": "Deskripsi tidak tersedia",
+    "noAuthor": "Penulis Tidak Ada",
+    "tags": "Label",
+    "photosBlogAlt": "Foto Blog",
+    "authorAlt": "Foto Penulis"
+  },
+  "common": {
+    "home": "Beranda",
+    "blog": "Blog"
+  },
+  "blogTeaser": {
+    "heading": "Blog & Wawasan",
+    "title": "Terbaru dari Tim Kami",
+    "subtitle": "Tetap update dengan tren, tips, dan wawasan terbaru dari tim Prambanan Digital.",
+    "viewAll": "Lihat Semua Artikel"
+  }
+}

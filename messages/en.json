@@ -1,0 +1,326 @@
+{
+  "metadata": {
+    "title": "Prambanan Digital | Top Software House in Bandung",
+    "description": "Prambanan Digital is a premier software house based in Bandung, Indonesia. We provide custom software, web & mobile apps, and enterprise solutions for Real Estate, Cafe, Agriculture, and Government sectors.",
+    "keywords": "Software House Bandung, Web Development, Mobile Apps, Tech Agency Indonesia, Custom Software, IT Consultant, Cafe Management System, Property CRM, Smart Farming, Enterprise Solutions"
+  },
+  "Index": {
+    "title": "Welcome to Prambanan Digital"
+  },
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "blog": "Blog",
+    "requestDemo": "Request Demo",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "hero": {
+    "badge": "Your Trusted Development Partner",
+    "heading1": "Turn Your Ideas Into ",
+    "heading2": "Revenue-Generating Software",
+    "subtitle": "We build custom software that drives real business results. Pay only for the features you need — no bloat, no waste. From concept to launch, we deliver on time and on budget.",
+    "requestDemo": "Get Free Tech Consultation",
+    "learnMore": "See How It Works",
+    "trustedBy": "Trusted by 30+ Companies Across Indonesia"
+  },
+  "stats": {
+    "items": [
+      { "id": "projects", "value": 50, "suffix": "+", "label": "Projects Delivered" },
+      { "id": "clients", "value": 30, "suffix": "+", "label": "Happy Clients" },
+      { "id": "experience", "value": 5, "suffix": "+", "label": "Years Experience" },
+      { "id": "team", "value": 15, "suffix": "+", "label": "Expert Developers" }
+    ]
+  },
+  "services": {
+    "heading": "Our Services",
+    "title1": "The One-Stop Solution to",
+    "title2": "Empower Business Towards Success",
+    "subtitle": "We provide end-to-end software solutions tailored to help your business grow and succeed in the digital era.",
+    "learnMore": "Learn more",
+    "items": [
+      {
+        "id": "custom",
+        "number": "01",
+        "title": "Custom Software Development",
+        "description": "Tailored software solutions designed to fit your unique business requirements, ensuring maximum functionality and efficiency."
+      },
+      {
+        "id": "optimize",
+        "number": "02",
+        "title": "Optimize Your Software",
+        "description": "Enhance performance, security, and user experience by improving your existing software to meet modern standards and business needs."
+      },
+      {
+        "id": "daas",
+        "number": "03",
+        "title": "Developer as a Service",
+        "description": "Flexible access to skilled developers who integrate seamlessly with your team, helping you scale your projects efficiently without long-term commitments."
+      }
+    ]
+  },
+  "techStack": {
+    "heading": "Tech Stack",
+    "title": "Built With Modern Technology",
+    "subtitle": "We use industry-leading tools and frameworks to deliver robust, scalable, and high-performance solutions.",
+    "items": [
+      { "id": "react", "name": "React" },
+      { "id": "nextjs", "name": "Next.js" },
+      { "id": "nodejs", "name": "Node.js" },
+      { "id": "flutter", "name": "Flutter" },
+      { "id": "typescript", "name": "TypeScript" },
+      { "id": "tailwind", "name": "Tailwind" },
+      { "id": "postgresql", "name": "PostgreSQL" },
+      { "id": "firebase", "name": "Firebase" },
+      { "id": "docker", "name": "Docker" },
+      { "id": "aws", "name": "AWS" },
+      { "id": "figma", "name": "Figma" },
+      { "id": "git", "name": "Git" }
+    ]
+  },
+  "whyChooseUs": {
+    "heading": "Why Choose Us",
+    "title1": "The Unfair Advantage",
+    "title2": "Your Business Deserves",
+    "subtitle": "We don't just build software — we build competitive advantages. Here's why leading businesses choose Prambanan Digital.",
+    "items": [
+      {
+        "id": "quality",
+        "title": "Premium Quality",
+        "description": "Every line of code is crafted with best practices, rigorous testing, and a focus on long-term maintainability."
+      },
+      {
+        "id": "fixedPrice",
+        "title": "Transparent Pricing",
+        "description": "No hidden fees. Fixed-price contracts so you know exactly what you're paying for before we start."
+      },
+      {
+        "id": "speed",
+        "title": "Fast Delivery",
+        "description": "Agile methodology and experienced teams ensure your project is delivered on time, every time."
+      },
+      {
+        "id": "team",
+        "title": "Expert Team",
+        "description": "Senior developers, UI/UX designers, and QA engineers working together to deliver exceptional results."
+      }
+    ]
+  },
+  "process": {
+    "heading": "Our Process",
+    "title": "From Idea to Launch in 4 Steps",
+    "subtitle": "A proven, systematic approach that ensures every project is delivered with precision and excellence.",
+    "items": [
+      {
+        "id": "discovery",
+        "number": "01",
+        "title": "Discovery",
+        "description": "We dive deep into your business goals, audience, and requirements to define a clear project roadmap."
+      },
+      {
+        "id": "design",
+        "number": "02",
+        "title": "Design",
+        "description": "Our UI/UX team creates intuitive, beautiful interfaces that your users will love."
+      },
+      {
+        "id": "develop",
+        "number": "03",
+        "title": "Develop",
+        "description": "Expert engineers build your solution with clean, tested, production-ready code."
+      },
+      {
+        "id": "deploy",
+        "number": "04",
+        "title": "Deploy & Support",
+        "description": "We launch seamlessly and provide ongoing support to ensure long-term success."
+      }
+    ]
+  },
+  "about": {
+    "heading": "About Us",
+    "description": "Prambanan Digital is a software development company dedicated to realizing your vision at the right price. We offer a pay-as-you-go model, allowing you to invest only in the features you need, saving time and resources by avoiding unnecessary development.",
+    "missionTitle": "Our Mission",
+    "missionDescription": "To empower businesses of all sizes with affordable, high-quality custom software solutions that drive measurable growth and operational efficiency.",
+    "visionTitle": "Our Vision",
+    "visionDescription": "To be Indonesia's most trusted software development partner, known for delivering exceptional value, transparent pricing, and lasting client relationships."
+  },
+  "testimonials": {
+    "heading": "Testimonials",
+    "title": "Trusted by Growing Businesses",
+    "subtitle": "Hear what our clients have to say about working with Prambanan Digital.",
+    "items": [
+      {
+        "id": "client1",
+        "name": "Ahmad Rizky",
+        "role": "CEO, Ivolks Creative",
+        "rating": 5,
+        "quote": "Prambanan Digital delivered our company website exactly as we envisioned. The team was responsive, professional, and truly understood our brand identity."
+      },
+      {
+        "id": "client2",
+        "name": "Dewi Sartika",
+        "role": "Project Manager, BPLJ PUPR",
+        "rating": 5,
+        "quote": "The meeting management system they built has transformed how our department operates. Seamless integration and exceptional attention to detail."
+      },
+      {
+        "id": "client3",
+        "name": "Budi Santoso",
+        "role": "Founder, Onifarms",
+        "rating": 5,
+        "quote": "Working with Prambanan Digital on our smart farming app was a game-changer. They understood the agricultural tech space and delivered a truly innovative solution."
+      }
+    ]
+  },
+  "faq": {
+    "heading": "FAQ",
+    "title": "Got Questions? We've Got Answers",
+    "subtitle": "Everything you need to know about working with us.",
+    "items": [
+      {
+        "id": "faq1",
+        "question": "How much does a custom software project cost?",
+        "answer": "Our projects start from a competitive fixed price based on your specific requirements. We provide a detailed proposal with transparent pricing before starting — no hidden costs or surprises."
+      },
+      {
+        "id": "faq2",
+        "question": "How long does it take to develop an application?",
+        "answer": "Timelines vary by complexity. A standard web application typically takes 4-8 weeks, while more complex systems may take 3-6 months. We provide a clear timeline during our initial consultation."
+      },
+      {
+        "id": "faq3",
+        "question": "Do you provide ongoing support after launch?",
+        "answer": "Absolutely! We offer flexible maintenance and support packages to keep your software running smoothly, including bug fixes, feature updates, and performance monitoring."
+      },
+      {
+        "id": "faq4",
+        "question": "Can you work with our existing tech stack?",
+        "answer": "Yes. Our team has expertise across a wide range of technologies. We can integrate with your existing systems or recommend the best stack for your specific needs."
+      },
+      {
+        "id": "faq5",
+        "question": "What is the 'Developer as a Service' model?",
+        "answer": "DaaS gives you access to our skilled developers who work as an extension of your team. You get the talent you need without the overhead of full-time hires — scale up or down as your project demands."
+      }
+    ]
+  },
+  "projects": {
+    "heading": "Portfolio",
+    "title": "Our Completed Project",
+    "subtitle": "A showcase of successful projects we've delivered for our clients across various industries.",
+    "viewCaseStudy": "View Case Study",
+    "noProjects": "No projects found in this category.",
+    "categories": [
+      { "id": "all", "label": "All" },
+      { "id": "webapp", "label": "Web App" },
+      { "id": "mobile", "label": "Mobile App" },
+      { "id": "website", "label": "Website" }
+    ],
+    "items": [
+      {
+        "id": "ivolks",
+        "company": "Ivolks Creative",
+        "name": "Company Profile Website",
+        "category": "website"
+      },
+      {
+        "id": "bplj",
+        "company": "BPLJ PUPR",
+        "name": "Meeting Management Service Website",
+        "category": "webapp"
+      },
+      {
+        "id": "onifarms",
+        "company": "Onifarms",
+        "name": "Smart Farming Application",
+        "category": "mobile"
+      },
+      {
+        "id": "pertamina",
+        "company": "PT Pertamina Geothermal Energy",
+        "name": "Work System Socialization (STK) Website",
+        "category": "webapp"
+      },
+      {
+        "id": "stylish",
+        "company": "Stylish",
+        "name": "E-Commerce Application",
+        "category": "webapp"
+      },
+      {
+        "id": "edutrain",
+        "company": "Edutrain (PTIPD UIN SGD Bandung)",
+        "name": "Certified Training Website",
+        "category": "website"
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Get Started",
+    "heading1": "Try Our Application For",
+    "heading2": "FREE!",
+    "description": "Optimize your business with ease. Fill in the following form to get demo access and experience efficient solutions for your business operations.",
+    "formTitle": "Demo Request Form",
+    "namePlaceholder": "Name",
+    "whatsappPlaceholder": "WhatsApp Number",
+    "emailPlaceholder": "Email (Optional)",
+    "selectAppType": "Select Application Type",
+    "options": [
+      { "id": "cafe", "label": "Cafe Management System" },
+      { "id": "crm", "label": "Property Business CRM System" },
+      { "id": "printing", "label": "Printing Operations System" },
+      { "id": "warehouse", "label": "Warehouse Management System" },
+      { "id": "rental", "label": "Car/Motorcycle Rental Business Integration System" },
+      { "id": "travel", "label": "Tour and Travel App" },
+      { "id": "ecommerce", "label": "E-Commerce" },
+      { "id": "foundation", "label": "Foundation Management System" }
+    ],
+    "whatsappMinDigits": "WhatsApp number must be at least 10 digits",
+    "sending": "Sending demo request...",
+    "sendSuccess": "Demo Request Sent Successfully",
+    "sendError": "Failed to Send Demo Request",
+    "sendingBtn": "Sending...",
+    "sendRequest": "Send Request"
+  },
+  "footer": {
+    "description": "Prambanan Digital is a software development company dedicated to realizing your vision at the right price.",
+    "contactHeading": "Contact",
+    "followHeading": "Follow Us",
+    "copyright": "Copyright © 2024 Prambanan Digital. All Rights Reserved."
+  },
+  "ourProduct": {
+    "heading": "Our Product",
+    "items": [
+      { "id": "binder", "name": "Binder" },
+      { "id": "ivolks", "name": "Ivolks Creative" },
+      { "id": "easybook", "name": "EasyBook" },
+      { "id": "stylish", "name": "Stylish" },
+      { "id": "onifarm", "name": "OniFarm" },
+      { "id": "pertamina", "name": "Pertamina" }
+    ]
+  },
+  "contactBottom": {
+    "whatsappAriaLabel": "Chat on WhatsApp"
+  },
+  "blog": {
+    "noTitle": "No title available",
+    "noDescription": "No description available",
+    "noAuthor": "No Author",
+    "tags": "Tags",
+    "photosBlogAlt": "Blog Photos",
+    "authorAlt": "Author Image"
+  },
+  "common": {
+    "home": "Home",
+    "blog": "Blog"
+  },
+  "blogTeaser": {
+    "heading": "Blog & Insights",
+    "title": "Latest From Our Team",
+    "subtitle": "Stay up to date with the latest trends, tips, and insights from the Prambanan Digital team.",
+    "viewAll": "View All Articles"
+  }
+}
+
