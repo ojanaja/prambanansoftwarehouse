@@ -2,9 +2,13 @@
 import { useState } from "react";
 import { sendEmail } from "@/helper/sendEmail";
 import { toast } from "sonner";
+import { HiArrowRight } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 export default function ContactSection() {
-  const [selectedApp, setSelectedApp] = useState("");
+  const t = useTranslations("contact");
+  const options = t.raw("options");
+
   const [formData, setFormData] = useState({
     name: "",
     whatsapp: "",
@@ -12,13 +16,7 @@ export default function ContactSection() {
     appType: "",
   });
 
-  const [responseMessage, setResponseMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSelectChange = (event) => {
-    setSelectedApp(event.target.value);
-    setFormData({ ...formData, appType: event.target.value });
-  };
 
   const handleWhatsappInput = (event) => {
     event.target.value = event.target.value.replace(/[^0-9]/g, "");
@@ -32,8 +30,14 @@ export default function ContactSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.whatsapp.length < 10) {
+      toast.error(t("whatsappMinDigits"));
+      return;
+    }
+
     setIsSubmitting(true);
-    setResponseMessage("");
+    const toastId = toast.loading(t("sending"));
 
     const templateParams = {
       to_name: "Admin",
@@ -44,11 +48,12 @@ export default function ContactSection() {
     };
 
     try {
-      const result = await sendEmail(templateParams);
-      // console.log("Email sent successfully:", result.text);
-      toast.success("Request Demo Berhasil Dikirim");
+      await sendEmail(templateParams);
+      toast.success(t("sendSuccess"), { id: toastId });
+      // Reset form on success
+      setFormData({ name: "", whatsapp: "", email: "", appType: "" });
     } catch (error) {
-      toast.error("Gagal Mengirim Request Demo");
+      toast.error(t("sendError"), { id: toastId });
       console.error("Error sending email:", error);
     } finally {
       setIsSubmitting(false);
@@ -56,107 +61,133 @@ export default function ContactSection() {
   };
 
   return (
-    <div id="contact">
-      <div className="flex items-center justify-center md:py-[11%] md:px-[5%]">
-        <div
-          className="relative w-full max-w-5xl md:py-4 md:px-1 py-4 px-1 bg-cover bg-center md:rounded-3xl shadow-lg"
-          style={{ backgroundImage: "url('form/background.webp')" }}
-        >
-          <div className="absolute inset-0 bg-black opacity-75 md:rounded-3xl"></div>
-          <div className="relative z-0 flex flex-col md:flex-row items-center justify-between md:py-8 md:px-10 py-6 px-4 text-center md:text-left">
-            <div className="text-white md:w-2/5">
-              <h3 className="text-md font-semibold mb-2">
-                Optimalkan Bisnis Anda dengan Mudah
-              </h3>
-              <h2 className="text-4xl font-bold mb-4">
-                Coba Aplikasi Kami Secara GRATIS!
+    <div id="contact" className="section-padding bg-section-alt">
+      <div className="section-container">
+        <div className="relative w-full max-w-5xl mx-auto overflow-hidden rounded-3xl shadow-2xl shadow-black/10">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('form/background.webp')" }}
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50" />
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 p-8 md:p-12 lg:p-16">
+            {/* Left - Text */}
+            <div className="text-white md:w-1/2 text-center md:text-left">
+              <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-primary-300 mb-3">
+                {t("badge")}
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-4">
+                {t("heading1")}{" "}
+                <span className="bg-gradient-to-r from-primary-300 to-primary-400 bg-clip-text text-transparent">
+                  {t("heading2")}
+                </span>
               </h2>
-              <p className="text-sm">
-                Isi form berikut untuk dapatkan akses demo dan rasakan solusi
-                efisien bagi operasional bisnis Anda.
+              <p className="text-white/60 text-sm leading-relaxed">
+                {t("description")}
               </p>
             </div>
-            <div className="md:w-2/5 mt-8 md:mt-0 p-4 bg-white rounded-lg">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                Form Request Demo
-              </h3>
-              <form className="space-y-4" onSubmit={handleSubmit}>
-                <div className="flex space-x-4">
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Nama"
-                    className="w-full p-3 bg-gray-700 bg-opacity-50 text-white rounded-md focus:outline-none placeholder:text-white"
-                    required
-                  />
-                </div>
-                <div className="flex space-x-4">
-                  <input
-                    type="tel"
-                    name="whatsapp"
-                    value={formData.whatsapp}
-                    onChange={handleWhatsappInput}
-                    inputMode="numeric"
-                    placeholder="No Whatsapp"
-                    className="w-full p-3 bg-gray-700 bg-opacity-50 text-white rounded-md focus:outline-none placeholder:text-white"
-                    required
-                  />
-                </div>
-                <div className="flex space-x-4">
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Email (Optional)"
-                    className="w-full p-3 bg-gray-700 bg-opacity-50 text-white rounded-md focus:outline-none placeholder:text-white"
-                  />
-                </div>
-                <div>
-                  <select
-                    name="appType"
-                    value={formData.appType}
-                    onChange={handleSelectChange}
-                    className="w-full p-3 bg-gray-700 bg-opacity-50 text-white rounded-md focus:outline-none placeholder:text-white"
-                    required
+
+            {/* Right - Form */}
+            <div className="md:w-1/2 w-full max-w-md">
+              <div className="bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl p-6 lg:p-8">
+                <h3 className="text-lg font-semibold text-white mb-6">
+                  {t("formTitle")}
+                </h3>
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder={t("namePlaceholder")}
+                      className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="tel"
+                      name="whatsapp"
+                      value={formData.whatsapp}
+                      onChange={handleWhatsappInput}
+                      inputMode="numeric"
+                      placeholder={t("whatsappPlaceholder")}
+                      className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder={t("emailPlaceholder")}
+                      className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
+                    />
+                  </div>
+                  <div className="relative group">
+                    <select
+                      name="appType"
+                      value={formData.appType}
+                      onChange={handleInputChange}
+                      className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 transition-all duration-300 text-sm appearance-none cursor-pointer"
+                      required
+                    >
+                      <option value="" disabled className="text-neutral-900 bg-white">
+                        {t("selectAppType")}
+                      </option>
+                      {options.map((option) => (
+                        <option key={option.id} value={option.label} className="text-neutral-900 bg-white">
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    {/* Select Arrow */}
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none group-hover:text-primary-400 transition-colors text-white/40">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full btn-primary py-4 text-sm"
+                    disabled={isSubmitting}
                   >
-                    <option value="" disabled>
-                      Pilih Jenis Aplikasi
-                    </option>
-                    <option value="Sistem Manajemen Kafe">
-                      Sistem Manajemen Kafe
-                    </option>
-                    <option value="Sistem CRM Bisnis Properti">
-                      Sistem CRM Bisnis Properti
-                    </option>
-                    <option value="Sistem Operasional Percetakan">
-                      Sistem Operasional Percetakan
-                    </option>
-                    <option value="Sistem Manajemen Gudang">
-                      Sistem Manajemen Gudang
-                    </option>
-                    <option value="Sistem Integrasi Bisnis Rental Mobil/Motor">
-                      Sistem Integrasi Bisnis Rental Mobil/Motor
-                    </option>
-                    <option value="Aplikasi Tour and Travel">
-                      Aplikasi Tour and Travel
-                    </option>
-                    <option value="E-Commerce">E-Commerce</option>
-                    <option value="Sistem Manajemen Yayasan">
-                      Sistem Manajemen Yayasan
-                    </option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full p-3 bg-red-600 text-white rounded-md"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Sending..." : "Send"}
-                </button>
-              </form>
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
+                        </svg>
+                        {t("sendingBtn")}
+                      </span>
+                    ) : (
+                      <span className="flex items-center justify-center gap-2">
+                        {t("sendRequest")}
+                        <HiArrowRight />
+                      </span>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

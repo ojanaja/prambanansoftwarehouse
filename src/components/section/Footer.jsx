@@ -1,67 +1,89 @@
+"use client";
+import Image from "next/image";
 import { FaEnvelope, FaInstagram, FaPhone } from "react-icons/fa";
+import { useTranslations } from "next-intl";
+import { siteConfig } from "@/config/site";
 
 export default function Footer() {
+  const t = useTranslations("footer");
+
   return (
-    <>
-      <div className="md:px-[8%] py-[3%] text-center md:text-left bg-primary-400 text-white hidden md:block">
-        <div className="hidden md:block">
-          <div className="flex justify-between">
-            <div className="flex flex-col gap-1.5 w-full">
-              <h1 className="uppercase font-bold text-xl">Contact</h1>
-              <p className="flex gap-2">
-                <FaEnvelope className="mt-1" />{" "}
-                <span>prambanandigital@gmail.com</span>
-              </p>
-              <p className="flex gap-2">
-                <FaPhone className="mt-1" />{" "}
-                <span>(+62) 851-8993-3901 (Min Pram)</span>
-              </p>
+    <footer className="relative bg-gradient-to-br from-primary-500 via-primary-400 to-primary-600 text-white overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+
+      <div className="section-container relative z-10 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <Image
+                src="/logo/prambanan_logo3.png"
+                className="w-10 h-auto brightness-0 invert"
+                alt="Logo Prambanan"
+                width={100}
+                height={100}
+              />
+              <h3 className="text-xl font-bold italic">{siteConfig.name}</h3>
             </div>
-            <div className="flex flex-col gap-1.5 w-full">
-              <h1 className="uppercase font-bold text-xl">Follow</h1>
+            <p className="text-white/70 text-sm leading-relaxed">
+              {t("description")}
+            </p>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.15em] text-white/60 mb-5">
+              {t("contactHeading")}
+            </h4>
+            <div className="flex flex-col gap-3">
               <a
-                href="https://www.instagram.com/prambanandigital/"
-                target="_blank"
-                className="flex gap-2 items-center"
+                href={`mailto:${siteConfig.contact.email}`}
+                className="flex items-center gap-3 text-sm text-white/80 hover:text-white transition-colors group"
               >
-                <FaInstagram className="text-2xl" />
-                <p className="text-sm">prambanandigital</p>
+                <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
+                  <FaEnvelope className="text-sm" />
+                </div>
+                {siteConfig.contact.email}
+              </a>
+              <a
+                href={siteConfig.contact.phoneHref}
+                className="flex items-center gap-3 text-sm text-white/80 hover:text-white transition-colors group"
+              >
+                <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
+                  <FaPhone className="text-sm" />
+                </div>
+                {siteConfig.contact.phoneDisplay}
               </a>
             </div>
-            <div className="flex flex-col gap-1.5 w-3/4">
-              <div className="flex gap-2 items-center">
-                <h1 className="text-xl font-bold italic">Prambanan Digital</h1>
-              </div>
-              <p>
-                Prambanan Digital adalah perusahaan pengembangan perangkat lunak
-                yang berdedikasi untuk mewujudkan visi Anda dengan harga yang
-                tepat.
-              </p>
-            </div>
           </div>
-        </div>
-        <p className="font-bold uppercase w-full md:border-t-2 md:mt-4 md:pt-2 border-white">
-          Copyright © 2024 | All Right Reserved
-        </p>
-      </div>
-      <div className="px-5 py-[5%] text-center bg-primary-400 text-white mt-auto md:hidden">
-        <div className="flex justify-center items-center flex-col gap-3 w-full">
-          <p className="text-2xl font-bold">Follow</p>
-          <div className="flex gap-2">
+
+          {/* Social */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.15em] text-white/60 mb-5">
+              {t("followHeading")}
+            </h4>
             <a
-              href="https://www.instagram.com/prambanandigital/"
+              href={siteConfig.contact.instagramHref}
               target="_blank"
-              className="flex items-center gap-1 cursor-pointer"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 text-sm text-white/80 hover:text-white transition-colors group"
             >
-              <FaInstagram />
-              <p className="text-lg">prambanandigital</p>
+              <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
+                <FaInstagram className="text-lg" />
+              </div>
+              @{siteConfig.contact.instagram}
             </a>
           </div>
         </div>
-        <p className="pt-[5%] uppercase font-bold text-sm text-center">
-          Copyright © 2024 | All Rights Reserved
-        </p>
+
+        {/* Divider + Copyright */}
+        <div className="mt-12 pt-6 border-t border-white/15">
+          <p className="text-sm text-white/50 text-center">
+            {t("copyright")}
+          </p>
+        </div>
       </div>
-    </>
+    </footer>
   );
 }

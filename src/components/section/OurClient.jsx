@@ -1,9 +1,17 @@
 "use client";
+import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function OurClient() {
   const clients = [
@@ -43,8 +51,24 @@ export default function OurClient() {
       imageUrl: "/client/resizemaqdis.png",
     },
   ];
+
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(containerRef.current, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 90%",
+      },
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+  }, { scope: containerRef });
+
   return (
-    <div className="py-[2%] mx-[10%]">
+    <div className="py-[2%] mx-[10%]" ref={containerRef}>
       <Swiper
         modules={[Autoplay]}
         spaceBetween={0}
@@ -81,7 +105,6 @@ export default function OurClient() {
                 className="grayscale hover:grayscale-0 cursor-pointer object-contain w-full h-full"
                 width={500}
                 height={500}
-                priority
                 title={client.name}
               />
             </div>
