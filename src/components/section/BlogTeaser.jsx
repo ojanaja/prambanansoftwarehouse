@@ -1,19 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
-import { supabase } from "@/lib/supabase";
-import { getTranslations, getFormatter } from "next-intl/server";
+import { client } from "@/sanity/lib/client";
+import { urlForImage } from "@/sanity/lib/image";
 
 export default async function BlogTeaserSection() {
   const t = await getTranslations("blogTeaser");
   const format = await getFormatter();
 
-  // Fetch latest 3 posts
-  const { data: posts } = await supabase
-    .from("posts")
-    .select("*, author:authors(*)")
-    .order("published_at", { ascending: false })
-    .limit(3);
+  // Fetch latest 3 posts from Sanity
+  const posts = await client.fetch(
+    `*[_type == "post"] | order(publishedAt desc)[0...3] {
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      publishedAt,
+      mainImage,
+      author->{
+        name,
+        image
+      }
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  );
 
   if (!posts || posts.length === 0) return null;
 
@@ -47,9 +58,9 @@ export default async function BlogTeaserSection() {
             >
               <div className="glass-card-hover h-full flex flex-col overflow-hidden">
                 {/* Image */}
-                <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-800">
                   <Image
-                    src={post.image || "https://placehold.co/600x400"}
+                    src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://placehold.co/600x400"}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     alt={post.title || "Blog post"}
@@ -60,7 +71,7 @@ export default async function BlogTeaserSection() {
                 {/* Content */}
                 <div className="p-5 lg:p-6 flex flex-col flex-grow">
                   <p className="text-xs text-neutral-500 mb-2">
-                    {formatDate(post.published_at || post.created_at)}
+                    {formatDate(post.publishedAt)}
                   </p>
                   <h3 className="font-bold text-base lg:text-lg mb-2 line-clamp-2 group-hover:text-primary-500 transition-colors duration-300">
                     {post.title}
@@ -72,9 +83,9 @@ export default async function BlogTeaserSection() {
                   {/* Author */}
                   {post.author && (
                     <div className="flex items-center gap-2 mt-4 pt-4 border-t border-neutral-200/60 dark:border-white/10">
-                      <div className="relative w-6 h-6 rounded-full overflow-hidden flex-shrink-0">
+                      <div className="relative w-6 h-6 rounded-full overflow-hidden flex-shrink-0 bg-neutral-200">
                         <Image
-                          src={post.author.image || "https://placehold.co/50x50"}
+                          src={post.author.image ? urlForImage(post.author.image).width(100).url() : "https://placehold.co/50x50"}
                           fill
                           className="object-cover"
                           alt={post.author.name || "Author"}

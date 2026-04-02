@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useFormatter } from "next-intl";
+import { urlForImage } from "@/sanity/lib/image";
 
 export default function BlogCard({ post }) {
   const t = useTranslations("blog");
@@ -24,24 +25,14 @@ export default function BlogCard({ post }) {
         <div className="bg-white rounded-lg shadow-lg p-3 flex items-center gap-3 mx-auto h-full">
           {/* Image and Title/Description - Clickable */}
           <div className="w-full md:w-1/2 tablet-landscape:w-2/5 h-full">
-            <Link href={`/blog/${post.slug}`} className="block h-full relative aspect-video">
-              {post.image ? (
-                <Image
-                  src={post.image}
-                  fill
-                  className="object-cover rounded-lg"
-                  alt={post.title || t("photosBlogAlt")}
-                  priority
-                />
-              ) : (
-                <Image
-                  src={"https://placehold.co/600x500"}
-                  fill
-                  className="object-cover rounded-lg"
-                  alt={t("photosBlogAlt")}
-                  priority
-                />
-              )}
+            <Link href={`/blog/${post.slug}`} className="block h-full relative aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+              <Image
+                src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://placehold.co/600x500"}
+                fill
+                className="object-cover rounded-lg"
+                alt={post.title || t("photosBlogAlt")}
+                priority
+              />
             </Link>
           </div>
 
@@ -67,22 +58,13 @@ export default function BlogCard({ post }) {
               <div className="p-2 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl">
                 <div className="flex gap-3 items-center">
                   {/* Author Image */}
-                  <div className="relative w-8 h-8 flex-shrink-0">
-                    {post.author.image ? (
-                      <Image
-                        src={post.author.image}
-                        fill
-                        className="object-cover rounded-full"
-                        alt={post.author.name || t("authorAlt")}
-                      />
-                    ) : (
-                      <Image
-                        src={"https://placehold.co/50x50"}
-                        fill
-                        className="object-cover rounded-full"
-                        alt={t("authorAlt")}
-                      />
-                    )}
+                  <div className="relative w-8 h-8 flex-shrink-0 bg-neutral-200 rounded-full">
+                    <Image
+                      src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://placehold.co/50x50"}
+                      fill
+                      className="object-cover rounded-full"
+                      alt={post.author?.name || t("authorAlt")}
+                    />
                   </div>
                   {/* Author Details */}
                   <div className="text-xs">
@@ -104,24 +86,14 @@ export default function BlogCard({ post }) {
       <div className="block md:hidden">
         <div className="p-4 bg-white rounded-lg shadow-lg">
           {/* Image - Clickable */}
-          <Link href={`/blog/${post.slug}`} className="block relative aspect-video mb-3">
-            {post.image ? (
-              <Image
-                src={post.image}
-                fill
-                className="object-cover rounded-lg"
-                alt={post.title || t("photosBlogAlt")}
-                priority
-              />
-            ) : (
-              <Image
-                src={"https://placehold.co/500x300"}
-                fill
-                className="object-cover rounded-lg"
-                alt={t("photosBlogAlt")}
-                priority
-              />
-            )}
+          <Link href={`/blog/${post.slug}`} className="block relative aspect-video mb-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+            <Image
+              src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://placehold.co/500x300"}
+              fill
+              className="object-cover rounded-lg"
+              alt={post.title || t("photosBlogAlt")}
+              priority
+            />
           </Link>
 
           <Link href={`/blog/${post.slug}`} className="group">
@@ -141,22 +113,13 @@ export default function BlogCard({ post }) {
           <div className="pt-2">
             <div className="p-3 bg-neutral-50 rounded-xl">
               <div className="flex gap-3 items-center">
-                <div className="relative w-8 h-8 flex-shrink-0">
-                  {post.author.image ? (
-                    <Image
-                      src={post.author.image}
-                      fill
-                      className="object-cover rounded-full"
-                      alt={post.author.name || t("authorAlt")}
-                    />
-                  ) : (
-                    <Image
-                      src={"https://placehold.co/50x50"}
-                      fill
-                      className="object-cover rounded-full"
-                      alt={t("authorAlt")}
-                    />
-                  )}
+                <div className="relative w-8 h-8 flex-shrink-0 bg-neutral-200 rounded-full">
+                  <Image
+                    src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://placehold.co/50x50"}
+                    fill
+                    className="object-cover rounded-full"
+                    alt={post.author?.name || t("authorAlt")}
+                  />
                 </div>
                 <div className="text-xs">
                   <p className="font-semibold text-neutral-800">
