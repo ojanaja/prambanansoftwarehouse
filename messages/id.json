@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "Prambanan Digital | Software House Terbaik di Bandung",
-    "description": "Prambanan Digital adalah software house terkemuka di Bandung, Indonesia. Kami menyediakan solusi software kustom, aplikasi web & mobile, serta solusi enterprise untuk sektor Properti, Kafe, Pertanian, dan Pemerintahan.",
-    "keywords": "Software House Bandung, Jasa Pembuatan Website, Aplikasi Mobile, Software Custom, IT Konsultan, Sistem Manajemen Kafe, CRM Properti, Smart Farming, Solusi Enterprise"
+    "title": "Prambanan Digital | Partner Transformasi Digital Sektor Publik & Pendidikan",
+    "description": "Membangun ekosistem digital yang aman, transparan, dan terstandarisasi untuk instansi pemerintah dan institusi pendidikan di Indonesia.",
+    "keywords": "Transformasi Digital Pemerintah, Software House Bandung, Aplikasi Pemerintahan, Jasa Pembuatan SIAKAD, Software Manajemen Aset Pemerintah, Aplikasi LMS Sekolah, Vendor IT Instansi Pemerintah"
   },
   "Index": {
     "title": "Selamat datang di Prambanan Digital"
@@ -12,71 +12,107 @@
     "services": "Layanan",
     "about": "Tentang Kami",
     "blog": "Blog",
-    "requestDemo": "Request Demo",
+    "requestDemo": "Konsultasi Strategis",
     "light": "Terang",
     "dark": "Gelap"
   },
   "hero": {
-    "badge": "Partner Pengembangan Terpercaya",
-    "heading1": "Ubah Ide Anda Menjadi ",
-    "heading2": "Software Penghasil Revenue",
-    "subtitle": "Kami membangun software kustom yang mendorong hasil bisnis nyata. Bayar hanya untuk fitur yang Anda butuhkan — tanpa fitur berlebihan, tanpa pemborosan. Dari konsep hingga peluncuran, kami menyelesaikan tepat waktu dan sesuai anggaran.",
-    "requestDemo": "Konsultasi Teknologi Gratis",
+    "badge": "Partner Transformasi Digital Sektor Publik & Pendidikan",
+    "heading1": "Digitalisasi Sektor Publik & ",
+    "heading2": "Pendidikan yang Akuntabel.",
+    "subtitle": "Membangun ekosistem digital yang aman, transparan, dan terstandarisasi. Solusi teknologi yang presisi & patuh regulasi untuk instansi pemerintah dan institusi pendidikan di Indonesia.",
+    "requestDemo": "Konsultasi Strategis (Gratis)",
     "learnMore": "Lihat Cara Kerjanya",
     "trustedBy": "Dipercaya oleh 30+ Perusahaan di Indonesia"
   },
   "stats": {
     "items": [
-      { "id": "projects", "value": 50, "suffix": "+", "label": "Proyek Selesai" },
-      { "id": "clients", "value": 30, "suffix": "+", "label": "Klien Puas" },
-      { "id": "experience", "value": 5, "suffix": "+", "label": "Tahun Pengalaman" },
-      { "id": "team", "value": 15, "suffix": "+", "label": "Developer Ahli" }
+      {
+        "id": "projects",
+        "value": 50,
+        "suffix": "+",
+        "label": "Proyek Selesai"
+      },
+      {
+        "id": "clients",
+        "value": 50,
+        "suffix": "+",
+        "label": "Implementasi di Instansi Pemerintah & Sekolah"
+      },
+      {
+        "id": "experience",
+        "value": 5,
+        "suffix": "+",
+        "label": "Tahun Pengalaman"
+      },
+      {
+        "id": "team",
+        "value": 15,
+        "suffix": "+",
+        "label": "Developer Ahli"
+      }
     ]
   },
   "services": {
-    "heading": "Layanan Kami",
-    "title1": "Solusi Satu Atap untuk",
-    "title2": "Memberdayakan Bisnis Menuju Kesuksesan",
-    "subtitle": "Kami menyediakan solusi perangkat lunak menyeluruh yang dirancang untuk membantu bisnis Anda tumbuh dan sukses di era digital.",
-    "learnMore": "Pelajari lebih lanjut",
-    "items": [
-      {
-        "id": "custom",
-        "number": "01",
-        "title": "Pengembangan Software Kustom",
-        "description": "Solusi perangkat lunak yang dirancang khusus untuk kebutuhan bisnis unik Anda, memastikan fungsionalitas dan efisiensi maksimal."
-      },
-      {
-        "id": "optimize",
-        "number": "02",
-        "title": "Optimasi Software Anda",
-        "description": "Tingkatkan performa, keamanan, dan pengalaman pengguna dengan memperbaiki perangkat lunak Anda agar memenuhi standar modern dan kebutuhan bisnis."
-      },
-      {
-        "id": "daas",
-        "number": "03",
-        "title": "Developer as a Service",
-        "description": "Akses fleksibel ke developer terampil yang terintegrasi dengan tim Anda, membantu Anda menskalakan proyek secara efisien tanpa komitmen jangka panjang."
-      }
-    ]
+    "heading": "Solusi Spesialis",
+    "title1": "Membangun Ekosistem & ",
+    "title2": "Solusi Terintegrasi",
+    "subtitle": "Solusi teknologi yang dirancang khusus untuk memenuhi standar, keamanan, dan kebutuhan unik sektor publik dan pendidikan.",
+    "learnMore": "Pelajari lebih lanjut"
   },
   "techStack": {
     "heading": "Tech Stack",
     "title": "Dibangun dengan Teknologi Modern",
     "subtitle": "Kami menggunakan tools dan framework terkemuka untuk menghasilkan solusi yang tangguh, skalabel, dan berperforma tinggi.",
     "items": [
-      { "id": "react", "name": "React" },
-      { "id": "nextjs", "name": "Next.js" },
-      { "id": "nodejs", "name": "Node.js" },
-      { "id": "flutter", "name": "Flutter" },
-      { "id": "typescript", "name": "TypeScript" },
-      { "id": "tailwind", "name": "Tailwind" },
-      { "id": "postgresql", "name": "PostgreSQL" },
-      { "id": "firebase", "name": "Firebase" },
-      { "id": "docker", "name": "Docker" },
-      { "id": "aws", "name": "AWS" },
-      { "id": "figma", "name": "Figma" },
-      { "id": "git", "name": "Git" }
+      {
+        "id": "react",
+        "name": "React"
+      },
+      {
+        "id": "nextjs",
+        "name": "Next.js"
+      },
+      {
+        "id": "nodejs",
+        "name": "Node.js"
+      },
+      {
+        "id": "flutter",
+        "name": "Flutter"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript"
+      },
+      {
+        "id": "tailwind",
+        "name": "Tailwind"
+      },
+      {
+        "id": "postgresql",
+        "name": "PostgreSQL"
+      },
+      {
+        "id": "firebase",
+        "name": "Firebase"
+      },
+      {
+        "id": "docker",
+        "name": "Docker"
+      },
+      {
+        "id": "aws",
+        "name": "AWS"
+      },
+      {
+        "id": "figma",
+        "name": "Figma"
+      },
+      {
+        "id": "git",
+        "name": "Git"
+      }
     ]
   },
   "whyChooseUs": {
@@ -149,30 +185,7 @@
   "testimonials": {
     "heading": "Testimoni",
     "title": "Dipercaya oleh Bisnis yang Berkembang",
-    "subtitle": "Dengarkan apa kata klien kami tentang bekerja sama dengan Prambanan Digital.",
-    "items": [
-      {
-        "id": "client1",
-        "name": "Ahmad Rizky",
-        "role": "CEO, Ivolks Creative",
-        "rating": 5,
-        "quote": "Prambanan Digital menyelesaikan website perusahaan kami persis seperti yang kami bayangkan. Tim mereka responsif, profesional, dan benar-benar memahami identitas brand kami."
-      },
-      {
-        "id": "client2",
-        "name": "Dewi Sartika",
-        "role": "Project Manager, BPLJ PUPR",
-        "rating": 5,
-        "quote": "Sistem manajemen rapat yang mereka bangun telah mengubah cara departemen kami beroperasi. Integrasi yang mulus dan perhatian yang luar biasa terhadap detail."
-      },
-      {
-        "id": "client3",
-        "name": "Budi Santoso",
-        "role": "Founder, Onifarms",
-        "rating": 5,
-        "quote": "Bekerja dengan Prambanan Digital untuk aplikasi smart farming kami adalah sebuah terobosan. Mereka memahami ruang teknologi pertanian dan memberikan solusi yang benar-benar inovatif."
-      }
-    ]
+    "subtitle": "Dengarkan apa kata klien kami tentang bekerja sama dengan Prambanan Digital."
   },
   "faq": {
     "heading": "FAQ",
@@ -213,47 +226,21 @@
     "viewCaseStudy": "Lihat Studi Kasus",
     "noProjects": "Tidak ada proyek ditemukan dalam kategori ini.",
     "categories": [
-      { "id": "all", "label": "Semua" },
-      { "id": "webapp", "label": "Web App" },
-      { "id": "mobile", "label": "Mobile App" },
-      { "id": "website", "label": "Website" }
-    ],
-    "items": [
       {
-        "id": "ivolks",
-        "company": "Ivolks Creative",
-        "name": "Website Company Profile",
-        "category": "website"
+        "id": "all",
+        "label": "Semua"
       },
       {
-        "id": "bplj",
-        "company": "BPLJ PUPR",
-        "name": "Website Layanan Manajemen Rapat",
-        "category": "webapp"
+        "id": "webapp",
+        "label": "Web App"
       },
       {
-        "id": "onifarms",
-        "company": "Onifarms",
-        "name": "Aplikasi Smart Farming",
-        "category": "mobile"
+        "id": "mobile",
+        "label": "Mobile App"
       },
       {
-        "id": "pertamina",
-        "company": "PT Pertamina Geothermal Energy",
-        "name": "Website Sosialisasi Sistem Tata Kerja (STK)",
-        "category": "webapp"
-      },
-      {
-        "id": "stylish",
-        "company": "Stylish",
-        "name": "Aplikasi E-Commerce",
-        "category": "webapp"
-      },
-      {
-        "id": "edutrain",
-        "company": "Edutrain (PTIPD UIN SGD Bandung)",
-        "name": "Website Pelatihan Bersertifikat",
-        "category": "website"
+        "id": "website",
+        "label": "Website"
       }
     ]
   },
@@ -268,21 +255,34 @@
     "emailPlaceholder": "Email (Opsional)",
     "selectAppType": "Pilih Jenis Aplikasi",
     "options": [
-      { "id": "cafe", "label": "Sistem Manajemen Kafe" },
-      { "id": "crm", "label": "Sistem CRM Bisnis Properti" },
-      { "id": "printing", "label": "Sistem Operasional Percetakan" },
-      { "id": "warehouse", "label": "Sistem Manajemen Gudang" },
-      { "id": "rental", "label": "Sistem Integrasi Bisnis Rental Mobil/Motor" },
-      { "id": "travel", "label": "Aplikasi Tour and Travel" },
-      { "id": "ecommerce", "label": "E-Commerce" },
-      { "id": "foundation", "label": "Sistem Manajemen Yayasan" }
+      {
+        "id": "siakad",
+        "label": "Sistem Informasi Akademik (SIAKAD)"
+      },
+      {
+        "id": "aset",
+        "label": "Manajemen Inventaris Aset Daerah"
+      },
+      {
+        "id": "portal",
+        "label": "Portal Pelayanan Publik"
+      },
+      {
+        "id": "yayasan",
+        "label": "Sistem Manajemen Yayasan Pendidikan"
+      },
+      {
+        "id": "custom",
+        "label": "Custom Solution (Lainnya)"
+      }
     ],
     "whatsappMinDigits": "Nomor Whatsapp minimal 10 digit",
     "sending": "Sedang mengirim request demo...",
     "sendSuccess": "Request Demo Berhasil Dikirim",
     "sendError": "Gagal Mengirim Request Demo",
     "sendingBtn": "Mengirim...",
-    "sendRequest": "Kirim Request"
+    "sendRequest": "Kirim Request",
+    "institutionPlaceholder": "Nama Instansi / Yayasan Sekolah"
   },
   "footer": {
     "description": "Prambanan Digital adalah perusahaan pengembangan perangkat lunak yang berdedikasi untuk mewujudkan visi Anda dengan harga yang tepat.",
@@ -292,14 +292,8 @@
   },
   "ourProduct": {
     "heading": "Produk Kami",
-    "items": [
-      { "id": "binder", "name": "Binder" },
-      { "id": "ivolks", "name": "Ivolks Creative" },
-      { "id": "easybook", "name": "EasyBook" },
-      { "id": "stylish", "name": "Stylish" },
-      { "id": "onifarm", "name": "OniFarm" },
-      { "id": "pertamina", "name": "Pertamina" }
-    ]
+    "title": "Dibuat dengan Passion & Presisi",
+    "subtitle": "Jelajahi produk digital yang kami bangun — masing-masing dirancang untuk menyelesaikan masalah nyata dengan pengalaman yang elegan dan berpusat pada pengguna."
   },
   "contactBottom": {
     "whatsappAriaLabel": "Chat di WhatsApp"
@@ -321,5 +315,59 @@
     "title": "Terbaru dari Tim Kami",
     "subtitle": "Tetap update dengan tren, tips, dan wawasan terbaru dari tim Prambanan Digital.",
     "viewAll": "Lihat Semua Artikel"
+  },
+  "securityCompliance": {
+    "heading": "Keamanan & Kepatuhan",
+    "title": "Sistem Ekosistem yang Aman & Patuh Regulasi",
+    "subtitle": "Kami memahami bahwa data pemerintahan dan pendidikan adalah aset kritis. Infrastruktur kami dirancang memenuhi standar keamanan tertinggi dan kepatuhan regulasi di Indonesia (PSE Kominfo, ISO 27001 readiness).",
+    "features": [
+      {
+        "title": "Enkripsi Data End-to-End",
+        "description": "Semua komunikasi data dan penyimpanan di cloud diamankan menggunakan standar enkripsi kelas militer (AES-256) untuk mencegah kebocoran data sensitif."
+      },
+      {
+        "title": "Kepatuhan PSE & Regulasi Lokal",
+        "description": "Sistem dirancang untuk tunduk pada UU PDP (Perlindungan Data Pribadi) dan terdaftar secara resmi untuk digunakan oleh instansi di Indonesia."
+      },
+      {
+        "title": "Audit Log & Akuntabilitas",
+        "description": "Transparansi terjamin melalui perekaman aktivitas pengguna (Audit Trail), memudahkan pelacakan untuk kebutuhan inspektorat atau audit."
+      }
+    ]
+  },
+  "specializedSolutions": {
+    "heading": "Solusi Sektoral",
+    "title": "Sistem Terintegrasi untuk Instansi & Pendidikan",
+    "subtitle": "Kami tidak hanya membuat website. Kami membangun sistem terintegrasi yang menyelesaikan masalah manajemen, pelayanan publik, dan akademik dari hulu ke hilir.",
+    "govDomain": "Sektor Pemerintah",
+    "eduDomain": "Sektor Pendidikan",
+    "govServices": [
+      {
+        "title": "Sistem E-Government (SPBE)",
+        "desc": "Digitalisasi layanan publik dan pemerintahan berbasis elektronik."
+      },
+      {
+        "title": "Sistem Perizinan Terpadu",
+        "desc": "Aplikasi pelayanan perizinan satu pintu untuk mempercepat birokrasi."
+      },
+      {
+        "title": "Dashboard Executive (Command Center)",
+        "desc": "Sistem pelaporan analitik real-time memantau performa instansi."
+      }
+    ],
+    "eduServices": [
+      {
+        "title": "SIAKAD (Sistem Informasi Akademik)",
+        "desc": "Manajemen data mahasiswa, dosen, jadwal, dan nilai secara terpadu."
+      },
+      {
+        "title": "LMS (Learning Management System)",
+        "desc": "Platform pembelajaran e-learning interaktif dan terstruktur."
+      },
+      {
+        "title": "Sistem Manajemen Yayasan Terpadu",
+        "desc": "Digitalisasi manajemen aset, keuangan, dan SDM untuk yayasan/sekolah."
+      }
+    ]
   }
 }
