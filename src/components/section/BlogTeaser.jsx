@@ -3,28 +3,35 @@ import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
 import { client } from "@/sanity/lib/client";
 import { urlForImage } from "@/sanity/lib/image";
+import { getTranslations, getFormatter } from "next-intl/server";
 
 export default async function BlogTeaserSection() {
   const t = await getTranslations("blogTeaser");
   const format = await getFormatter();
 
   // Fetch latest 3 posts from Sanity
-  const posts = await client.fetch(
-    `*[_type == "post"] | order(publishedAt desc)[0...3] {
-      _id,
-      title,
-      "slug": slug.current,
-      description,
-      publishedAt,
-      mainImage,
-      author->{
-        name,
-        image
-      }
-    }`,
-    {},
-    { next: { revalidate: 60 } }
-  );
+  let posts = [];
+  try {
+    posts = await client.fetch(
+      `*[_type == "post"] | order(publishedAt desc)[0...3] {
+        _id,
+        "id": _id,
+        title,
+        "slug": slug.current,
+        description,
+        publishedAt,
+        mainImage,
+        author->{
+          name,
+          image
+        }
+      }`,
+      {},
+      { next: { revalidate: 60 } }
+    );
+  } catch (error) {
+    console.error("Failed to fetch sanity data:", error.message);
+  }
 
   if (!posts || posts.length === 0) return null;
 
