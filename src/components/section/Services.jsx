@@ -5,7 +5,7 @@ const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -21,12 +21,17 @@ const ANIMATIONS = {
   daas: AdsIntegration,
 };
 
-export default function ServicesSection() {
+export default function ServicesSection({ initialServices = [] }) {
   const containerRef = useRef(null);
   const t = useTranslations("services");
-  
-  // Use t.raw to get the array of items from JSON
-  const serviceItems = t.raw("items");
+  const locale = useLocale();
+
+  const serviceItems = initialServices.map((s, idx) => ({
+    id: s.icon || 'custom',
+    number: `0${idx + 1}`,
+    title: locale === 'id' ? s.title_id : s.title_en,
+    description: locale === 'id' ? s.description_id : s.description_en,
+  }));
 
   useGSAP(
     () => {

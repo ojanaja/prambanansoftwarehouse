@@ -1,39 +1,110 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { HiMenu } from "react-icons/hi";
 import NavbarMobile from "./NavbarMobile";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useTheme } from "next-themes";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { navLinks } from "@/config/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar({ disabledScroll = false }) {
   const t = useTranslations("navigation");
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => setMounted(true), []);
 
+  const isHomePage = pathname === "/";
+
+  // Smart scroll: hide on scroll down, show on scroll up
   useEffect(() => {
     if (disabledScroll) {
       setScrolled(true);
       return;
     }
-    const handleScroll = () => setScrolled(window.scrollY > 9);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(!isHomePage || currentY > 9);
+
+      // Hide/show on scroll direction (only after scrolling past hero)
+      if (currentY > 400) {
+        setHidden(currentY > lastScrollY.current && currentY - lastScrollY.current > 5);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY.current = currentY;
+    };
+
+    // Initial call to set correct state
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [disabledScroll]);
+  }, [disabledScroll, isHomePage]);
+
+  // Active section tracking via IntersectionObserver
+  useEffect(() => {
+    if (!isHomePage) return;
+
+    const sectionIds = navLinks
+      .filter((link) => link.href.startsWith("#"))
+      .map((link) => link.href.replace("#", ""));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [isHomePage]);
+
+  // Smooth scroll handler
+  const handleNavClick = useCallback((e, href) => {
+    if (href.startsWith("#")) {
+      if (isHomePage) {
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        // If not on homepage, let the Link handle it or redirect to home+hash
+        // For simplicity, we'll let default Link behavior happen if it's a full URL
+      }
+    }
+  }, [isHomePage]);
+
+  const isActive = (link) => {
+    if (link.href === "/" && isHomePage && !activeSection) return true;
+    if (link.href === "/blog" && pathname === "/blog") return true;
+    return link.href === `#${activeSection}`;
+  };
 
   // Language switch handler
-  const switchLocale = () => {
-    const newLocale = locale === "id" ? "en" : "id";
+  const switchLocale = (newLocale) => {
+    if (newLocale === locale) return;
     router.push(pathname, { locale: newLocale });
   };
 
@@ -46,16 +117,20 @@ export default function Navbar({ disabledScroll = false }) {
     <>
       {/* Desktop Navbar */}
       <div className="hidden md:block">
-        <div className="fixed w-full z-20 flex justify-center">
+        <motion.div
+          className="fixed w-full z-50 flex justify-center"
+          initial={{ y: -100 }}
+          animate={{ y: hidden ? -100 : 0 }}
+          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+        >
           <div className="container flex flex-row justify-center py-4">
             <nav
-              className={`flex items-center gap-1 px-4 py-2 rounded-full transition-all duration-500 ${
-                scrolled
-                  ? "bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl shadow-lg shadow-black/5 border border-neutral-200/60 dark:border-white/10"
-                  : "bg-white/5 backdrop-blur-sm border border-transparent"
-              }`}
+              className={`flex items-center gap-1 px-4 py-2 rounded-full transition-all duration-500 ${scrolled
+                ? "bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl shadow-lg shadow-black/5 border border-neutral-200/60 dark:border-white/10"
+                : "bg-white/5 backdrop-blur-sm border border-transparent"
+                }`}
             >
-              <a href="/" className="w-14 p-1.5 pl-3 select-none flex-shrink-0">
+              <Link href="/" className="w-14 p-1.5 pl-3 select-none flex-shrink-0">
                 <Image
                   src="/logo/prambanan_logo3.png"
                   className="w-auto h-auto"
@@ -64,65 +139,82 @@ export default function Navbar({ disabledScroll = false }) {
                   height={100}
                   priority
                 />
-              </a>
+              </Link>
 
               <ul className="flex flex-row items-center gap-1 p-1">
-                {navLinks.map((link) => (
-                  <li key={link.labelKey}>
-                    <a
-                      href={link.href}
-                      className={`relative px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 group ${
-                        scrolled
-                          ? "text-neutral-700 dark:text-neutral-300 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50"
-                          : "text-white/90 hover:text-white hover:bg-white/10"
-                      }`}
-                    >
-                      {t(link.labelKey)}
-                      <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary-400 rounded-full transition-all duration-300 group-hover:w-4" />
-                    </a>
-                  </li>
-                ))}
+                {navLinks.map((link) => {
+                  const isLinkActive = isActive(link);
+                  const textColorClass = scrolled
+                    ? isLinkActive
+                      ? "text-primary-500 bg-primary-50 dark:bg-primary-950/50"
+                      : "text-neutral-700 dark:text-neutral-300 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                    : isLinkActive
+                      ? "text-white bg-white/15"
+                      : "text-white/90 hover:text-white hover:bg-white/10";
+
+                  return (
+                    <li key={link.labelKey}>
+                      {link.href.startsWith("#") ? (
+                        <a
+                          href={isHomePage ? link.href : `/${locale}${link.href}`}
+                          onClick={(e) => handleNavClick(e, link.href)}
+                          className={`relative px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 group ${textColorClass}`}
+                        >
+                          {t(link.labelKey)}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className={`relative px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 group ${textColorClass}`}
+                        >
+                          {t(link.labelKey)}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
 
               <a
-                href="#contact"
-                className={`ml-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  scrolled
-                    ? "bg-gradient-to-r from-primary-500 to-primary-400 text-white shadow-md shadow-primary-400/20 hover:shadow-lg hover:shadow-primary-400/30 hover:scale-[1.03]"
-                    : "bg-white/15 text-white border border-white/25 hover:bg-white/25"
-                }`}
+                href={isHomePage ? "#contact" : `/${locale}#contact`}
+                onClick={(e) => handleNavClick(e, "#contact")}
+                className={`ml-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${scrolled
+                  ? "bg-gradient-to-r from-primary-500 to-primary-400 text-white shadow-md shadow-primary-400/20 hover:shadow-lg hover:shadow-primary-400/30 hover:scale-[1.03]"
+                  : "bg-white/15 text-white border border-white/25 hover:bg-white/25"
+                  }`}
               >
                 {t("requestDemo")}
               </a>
 
-              {/* Divider */}
-              <div
-                className={`mx-2 w-px h-6 transition-colors duration-300 ${
-                  scrolled ? "bg-neutral-300 dark:bg-neutral-600" : "bg-white/20"
-                }`}
-              />
+              {/* Language Switcher UX Refined */}
+              <div className={`flex items-center gap-1 ml-4 mr-2 p-1 rounded-full border transition-all duration-300 ${scrolled ? "bg-neutral-100 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700" : "bg-white/10 border-white/20"
+                }`}>
+                <button
+                  onClick={() => switchLocale("id")}
+                  className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${locale === "id"
+                    ? "bg-primary-500 text-white shadow-sm"
+                    : scrolled ? "text-neutral-500 hover:text-neutral-800" : "text-white/60 hover:text-white"
+                    }`}
+                >
+                  ID
+                </button>
+                <button
+                  onClick={() => switchLocale("en")}
+                  className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${locale === "en"
+                    ? "bg-primary-500 text-white shadow-sm"
+                    : scrolled ? "text-neutral-500 hover:text-neutral-800" : "text-white/60 hover:text-white"
+                    }`}
+                >
+                  EN
+                </button>
+              </div>
 
-              {/* Language Toggle */}
-              <button
-                onClick={switchLocale}
-                className={`px-3 py-2 rounded-full text-xs font-bold tracking-wide transition-all duration-300 ${
-                  scrolled
-                    ? "text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50 border border-primary-300/50 dark:border-primary-500/30"
-                    : "text-white/90 hover:text-white hover:bg-white/10 border border-white/20"
-                }`}
-                aria-label="Switch language"
-              >
-                {locale === "id" ? "EN" : "ID"}
-              </button>
-
-              {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className={`p-2.5 rounded-full transition-all duration-300 ${
-                  scrolled
-                    ? "text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50"
-                    : "text-white/90 hover:text-white hover:bg-white/10"
-                }`}
+                className={`p-2.5 rounded-full transition-all duration-300 ${scrolled
+                  ? "text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                  : "text-white/90 hover:text-white hover:bg-white/10"
+                  }`}
                 aria-label="Switch theme"
               >
                 {mounted &&
@@ -130,17 +222,19 @@ export default function Navbar({ disabledScroll = false }) {
               </button>
             </nav>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Mobile Navbar */}
       <div className="md:hidden">
-        <nav
-          className={`fixed top-0 w-full z-20 transition-all duration-500 ${
-            scrolled
-              ? "bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl shadow-lg shadow-black/5"
-              : "bg-transparent"
-          }`}
+        <motion.nav
+          className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
+            ? "bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl shadow-lg shadow-black/5"
+            : "bg-transparent"
+            }`}
+          initial={{ y: 0 }}
+          animate={{ y: hidden ? -100 : 0 }}
+          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
         >
           <div className="px-5 py-4">
             <div className="flex justify-between items-center">
@@ -156,18 +250,17 @@ export default function Navbar({ disabledScroll = false }) {
               </a>
               <button
                 onClick={() => setIsNavbarOpen(true)}
-                className={`p-2 rounded-xl transition-all duration-300 ${
-                  scrolled
-                    ? "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                    : "text-white hover:bg-white/10"
-                }`}
+                className={`p-2 rounded-xl transition-all duration-300 ${scrolled
+                  ? "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  : "text-white hover:bg-white/10"
+                  }`}
                 aria-label="Open menu"
               >
                 <HiMenu className="text-2xl" />
               </button>
             </div>
           </div>
-        </nav>
+        </motion.nav>
       </div>
 
       <NavbarMobile isOpen={isNavbarOpen} onClose={() => setIsNavbarOpen(false)} />

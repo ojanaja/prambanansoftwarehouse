@@ -9,11 +9,16 @@ import HeroSection from "@/components/section/Hero";
 import OurProductSection from "@/components/section/OurProduct";
 import OurProjectSection from "@/components/section/OurProject";
 import ProcessSection from "@/components/section/Process";
-import ServicesSection from "@/components/section/Services";
+import SpecializedSolutionsSection from "@/components/section/SpecializedSolutions";
+import SecurityComplianceSection from "@/components/section/SecurityCompliance";
 import StatsSection from "@/components/section/Stats";
 import TechStackSection from "@/components/section/TechStack";
 import TestimonialsSection from "@/components/section/Testimonials";
 import WhyChooseUsSection from "@/components/section/WhyChooseUs";
+import { client } from "@/sanity/lib/client";
+import { projectsQuery, servicesQuery, testimonialsQuery, productsQuery } from "@/sanity/lib/queries";
+
+export const revalidate = 60; // Revalidate every 60 seconds
 
 export async function generateMetadata({ params: { locale } }) {
   const isEn = locale === 'en';
@@ -30,26 +35,43 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Home() {
+  let sanityProjects = [];
+  let sanityServices = [];
+  let sanityTestimonials = [];
+  let sanityProducts = [];
+
+  try {
+    const [fetchedProjects, fetchedServices, fetchedTestimonials, fetchedProducts] = await Promise.all([
+      client.fetch(projectsQuery, {}, { next: { revalidate: 0 } }),
+      client.fetch(servicesQuery, {}, { next: { revalidate: 0 } }),
+      client.fetch(testimonialsQuery, {}, { next: { revalidate: 0 } }),
+      client.fetch(productsQuery, {}, { next: { revalidate: 0 } })
+    ]);
+
+    if (fetchedProjects && fetchedProjects.length > 0) sanityProjects = fetchedProjects;
+    if (fetchedServices && fetchedServices.length > 0) sanityServices = fetchedServices;
+    if (fetchedTestimonials && fetchedTestimonials.length > 0) sanityTestimonials = fetchedTestimonials;
+    if (fetchedProducts && fetchedProducts.length > 0) sanityProducts = fetchedProducts;
+  } catch (error) {
+    console.error("Failed to fetch sanity data:", error.message);
+  }
+
   return (
     <main className="flex flex-col min-h-screen">
-      <div>
-        <Navbar />
-        <HeroSection />
-        <StatsSection />
-        <ServicesSection />
-        <TechStackSection />
-        <WhyChooseUsSection />
-        <ProcessSection />
-        <OurProjectSection />
-        <TestimonialsSection />
-        <OurProductSection />
-        <AboutSection />
-        <FAQSection />
-        <BlogTeaserSection />
-        <ContactSection />
-      </div>
-      <ContactBottom />
-      <Footer />
+      <HeroSection />
+      <StatsSection />
+      <SpecializedSolutionsSection />
+      <SecurityComplianceSection />
+      <TechStackSection />
+      <WhyChooseUsSection />
+      <ProcessSection />
+      <OurProjectSection initialProjects={sanityProjects} />
+      <TestimonialsSection initialTestimonials={sanityTestimonials} />
+      <OurProductSection initialProducts={sanityProducts} />
+      <AboutSection />
+      <FAQSection />
+      <BlogTeaserSection />
+      <ContactSection />
     </main>
   );
 }

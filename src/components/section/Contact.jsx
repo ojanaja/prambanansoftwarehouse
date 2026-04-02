@@ -4,6 +4,12 @@ import { sendEmail } from "@/helper/sendEmail";
 import { toast } from "sonner";
 import { HiArrowRight } from "react-icons/hi";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+
+const ParticleBackground = dynamic(
+  () => import("../particles/ParticleBackground"),
+  { ssr: false }
+);
 
 export default function ContactSection() {
   const t = useTranslations("contact");
@@ -11,6 +17,7 @@ export default function ContactSection() {
 
   const [formData, setFormData] = useState({
     name: "",
+    institution: "",
     whatsapp: "",
     email: "",
     appType: "",
@@ -42,6 +49,7 @@ export default function ContactSection() {
     const templateParams = {
       to_name: "Admin",
       from_name: formData.name,
+      instansi_yayasan: formData.institution,
       email: formData.email,
       no_whatsapp: formData.whatsapp,
       jenis_aplikasi: formData.appType,
@@ -51,7 +59,7 @@ export default function ContactSection() {
       await sendEmail(templateParams);
       toast.success(t("sendSuccess"), { id: toastId });
       // Reset form on success
-      setFormData({ name: "", whatsapp: "", email: "", appType: "" });
+      setFormData({ name: "", institution: "", whatsapp: "", email: "", appType: "" });
     } catch (error) {
       toast.error(t("sendError"), { id: toastId });
       console.error("Error sending email:", error);
@@ -71,6 +79,8 @@ export default function ContactSection() {
           />
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-black/50" />
+          {/* Ambient Particles */}
+          <ParticleBackground variant="ambient" />
 
           {/* Content */}
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 p-8 md:p-12 lg:p-16">
@@ -104,6 +114,17 @@ export default function ContactSection() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder={t("namePlaceholder")}
+                      className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="institution"
+                      value={formData.institution}
+                      onChange={handleInputChange}
+                      placeholder={t("institutionPlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
                       required
                     />

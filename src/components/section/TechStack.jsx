@@ -1,5 +1,11 @@
 "use client";
 import { useRef } from "react";
+import dynamic from "next/dynamic";
+
+const ParticleBackground = dynamic(
+  () => import("../particles/ParticleBackground"),
+  { ssr: false }
+);
 import {
   SiReact,
   SiNextdotjs,
@@ -76,7 +82,9 @@ export default function TechStackSection() {
   );
 
   return (
-    <div className="section-padding bg-section-alt" ref={containerRef}>
+    <div className="section-padding bg-section-alt relative overflow-hidden" ref={containerRef}>
+      {/* Rising Tech Particles */}
+      <ParticleBackground variant="tech" />
       <div className="section-container">
         {/* Section Header */}
         <div className="tech-heading text-center max-w-2xl mx-auto mb-16">

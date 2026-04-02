@@ -6,7 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import { HiArrowRight } from "react-icons/hi";
 import { FaMoon, FaSun, FaGlobe } from "react-icons/fa";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useTheme } from "next-themes";
 import { navLinks } from "@/config/navigation";
 
@@ -20,8 +20,10 @@ export default function NavbarMobile({ isOpen, onClose }) {
 
   useEffect(() => setMounted(true), []);
 
-  const switchLocale = () => {
-    const newLocale = locale === "id" ? "en" : "id";
+  const isHomePage = pathname === "/";
+
+  const switchLocale = (newLocale) => {
+    if (newLocale === locale) return;
     router.push(pathname, { locale: newLocale });
     onClose();
   };
@@ -55,7 +57,7 @@ export default function NavbarMobile({ isOpen, onClose }) {
             <div className="bg-white dark:bg-neutral-900 w-full h-full px-6 py-5 flex flex-col shadow-2xl">
               {/* Header */}
               <div className="flex justify-between items-center">
-                <a href="/" className="w-12 cursor-pointer">
+                <Link href="/" onClick={onClose} className="w-12 cursor-pointer">
                   <Image
                     src="/logo/prambanan_logo3.png"
                     className="w-auto h-auto"
@@ -64,7 +66,7 @@ export default function NavbarMobile({ isOpen, onClose }) {
                     height={100}
                     priority
                   />
-                </a>
+                </Link>
                 <button
                   onClick={onClose}
                   className="p-2 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
@@ -88,19 +90,33 @@ export default function NavbarMobile({ isOpen, onClose }) {
                 }}
               >
                 {navLinks.map((link) => (
-                  <motion.a
+                  <motion.div
                     key={link.labelKey}
-                    href={link.href}
-                    onClick={onClose}
                     variants={{
                       hidden: { opacity: 0, x: 20 },
                       show: { opacity: 1, x: 0 },
                     }}
-                    className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-500 transition-all duration-300"
                   >
-                    <span className="w-1 h-6 rounded-full bg-transparent group-hover:bg-primary-400 transition-all duration-300" />
-                    {t(link.labelKey)}
-                  </motion.a>
+                    {link.href.startsWith("#") ? (
+                      <a
+                        href={isHomePage ? link.href : `/${locale}${link.href}`}
+                        onClick={onClose}
+                        className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-500 transition-all duration-300"
+                      >
+                        <span className="w-1 h-6 rounded-full bg-transparent group-hover:bg-primary-400 transition-all duration-300" />
+                        {t(link.labelKey)}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={onClose}
+                        className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-500 transition-all duration-300"
+                      >
+                        <span className="w-1 h-6 rounded-full bg-transparent group-hover:bg-primary-400 transition-all duration-300" />
+                        {t(link.labelKey)}
+                      </Link>
+                    )}
+                  </motion.div>
                 ))}
 
                 {/* Language & Theme Toggle Row */}
@@ -109,36 +125,33 @@ export default function NavbarMobile({ isOpen, onClose }) {
                     hidden: { opacity: 0, x: 20 },
                     show: { opacity: 1, x: 0 },
                   }}
-                  className="flex items-center gap-3 px-4 py-3 mt-2"
+                  className="flex flex-col gap-4 mt-6"
                 >
                   {/* Language Toggle */}
-                  <button
-                    onClick={switchLocale}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-primary-300/50 dark:border-primary-500/30 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-all duration-300"
-                    aria-label="Switch language"
-                  >
-                    <FaGlobe className="text-sm" />
-                    {locale === "id" ? "EN" : "ID"}
-                  </button>
+                  <div className="flex bg-neutral-100 dark:bg-neutral-800 p-1 rounded-xl w-fit">
+                    <button
+                      onClick={() => switchLocale("id")}
+                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "id" ? "bg-primary-500 text-white shadow-sm" : "text-neutral-500"
+                        }`}
+                    >
+                      Indonesian
+                    </button>
+                    <button
+                      onClick={() => switchLocale("en")}
+                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "en" ? "bg-primary-500 text-white shadow-sm" : "text-neutral-500"
+                        }`}
+                    >
+                      English
+                    </button>
+                  </div>
 
                   {/* Theme Toggle */}
                   <button
                     onClick={toggleTheme}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300"
-                    aria-label="Switch theme"
+                    className="flex justify-between items-center px-4 py-3.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-all"
                   >
-                    {mounted &&
-                      (resolvedTheme === "dark" ? (
-                        <>
-                          <FaSun className="text-sm text-amber-400" />
-                          <span>{t("light")}</span>
-                        </>
-                      ) : (
-                        <>
-                          <FaMoon className="text-sm" />
-                          <span>{t("dark")}</span>
-                        </>
-                      ))}
+                    <span className="text-sm font-medium">Switch Appearance</span>
+                    {mounted && (resolvedTheme === "dark" ? <FaSun className="text-amber-400" /> : <FaMoon className="text-primary-500" />)}
                   </button>
                 </motion.div>
 
@@ -151,9 +164,9 @@ export default function NavbarMobile({ isOpen, onClose }) {
                   className="mt-4"
                 >
                   <a
-                    href="#contact"
+                    href={isHomePage ? "#contact" : `/${locale}#contact`}
                     onClick={onClose}
-                    className="btn-primary w-full text-lg"
+                    className="btn-primary w-full text-lg shadow-lg shadow-primary-500/20"
                   >
                     {t("requestDemo")}
                     <HiArrowRight className="text-lg" />

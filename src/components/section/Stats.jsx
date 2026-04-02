@@ -9,10 +9,16 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-function CountUp({ target, suffix = "", duration = 2 }) {
+function CountUp({ target, suffix = "", duration = 2.5 }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const hasAnimated = useRef(false);
+
+  // Reset if target or locale changes (though locale isn't explicit here, target should be different)
+  useEffect(() => {
+    setCount(0);
+    hasAnimated.current = false;
+  }, [target]);
 
   useEffect(() => {
     const el = ref.current;
@@ -22,17 +28,28 @@ function CountUp({ target, suffix = "", duration = 2 }) {
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
-          const start = performance.now();
+          const startValue = 0;
+          const endValue = Number(target) || 0;
+          const startTime = performance.now();
+
           const animate = (now) => {
-            const progress = Math.min((now - start) / (duration * 1000), 1);
+            const elapsedTime = now - startTime;
+            const progress = Math.min(elapsedTime / (duration * 1000), 1);
+
+            // Quad ease-out for smoother finish
             const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame(animate);
+            const currentCount = Math.floor(startValue + eased * (endValue - startValue));
+
+            setCount(currentCount);
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
           };
           requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.15 } // Lower threshold for more reliable triggering
     );
 
     observer.observe(el);
@@ -40,7 +57,7 @@ function CountUp({ target, suffix = "", duration = 2 }) {
   }, [target, duration]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="tabular-nums">
       {count}
       {suffix}
     </span>

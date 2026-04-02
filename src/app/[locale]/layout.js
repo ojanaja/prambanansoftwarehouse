@@ -5,10 +5,19 @@ import { Toaster } from "sonner";
 import CallGoogleAnalytics from "@/components/CallGoogleAnalytics";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
+import dynamic from "next/dynamic";
+
+const CursorGlow = dynamic(
+  () => import("@/components/particles/CursorGlow"),
+  { ssr: false }
+);
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
+import Navbar from "@/components/navigation/Navbar";
+import Footer from "@/components/section/Footer";
+import ContactBottom from "@/components/section/ContactBottom";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
@@ -90,10 +99,14 @@ export default async function RootLayout({ children, params }) {
             disableTransitionOnChange
           >
             <CallGoogleAnalytics />
+            <CursorGlow />
             <ScrollProgress />
             <SmoothScroll>
+              <Navbar />
               {children}
+              <Footer />
             </SmoothScroll>
+            <ContactBottom />
             <Toaster position="top-center" richColors />
             <Analytics />
           </ThemeProvider>

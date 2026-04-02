@@ -4,16 +4,24 @@ import { HiStar } from "react-icons/hi";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ initialTestimonials = [] }) {
   const containerRef = useRef(null);
   const t = useTranslations("testimonials");
-  const items = t.raw("items");
+  const locale = useLocale();
+  const items = initialTestimonials.map((t) => ({
+    id: t._id,
+    name: t.name,
+    role: locale === 'id' ? t.role_id : t.role_en,
+    quote: locale === 'id' ? t.content_id : t.content_en,
+    rating: t.rating || 5,
+    image: t.image, // Could add urlForImage later
+  }));
 
   useGSAP(
     () => {
