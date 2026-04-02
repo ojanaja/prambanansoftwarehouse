@@ -9,33 +9,32 @@ import ProjectCard from "../card/ProjectCard";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { urlForImage } from "@/sanity/lib/image";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function OurProjectSection() {
+
+
+export default function OurProjectSection({ initialProjects = [] }) {
   const containerRef = useRef(null);
   const t = useTranslations("projects");
+  const locale = useLocale();
 
-  const projectsItems = t.raw("items");
   const categories = t.raw("categories");
   const [activeCategory, setActiveCategory] = useState("all");
 
-  const projectImages = {
-    ivolks: "/projects/ivolks.webp",
-    bplj: "/projects/bplj.webp",
-    onifarms: "/projects/onifarms.webp",
-    pertamina: "/projects/pertamina.webp",
-    stylish: "/projects/stylish.webp",
-    edutrain: "/projects/edutrain.webp",
-  };
-
-  const projects = projectsItems.map((item) => ({
-    ...item,
-    imageUrl: projectImages[item.id],
-  }));
+  const projects = useMemo(() => {
+    return initialProjects.map((p) => ({
+      id: p._id || p.slug,
+      company: p.title,
+      name: locale === 'id' ? p.description_id : p.description_en,
+      category: p.category || 'all',
+      imageUrl: p.mainImage ? urlForImage(p.mainImage).width(600).url() : null,
+    }));
+  }, [initialProjects, locale]);
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === "all") return projects;
@@ -44,16 +43,19 @@ export default function OurProjectSection() {
 
   useGSAP(
     () => {
-      gsap.from(".projects-heading", {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      });
+      gsap.fromTo(".projects-heading",
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 85%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        }
+      );
     },
     { scope: containerRef }
   );
@@ -76,11 +78,10 @@ export default function OurProjectSection() {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeCategory === cat.id
-                  ? "bg-gradient-to-r from-primary-500 to-primary-400 text-white shadow-lg shadow-primary-400/30"
-                  : "bg-white/70 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:border-primary-400/50 hover:text-primary-500"
-              }`}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === cat.id
+                ? "bg-gradient-to-r from-primary-500 to-primary-400 text-white shadow-lg shadow-primary-400/30"
+                : "bg-white/70 dark:bg-neutral-800/50 border border-neutral-200/60 dark:border-white/10 text-neutral-600 dark:text-neutral-400 hover:border-primary-400/50 hover:text-primary-500"
+                }`}
             >
               {cat.label}
             </button>
@@ -109,6 +110,7 @@ export default function OurProjectSection() {
               {filteredProjects.map((project, index) => (
                 <SwiperSlide key={project.id} className="h-auto !flex">
                   <ProjectCard
+                    id={project.id}
                     company={project.company}
                     name={project.name}
                     imageUrl={project.imageUrl}

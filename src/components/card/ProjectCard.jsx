@@ -1,25 +1,34 @@
 import Image from "next/image";
 import { HiArrowRight } from "react-icons/hi";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
-export default function ProjectCard({ company, name, imageUrl, index = 0 }) {
+export default function ProjectCard({ id, company, name, imageUrl, index = 0 }) {
   const number = String(index + 1).padStart(2, "0");
   const t = useTranslations("projects");
+  const params = useParams();
+  const locale = params.locale || "en";
 
   return (
-    <div className="group relative w-full h-[380px] md:h-[420px] rounded-2xl overflow-hidden cursor-pointer">
+    <Link
+      href={`/${locale}/projects/${id}`}
+      className="group relative w-full h-[380px] md:h-[420px] rounded-2xl overflow-hidden cursor-pointer block"
+    >
       {/* Accent bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-primary-400 z-20" />
 
       {/* Full-bleed image */}
-      <Image
-        src={imageUrl}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-        width={600}
-        height={500}
-        alt={name}
-        priority
-      />
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          width={600}
+          height={500}
+          alt={name}
+          priority
+        />
+      )}
 
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-500 group-hover:from-black/90 group-hover:via-black/40" />
@@ -55,6 +64,6 @@ export default function ProjectCard({ company, name, imageUrl, index = 0 }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

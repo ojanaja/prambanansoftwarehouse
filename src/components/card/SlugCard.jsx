@@ -3,9 +3,11 @@ import { handleFetchDataSlug } from "@/helper/getDataSlug";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaRegCalendar } from "react-icons/fa";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations, useFormatter } from "next-intl";
+import { PortableText } from "@portabletext/react";
+import { urlForImage } from "@/sanity/lib/image";
 
 const ALLOWED_CONTENT_TAGS = /<img[^>]*>/g;
 const skeletonStyle = "bg-gray-300 animate-pulse rounded-lg";
@@ -84,12 +86,12 @@ export default function SlugCard({ slug }) {
               )}
             </div>
 
-            <div className="relative aspect-video mb-8 overflow-hidden rounded-xl">
+            <div className="relative aspect-video mb-8 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800">
               {loading ? (
                 <div className={skeletonStyle} style={{ height: "100%", width: "100%" }} />
-              ) : slugData?.image ? (
+              ) : slugData?.mainImage ? (
                 <Image
-                  src={slugData.image}
+                  src={urlForImage(slugData.mainImage).width(1200).url()}
                   fill
                   className="object-cover"
                   alt={slugData.title || t("photosBlogAlt")}
@@ -107,11 +109,15 @@ export default function SlugCard({ slug }) {
             </div>
 
             <div className="prose prose-neutral dark:prose-invert max-w-none lg:prose-lg">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: cleanContent(slugData?.content),
-                }}
-              />
+              {slugData?.content && Array.isArray(slugData.content) ? (
+                <PortableText value={slugData.content} />
+              ) : (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: cleanContent(slugData?.content),
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -126,7 +132,7 @@ export default function SlugCard({ slug }) {
                   <div className={`${skeletonStyle} rounded-full`} style={{ height: "48px", width: "48px" }} />
                 ) : slugData?.author?.image ? (
                   <Image
-                    src={slugData.author.image}
+                    src={urlForImage(slugData.author.image).width(100).url()}
                     fill
                     className="object-cover rounded-full"
                     alt={slugData.author.name || t("authorAlt")}
