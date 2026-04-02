@@ -17,7 +17,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/section/Footer";
-import ContactBottom from "@/components/section/ContactBottom";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
@@ -106,7 +106,7 @@ export default async function RootLayout({ children, params }) {
               {children}
               <Footer />
             </SmoothScroll>
-            <ContactBottom />
+            <ChatWidget />
             <Toaster position="top-center" richColors />
             <Analytics />
           </ThemeProvider>

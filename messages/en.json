@@ -296,7 +296,30 @@
     "subtitle": "Explore the digital products we've built — each one designed to solve real problems with elegant, user-centric experiences."
   },
   "contactBottom": {
-    "whatsappAriaLabel": "Chat on WhatsApp"
+    "whatsappAriaLabel": "Open Assistant"
+  },
+  "chatbot": {
+    "title": "Prambanan Assistant",
+    "welcome": "Hi! I'm Prambanan Assistant. How can I help you today?",
+    "placeholder": "Type your message...",
+    "talkToHuman": "Talk to Human",
+    "botTyping": "Assistant is typing...",
+    "initialOptions": [
+      "I want to build a website/app",
+      "I want to request a demo",
+      "What services do you provide?",
+      "Talk to a consultant"
+    ],
+    "responses": {
+      "default": "I'm sorry, I didn't quite get that. Would you like to talk to a human consultant?",
+      "build": "That sounds great! We specialize in custom web and mobile apps. Would you like to see our portfolio or talk to a human for a quote?",
+      "demo": "You can request a demo by clicking the 'Strategic Consultation' button or fill the form in our Contact section. Or I can connect you to our team on WhatsApp.",
+      "services": "We provide E-Government systems, SIAKAD for schools, and custom web/mobile development. Which one are you interested in?",
+      "human": "Connecting you to our team... Please wait.",
+      "waitingForHuman": "Connecting you to our consultant... Please wait, we'll respond shortly.",
+      "isConnecting": "Connecting...",
+      "telegramMessage": "*New Human Assistance Request*\n\nUser is requesting help from the website assistant.\n\n*Recent Chat Summary:*\n{{summary}}\n\n_Please check the website to reply._"
+    }
   },
   "blog": {
     "noTitle": "No title available",
