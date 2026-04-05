@@ -15,6 +15,7 @@ import StatsSection from "@/components/section/Stats";
 import TechStackSection from "@/components/section/TechStack";
 import TestimonialsSection from "@/components/section/Testimonials";
 import WhyChooseUsSection from "@/components/section/WhyChooseUs";
+import ServicesSection from "@/components/section/Services";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery, servicesQuery, testimonialsQuery, productsQuery } from "@/sanity/lib/queries";
 
@@ -60,6 +61,7 @@ export default async function Home() {
     <main className="flex flex-col min-h-screen">
       <HeroSection />
       <StatsSection />
+      <ServicesSection initialServices={sanityServices} />
       <SpecializedSolutionsSection />
       <SecurityComplianceSection />
       <TechStackSection />
