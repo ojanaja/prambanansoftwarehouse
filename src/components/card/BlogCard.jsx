@@ -21,118 +21,96 @@ export default function BlogCard({ post }) {
   return (
     <>
       {/* Tablet and Desktop Mode */}
-      <div className="hidden md:block">
-        <div className="bg-white rounded-lg shadow-lg p-3 flex items-center gap-3 mx-auto h-full">
-          {/* Image and Title/Description - Clickable */}
-          <div className="w-full md:w-1/2 tablet-landscape:w-2/5 h-full">
-            <Link href={`/blog/${post.slug}`} className="block h-full relative aspect-video bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+      <div className="hidden md:block group h-full">
+        <Link href={`/blog/${post.slug}`} className="block h-full">
+          <div className="bg-white dark:bg-neutral-900/40 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 border border-neutral-100 dark:border-white/10 flex flex-col tablet-landscape:flex-row p-4 gap-6 h-full group-hover:-translate-y-1">
+            {/* Image Section */}
+            <div className="w-full tablet-landscape:w-2/5 relative aspect-[16/10] overflow-hidden rounded-xl">
               <Image
-                src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://placehold.co/600x500"}
+                src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"}
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 alt={post.title || t("photosBlogAlt")}
                 priority
               />
-            </Link>
-          </div>
+              {/* Category Badge overlay if needed */}
+              <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-primary-600">
+                Insights
+              </div>
+            </div>
 
-          <div className="flex-1 flex flex-col justify-between py-2">
-            <Link href={`/blog/${post.slug}`} className="group">
-              <div className="hover:text-primary-500 transition-colors">
-                {/* Title */}
-                <h2 className="text-lg font-semibold md:line-clamp-2 group-hover:text-primary-500">
+            {/* Content Section */}
+            <div className="flex-1 flex flex-col justify-between py-1">
+              <div>
+                <h2 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-500 transition-colors line-clamp-2 leading-tight">
                   {post.title || t("noTitle")}
                 </h2>
-
-                {/* Blog Description */}
-                <div className="py-2">
-                  <p className="text-gray-600 line-clamp-3 text-justify group-hover:text-primary-500 text-sm">
-                    {post.description || t("noDescription")}
-                  </p>
-                </div>
+                <p className="text-neutral-500 dark:text-neutral-400 mt-3 text-sm line-clamp-3 leading-relaxed">
+                  {post.description || t("noDescription")}
+                </p>
               </div>
-            </Link>
 
-            {/* Author Info */}
-            <div className="mt-auto">
-              <div className="p-2 bg-neutral-50 dark:bg-neutral-800/50 rounded-xl">
-                <div className="flex gap-3 items-center">
-                  {/* Author Image */}
-                  <div className="relative w-8 h-8 flex-shrink-0 bg-neutral-200 rounded-full">
-                    <Image
-                      src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://placehold.co/50x50"}
-                      fill
-                      className="object-cover rounded-full"
-                      alt={post.author?.name || t("authorAlt")}
-                    />
-                  </div>
-                  {/* Author Details */}
-                  <div className="text-xs">
-                    <p className="font-semibold text-neutral-800 dark:text-neutral-200">
-                      {post.author?.name || t("noAuthor")}
-                    </p>
-                    <p className="text-neutral-500">
-                      {formatDate(post.publishedAt || post.published_at || post.created_at)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Mode */}
-      <div className="block md:hidden">
-        <div className="p-4 bg-white rounded-lg shadow-lg">
-          {/* Image - Clickable */}
-          <Link href={`/blog/${post.slug}`} className="block relative aspect-video mb-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-            <Image
-              src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://placehold.co/500x300"}
-              fill
-              className="object-cover rounded-lg"
-              alt={post.title || t("photosBlogAlt")}
-              priority
-            />
-          </Link>
-
-          <Link href={`/blog/${post.slug}`} className="group">
-            <div className="hover:text-primary-500 active:text-primary-500">
-              {/* Title */}
-              <h2 className="text-lg font-semibold line-clamp-2 group-hover:text-primary-500 group-active:text-primary-500">
-                {post.title || t("noTitle")}
-              </h2>
-
-              {/* Description */}
-              <p className="text-sm text-justify line-clamp-3 my-2 group-hover:text-primary-500 group-active:text-primary-500">
-                {post.description || t("noDescription")}
-              </p>
-            </div>
-          </Link>
-
-          <div className="pt-2">
-            <div className="p-3 bg-neutral-50 rounded-xl">
-              <div className="flex gap-3 items-center">
-                <div className="relative w-8 h-8 flex-shrink-0 bg-neutral-200 rounded-full">
+              {/* Author & Date Footer */}
+              <div className="mt-6 flex items-center gap-3 pt-4 border-t border-neutral-50 dark:border-white/5">
+                <div className="relative w-8 h-8 rounded-full overflow-hidden bg-neutral-200 ring-2 ring-white dark:ring-neutral-800">
                   <Image
-                    src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://placehold.co/50x50"}
+                    src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
                     fill
-                    className="object-cover rounded-full"
+                    className="object-cover"
                     alt={post.author?.name || t("authorAlt")}
                   />
                 </div>
                 <div className="text-xs">
-                  <p className="font-semibold text-neutral-800">
-                    {post.author?.name || t("noAuthor")}
+                  <p className="font-bold text-neutral-800 dark:text-neutral-200">
+                    {post.author?.name || "Prambanan Editorial"}
                   </p>
-                  <p className="text-neutral-500">
+                  <p className="text-neutral-400 font-medium">
                     {formatDate(post.publishedAt || post.published_at || post.created_at)}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
+      </div>
+
+      {/* Mobile Mode */}
+      <div className="block md:hidden">
+        <Link href={`/blog/${post.slug}`} className="block">
+          <div className="bg-white dark:bg-neutral-900/60 rounded-2xl shadow-md border border-neutral-100 dark:border-white/10 overflow-hidden">
+            <div className="relative aspect-video">
+              <Image
+                src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80"}
+                fill
+                className="object-cover"
+                alt={post.title || t("photosBlogAlt")}
+                priority
+              />
+            </div>
+            <div className="p-5">
+              <h2 className="text-lg font-bold text-neutral-900 dark:text-white mb-2 leading-snug">
+                {post.title || t("noTitle")}
+              </h2>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400 line-clamp-3 mb-4 leading-relaxed">
+                {post.description || t("noDescription")}
+              </p>
+              
+              <div className="flex items-center gap-3 pt-3 border-t border-neutral-50 dark:border-white/5">
+                <div className="relative w-6 h-6 rounded-full overflow-hidden bg-neutral-200">
+                  <Image
+                    src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
+                    fill
+                    className="object-cover"
+                    alt={post.author?.name || t("authorAlt")}
+                  />
+                </div>
+                <p className="text-[10px] font-bold text-neutral-400 tracking-wide">
+                  {formatDate(post.publishedAt || post.published_at || post.created_at).toUpperCase()}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Link>
       </div>
     </>
   );

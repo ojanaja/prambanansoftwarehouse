@@ -317,9 +317,9 @@
       "services": "Kami menyediakan sistem E-Government, SIAKAD untuk sekolah, dan pengembangan web/mobile kustom. Mana yang Anda minati?",
       "human": "Menghubungkan Anda ke tim kami... Harap tunggu.",
       "waitingForHuman": "Menghubungkan Anda ke konsultan kami... Harap tunggu sebentar, kami akan segera membalas.",
-      "isConnecting": "Menghubungkan...",
-      "telegramMessage": "*Permintaan Bantuan Manusia Baru*\n\nSeorang pengguna meminta bantuan dari asisten website.\n\n*Ringkasan Chat Terbaru:*\n{{summary}}\n\n_Harap cek website untuk membalas._"
-    }
+      "isConnecting": "Menghubungkan..."
+    },
+    "telegramMessage": "<b>🔔 Permintaan Bantuan Manusia</b>\n\nSeorang pengguna membutuhkan bantuan langsung dari website Prambanan Digital.\n\n<b>Ringkasan Chat:</b>\n<i>{{summary}}</i>\n\n<a href=\"{{link}}\">👉 Balas di Dashboard Admin</a>"
   },
   "blog": {
     "noTitle": "Judul tidak tersedia",

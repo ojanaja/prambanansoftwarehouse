@@ -44,7 +44,7 @@ export default async function Blog() {
       </div>
       <div className="grid tablet-landscape:grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 min-h-[40vh]">
         {posts.map((post) => (
-          <BlogCard key={post.id} post={post} />
+          <BlogCard key={post._id} post={post} />
         ))}
       </div>
     </div>
