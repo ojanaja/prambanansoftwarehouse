@@ -9,7 +9,7 @@ export default async function BlogTeaserSection({ locale }) {
   const t = await getTranslations("blogTeaser");
   const format = await getFormatter();
 
-  // Fetch latest 3 posts from Sanity
+  //  Fetch latest 3 posts from Sanity
   let posts = [];
   try {
     posts = await client.fetch(
