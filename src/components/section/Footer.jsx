@@ -3,9 +3,13 @@ import Image from "next/image";
 import { FaEnvelope, FaInstagram, FaPhone } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
+import { usePathname } from "@/i18n/navigation";
 
 export default function Footer() {
   const t = useTranslations("footer");
+  const pathname = usePathname();
+
+  if (pathname?.includes("/admin")) return null;
 
   return (
     <footer className="relative bg-gradient-to-br from-primary-500 via-primary-400 to-primary-600 text-white overflow-hidden">

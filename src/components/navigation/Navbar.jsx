@@ -113,6 +113,8 @@ export default function Navbar({ disabledScroll = false }) {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
+  if (pathname?.includes("/admin")) return null;
+
   return (
     <>
       {/* Desktop Navbar */}

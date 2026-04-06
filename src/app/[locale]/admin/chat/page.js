@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { supabase } from "@/helper/supabase";
-import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText } from "react-icons/io5";
+import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText, IoArrowBack } from "react-icons/io5";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -17,6 +17,8 @@ export default function AdminChatPage() {
   const searchParams = useSearchParams();
   const targetSession = searchParams.get("session");
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   // 1. Fetch Conversations
   useEffect(() => {
     const fetchConversations = async () => {
@@ -29,13 +31,16 @@ export default function AdminChatPage() {
       else {
         setConversations(data);
         
-        // Priority Deep-Link: Select based on URL session if present
-        if (targetSession) {
-          const target = data.find(c => c.session_id === targetSession);
-          if (target) setSelectedChat(target);
-          else if (data.length > 0 && !selectedChat) setSelectedChat(data[0]);
-        } else if (data.length > 0 && !selectedChat) {
-          setSelectedChat(data[0]);
+        // Only perform auto-selection/deep-link on initial load
+        if (isInitialLoad) {
+          if (targetSession) {
+            const target = data.find(c => c.session_id === targetSession);
+            if (target) setSelectedChat(target);
+            else if (data.length > 0) setSelectedChat(data[0]);
+          } else if (data.length > 0) {
+            setSelectedChat(data[0]);
+          }
+          setIsInitialLoad(false);
         }
       }
       setIsLoading(false);
@@ -137,17 +142,18 @@ export default function AdminChatPage() {
   }
 
   return (
-    <div className="flex h-screen bg-neutral-50 dark:bg-neutral-950 overflow-hidden text-neutral-900 dark:text-neutral-100">
+    <div className="fixed inset-0 flex flex-col md:flex-row bg-neutral-50 dark:bg-neutral-950 overflow-hidden text-neutral-900 dark:text-neutral-100 z-[50]">
       {/* Sidebar - Conversations List */}
-      <div className="w-80 border-r border-neutral-200 dark:border-neutral-800 flex flex-col bg-white dark:bg-neutral-900">
-        <div className="p-6 border-b border-neutral-200 dark:border-neutral-800">
+      <div className={`flex-col bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 transition-all duration-300 h-full min-h-0
+        ${selectedChat ? 'hidden md:flex md:w-80' : 'flex w-full md:w-80'}`}>
+        <div className="p-4 md:p-6 border-b border-neutral-200 dark:border-neutral-800">
           <h1 className="text-xl font-bold flex items-center gap-2">
             <IoChatbubbles className="text-primary-600" />
             Chat Admin
           </h1>
           <p className="text-xs text-neutral-500 mt-1">Manage visitor inquiries</p>
         </div>
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto" data-lenis-prevent>
           {conversations.length === 0 ? (
             <div className="p-10 text-center opacity-50">
               <IoPerson size={48} className="mx-auto mb-2 opacity-20" />
@@ -185,33 +191,42 @@ export default function AdminChatPage() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative">
+      <div className={`flex-col relative transition-all duration-300 h-full min-h-0
+        ${!selectedChat ? 'hidden md:flex' : 'flex flex-1 w-full'}`}>
         {selectedChat ? (
           <>
             {/* Chat Header */}
-            <div className="p-4 border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-between shadow-sm z-10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
+            <div className="p-3 md:p-4 border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex items-center justify-between shadow-sm z-10">
+              <div className="flex items-center gap-2 md:gap-3">
+                {/* Back button for mobile */}
+                <button 
+                  onClick={() => setSelectedChat(null)}
+                  className="md:hidden p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition-colors"
+                >
+                  <IoArrowBack size={20} />
+                </button>
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
                   <IoPerson className="text-primary-600" />
                 </div>
                 <div>
-                  <h2 className="font-bold">{selectedChat.user_name || "Visitor " + selectedChat.session_id}</h2>
+                  <h2 className="font-bold text-sm md:text-base">{selectedChat.user_name || "Visitor " + selectedChat.session_id.slice(-6)}</h2>
                   <p className="text-xs text-green-500 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                     Active Session
                   </p>
                 </div>
               </div>
-              <div className="text-xs opacity-50 flex items-center gap-1">
+              <div className="text-[10px] md:text-xs opacity-50 flex items-center gap-1">
                  <IoTime />
-                 Started {new Date(selectedChat.created_at).toLocaleDateString()}
+                 <span className="hidden sm:inline">Started</span> {new Date(selectedChat.created_at).toLocaleDateString()}
               </div>
             </div>
 
             {/* Chat Messages */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto p-6 space-y-4 bg-neutral-50 dark:bg-neutral-950/20"
+              className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-neutral-50 dark:bg-neutral-950/20 min-h-0"
+              data-lenis-prevent
             >
               {messages.map((msg) => (
                 <div
@@ -247,7 +262,7 @@ export default function AdminChatPage() {
                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
                     </div>
                     <div className={`text-[10px] mt-1 opacity-50 ${msg.sender === "admin" ? "text-white text-right" : ""}`}>
-                      {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      {msg.created_at ? new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Sending..."}
                     </div>
                   </div>
                 </div>
@@ -255,22 +270,22 @@ export default function AdminChatPage() {
             </div>
 
             {/* Reply Input */}
-            <div className="p-4 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-lg">
-              <form onSubmit={handleSendReply} className="flex gap-4">
+            <div className="p-3 md:p-4 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-lg pb-safe">
+              <form onSubmit={handleSendReply} className="flex gap-2 md:gap-4">
                 <input
                   type="text"
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
-                  placeholder="Ketik balasan Anda ke pengunjung..."
-                  className="flex-1 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800 border-none focus:ring-2 focus:ring-primary-500 outline-none text-sm transition-all"
+                  placeholder="Balas..."
+                  className="flex-1 p-3 rounded-xl bg-neutral-100 dark:bg-neutral-800 border-none focus:ring-2 focus:ring-primary-500 outline-none text-sm md:text-base transition-all"
                 />
                 <button
                   type="submit"
                   disabled={!replyText.trim()}
-                  className="px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 disabled:opacity-50 transition-all shadow-lg shadow-primary-600/20 flex items-center gap-2"
+                  className="px-4 md:px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 disabled:opacity-50 transition-all shadow-lg shadow-primary-600/20 flex items-center gap-2"
                 >
                   <IoSend />
-                  Send
+                  <span className="hidden md:inline">Send</span>
                 </button>
               </form>
             </div>

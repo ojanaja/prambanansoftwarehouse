@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 import { IoClose, IoSend, IoChatbubbleEllipses, IoAttach, IoDocumentText, IoTrash } from "react-icons/io5";
 import { sendTelegramNotification } from "@/helper/sendTelegram";
 import { getAllMessages, saveMessage, clearMessages as clearDB } from "@/helper/db";
@@ -23,6 +24,10 @@ export default function ChatWidget() {
   const fileInputRef = useRef(null);
   const scrollRef = useRef(null);
   const t = useTranslations("chatbot");
+  const locale = useLocale();
+  const pathname = usePathname();
+
+  if (pathname?.includes("/admin")) return null;
 
   // Initialize Session ID
   useEffect(() => {
@@ -325,9 +330,7 @@ export default function ChatWidget() {
         })
         .join("\n");
       
-      // Automatically detect current locale from URL
-      const currentPath = window.location.pathname;
-      const locale = currentPath.split("/")[1] || "id";
+      // Automatically generate professional admin link
       const adminLink = `${window.location.origin}/${locale}/admin/chat?session=${sessionId}`;
       
       // Simplified professional template (No complex HTML tags for maximum reliability)
