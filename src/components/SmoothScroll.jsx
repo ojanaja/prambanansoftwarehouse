@@ -16,7 +16,7 @@ export default function SmoothScroll({ children }) {
     }
     requestAnimationFrame(raf);
 
-    // Handle anchor link clicks for smooth scroll
+    //  Handle anchor link clicks for smooth scroll
     const handleHashChange = () => {
       const hash = window.location.hash;
       if (hash) {
