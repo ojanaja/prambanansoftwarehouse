@@ -3,9 +3,20 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
-import { IoClose, IoSend, IoChatbubbleEllipses, IoAttach, IoDocumentText, IoTrash } from "react-icons/io5";
+import {
+  IoClose,
+  IoSend,
+  IoChatbubbleEllipses,
+  IoAttach,
+  IoDocumentText,
+  IoTrash,
+} from "react-icons/io5";
 import { sendTelegramNotification } from "@/helper/sendTelegram";
-import { getAllMessages, saveMessage, clearMessages as clearDB } from "@/helper/db";
+import {
+  getAllMessages,
+  saveMessage,
+  clearMessages as clearDB,
+} from "@/helper/db";
 import { supabase } from "@/helper/supabase"; // Import Supabase client
 import { toast } from "sonner";
 import Image from "next/image";
@@ -27,7 +38,9 @@ export default function ChatWidget() {
   const locale = useLocale();
   const pathname = usePathname();
 
-  if (pathname?.includes("/admin")) return null;
+  // Skip on admin pages
+  const isAdminPage = pathname?.includes("/admin");
+
 
   // Initialize Session ID
   useEffect(() => {
@@ -69,21 +82,21 @@ export default function ChatWidget() {
         },
         async (payload) => {
           if (payload.new.sender === "admin") {
-             const adminMsg = {
-               id: payload.new.id,
-               text: payload.new.text,
-               sender: "bot",
-               timestamp: payload.new.created_at,
-               isAdmin: true
-             };
-             setMessages((prev) => {
-                if (prev.find(m => m.id === adminMsg.id)) return prev;
-                return [...prev, adminMsg];
-             });
-             saveMessage(adminMsg);
-             setIsWaitingForHuman(false);
+            const adminMsg = {
+              id: payload.new.id,
+              text: payload.new.text,
+              sender: "bot",
+              timestamp: payload.new.created_at,
+              isAdmin: true,
+            };
+            setMessages((prev) => {
+              if (prev.find((m) => m.id === adminMsg.id)) return prev;
+              return [...prev, adminMsg];
+            });
+            saveMessage(adminMsg);
+            setIsWaitingForHuman(false);
           }
-        }
+        },
       )
       .subscribe();
 
@@ -129,15 +142,18 @@ export default function ChatWidget() {
 
   const syncToSupabase = async (msg) => {
     if (!sessionId) return;
-    
+
     try {
       const { data: conv, error: convErr } = await supabase
         .from("conversations")
-        .upsert({ 
-          session_id: sessionId, 
-          last_message: msg.text,
-          updated_at: new Date() 
-        }, { onConflict: "session_id" })
+        .upsert(
+          {
+            session_id: sessionId,
+            last_message: msg.text,
+            updated_at: new Date(),
+          },
+          { onConflict: "session_id" },
+        )
         .select()
         .single();
 
@@ -147,18 +163,27 @@ export default function ChatWidget() {
         conversation_id: conv.id,
         text: msg.text,
         sender: msg.sender,
-        attachment: msg.attachment || null
+        attachment: msg.attachment || null,
       });
     } catch (err) {
       console.error("Supabase Sync Error:", err);
     }
   };
 
-  const fetchAIResponse = async (userMsg, history, currentAttachment = null) => {
+  const fetchAIResponse = async (
+    userMsg,
+    history,
+    currentAttachment = null,
+  ) => {
     setIsTyping(true);
-    
+
     const lowerInput = userMsg.toLowerCase();
-    if (lowerInput.includes("human") || lowerInput.includes("orang") || lowerInput.includes("admin") || lowerInput.includes("konsultasi")) {
+    if (
+      lowerInput.includes("human") ||
+      lowerInput.includes("orang") ||
+      lowerInput.includes("admin") ||
+      lowerInput.includes("konsultasi")
+    ) {
       handleTalkToHuman();
       setIsTyping(false);
       return;
@@ -168,13 +193,13 @@ export default function ChatWidget() {
       const formattedHistory = history.map((m) => ({
         role: m.sender === "user" ? "user" : "assistant",
         content: m.text,
-        attachment: m.attachment || null
+        attachment: m.attachment || null,
       }));
 
       const currentUserMsg = {
         role: "user",
         content: userMsg,
-        attachment: currentAttachment
+        attachment: currentAttachment,
       };
 
       const response = await fetch("/api/chat", {
@@ -188,10 +213,10 @@ export default function ChatWidget() {
       const data = await response.json();
 
       if (data.error) {
-         if (data.error.includes("rate-limited")) {
-            toast.warning("Server busy. Falling back...");
-         }
-         throw new Error(data.error);
+        if (data.error.includes("rate-limited")) {
+          toast.warning("Server busy. Falling back...");
+        }
+        throw new Error(data.error);
       }
 
       const botMessage = {
@@ -211,14 +236,17 @@ export default function ChatWidget() {
         "keterbatasan tampilan",
         "unggah kembali",
         "format yang tidak didukung",
-        "tanda navigasi"
+        "tanda navigasi",
       ];
-      
-      const shouldHandoff = handoffKeywords.some(keyword => 
-        data.text.toLowerCase().includes(keyword.toLowerCase())
+
+      const shouldHandoff = handoffKeywords.some((keyword) =>
+        data.text.toLowerCase().includes(keyword.toLowerCase()),
       );
 
-      if (shouldHandoff && (currentAttachment || history.some(m => m.attachment))) {
+      if (
+        shouldHandoff &&
+        (currentAttachment || history.some((m) => m.attachment))
+      ) {
         console.info("Auto-triggering human handoff due to AI confusion...");
         handleTalkToHuman();
       }
@@ -243,38 +271,45 @@ export default function ChatWidget() {
     if ((!inputValue.trim() && !selectedFile) || isTyping) return;
 
     const userMsgText = inputValue;
-    const userAttachment = selectedFile ? {
-      name: selectedFile.name,
-      type: selectedFile.type,
-      data: selectedFile.data,
-    } : null;
+    const userAttachment = selectedFile
+      ? {
+          name: selectedFile.name,
+          type: selectedFile.type,
+          data: selectedFile.data,
+        }
+      : null;
 
     const userMessage = {
       id: "msg-" + Date.now(),
       text: userMsgText,
       sender: "user",
       timestamp: new Date(),
-      attachment: userAttachment
+      attachment: userAttachment,
     };
 
     const currentHistory = [...messages];
     setMessages((prev) => [...prev, userMessage]);
     saveMessage(userMessage);
     syncToSupabase(userMessage);
-    
+
     setInputValue("");
     setSelectedFile(null);
-    
+
     // STRICT AI BLOCKING:
     // 1. Check if we are currently in "waiting" state
     // 2. Check if the LAST message was a "waiting for human" message
     // 3. Check if there are any ADMIN messages in history
-    const isHumanMode = isWaitingForHuman || 
-                       messages.some(m => m.isAdmin) || 
-                       messages.slice(-1)[0]?.text === t("responses.waitingForHuman");
+    const isHumanMode =
+      isWaitingForHuman ||
+      messages.some((m) => m.isAdmin) ||
+      messages.slice(-1)[0]?.text === t("responses.waitingForHuman");
 
     if (!isHumanMode) {
-      await fetchAIResponse(userMsgText || "(Attachment)", currentHistory, userAttachment);
+      await fetchAIResponse(
+        userMsgText || "(Attachment)",
+        currentHistory,
+        userAttachment,
+      );
     }
   };
 
@@ -305,7 +340,7 @@ export default function ChatWidget() {
     if (isConnecting || isWaitingForHuman) return;
 
     setIsConnecting(true);
-    
+
     // Add "Connecting" message
     const connectingMsgId = "connecting-" + Date.now();
     const connectingMsg = {
@@ -318,39 +353,43 @@ export default function ChatWidget() {
 
     try {
       // Prepare summary for Telegram with basic HTML escaping
-      const escapeHTML = (text) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const escapeHTML = (text) =>
+        text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
       const summary = messages
         .slice(-5)
         .map((m) => {
-           const sender = m.sender === "user" ? "User" : "Bot";
-           const content = escapeHTML(m.text);
-           const attachment = m.attachment ? ` [Attachment: ${escapeHTML(m.attachment.name)}]` : "";
-           return `<b>${sender}</b>: ${content}${attachment}`;
+          const sender = m.sender === "user" ? "User" : "Bot";
+          const content = escapeHTML(m.text);
+          const attachment = m.attachment
+            ? ` [Attachment: ${escapeHTML(m.attachment.name)}]`
+            : "";
+          return `<b>${sender}</b>: ${content}${attachment}`;
         })
         .join("\n");
-      
+
       // Automatically generate professional admin link
       const adminLink = `${window.location.origin}/${locale}/admin/chat?session=${sessionId}`;
-      
+
       // Simplified professional template (No complex HTML tags for maximum reliability)
-      const fullMessage = `<b>🔔 Permintaan Bantuan Manusia</b>\n\n` +
+      const fullMessage =
+        `<b>🔔 Permintaan Bantuan Manusia</b>\n\n` +
         `Seorang pengguna membutuhkan bantuan langsung dari website Prambanan Digital.\n\n` +
         `<b>Ringkasan Chat:</b>\n` +
         `<i>${summary || "No previous messages."}</i>\n\n` +
         `👉 <b>Balas di Dashboard Admin:</b>\n${adminLink}`;
 
       await sendTelegramNotification(fullMessage);
-      
+
       setIsWaitingForHuman(true);
-      
+
       // Update connecting message
       const waitingMsg = {
         ...connectingMsg,
-        text: t("responses.waitingForHuman")
+        text: t("responses.waitingForHuman"),
       };
-      setMessages((prev) => 
-        prev.map(m => m.id === connectingMsgId ? waitingMsg : m)
+      setMessages((prev) =>
+        prev.map((m) => (m.id === connectingMsgId ? waitingMsg : m)),
       );
       saveMessage(waitingMsg);
 
@@ -358,7 +397,7 @@ export default function ChatWidget() {
     } catch (error) {
       console.error("Failed to notify human:", error);
       toast.error("Failed to connect to human.");
-      setMessages((prev) => prev.filter(m => m.id !== connectingMsgId));
+      setMessages((prev) => prev.filter((m) => m.id !== connectingMsgId));
     } finally {
       setIsConnecting(false);
     }
@@ -366,20 +405,20 @@ export default function ChatWidget() {
 
   const handleOptionClick = async (option) => {
     if (isTyping) return;
-    
+
     const userMessage = {
       id: "msg-" + Date.now(),
       text: option,
       sender: "user",
       timestamp: new Date(),
     };
-    
+
     const currentHistory = [...messages];
     setMessages((prev) => [...prev, userMessage]);
     saveMessage(userMessage);
-    
+
     await fetchAIResponse(option, currentHistory);
-  }
+  };
 
   const handleClearChat = async () => {
     if (window.confirm("Hapus semua riwayat percakapan dan mulai sesi baru?")) {
@@ -394,7 +433,10 @@ export default function ChatWidget() {
 
   const initialOptions = t.raw("initialOptions") || [];
 
+  if (isAdminPage) return null;
+
   return (
+
     <>
       {/* Floating Button */}
       <div className="fixed bottom-6 right-6 z-50">
@@ -445,9 +487,13 @@ export default function ChatWidget() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white leading-tight">{t("title")}</h3>
+                  <h3 className="font-semibold text-white leading-tight">
+                    {t("title")}
+                  </h3>
                   <div className="flex items-center gap-1.5">
-                    <span className={`w-2 h-2 rounded-full animate-pulse ${isWaitingForHuman ? "bg-orange-400" : "bg-green-400"}`} />
+                    <span
+                      className={`w-2 h-2 rounded-full animate-pulse ${isWaitingForHuman ? "bg-orange-400" : "bg-green-400"}`}
+                    />
                     <span className="text-[10px] text-white/80 uppercase tracking-wider font-medium">
                       {isWaitingForHuman ? "Waiting for response" : "Online"}
                     </span>
@@ -486,29 +532,36 @@ export default function ChatWidget() {
                   className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[90%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${msg.sender === "user"
+                    className={`max-w-[90%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
+                      msg.sender === "user"
                         ? "bg-primary-600 text-white rounded-tr-none"
                         : "bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 rounded-tl-none border border-neutral-100 dark:border-neutral-700"
-                      }`}
+                    }`}
                   >
                     {/* Attachment Display */}
                     {msg.attachment && (
                       <div className="mb-2">
                         {msg.attachment.type.startsWith("image/") ? (
                           <div className="rounded-xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-neutral-900/50">
-                             <img 
-                              src={msg.attachment.data} 
-                              alt={msg.attachment.name} 
+                            <img
+                              src={msg.attachment.data}
+                              alt={msg.attachment.name}
                               className="w-full h-auto max-h-48 object-cover"
-                             />
-                             <div className="p-2 text-[10px] truncate opacity-80">{msg.attachment.name}</div>
+                            />
+                            <div className="p-2 text-[10px] truncate opacity-80">
+                              {msg.attachment.name}
+                            </div>
                           </div>
                         ) : (
                           <div className="flex items-center gap-2 p-2 bg-neutral-100 dark:bg-neutral-900/50 rounded-xl border border-neutral-200 dark:border-white/10">
                             <IoDocumentText className="text-2xl text-primary-500" />
                             <div className="flex-1 min-w-0">
-                               <div className="truncate font-medium text-[11px]">{msg.attachment.name}</div>
-                               <div className="text-[9px] opacity-60 uppercase">{msg.attachment.type.split("/")[1] || "file"}</div>
+                              <div className="truncate font-medium text-[11px]">
+                                {msg.attachment.name}
+                              </div>
+                              <div className="text-[9px] opacity-60 uppercase">
+                                {msg.attachment.type.split("/")[1] || "file"}
+                              </div>
                             </div>
                           </div>
                         )}
@@ -520,8 +573,13 @@ export default function ChatWidget() {
                         {msg.text}
                       </ReactMarkdown>
                     </div>
-                    <div className={`text-[10px] mt-1.5 ${msg.sender === "user" ? "text-white/70" : "text-neutral-400"}`}>
-                      {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    <div
+                      className={`text-[10px] mt-1.5 ${msg.sender === "user" ? "text-white/70" : "text-neutral-400"}`}
+                    >
+                      {new Date(msg.timestamp).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
                     </div>
                   </div>
                 </div>
@@ -530,27 +588,38 @@ export default function ChatWidget() {
               {isTyping && (
                 <div className="flex justify-start">
                   <div className="bg-white dark:bg-neutral-800 p-3.5 rounded-2xl rounded-tl-none border border-neutral-100 dark:border-neutral-700 shadow-sm flex gap-1.5 items-center">
-                    <span className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <span className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <span className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                    <span
+                      className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0ms" }}
+                    />
+                    <span
+                      className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "150ms" }}
+                    />
+                    <span
+                      className="w-1.5 h-1.5 bg-primary-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "300ms" }}
+                    />
                   </div>
                 </div>
               )}
 
               {/* Initial Options */}
-              {messages.length === 1 && !isTyping && initialOptions.length > 0 && (
-                <div className="flex flex-col gap-2 mt-2">
-                  {initialOptions.map((option, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleOptionClick(option)}
-                      className="self-start px-4 py-2 bg-white dark:bg-neutral-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-neutral-200 dark:border-neutral-700 rounded-full text-xs text-primary-600 dark:text-primary-400 transition-all text-left max-w-full"
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              )}
+              {messages.length === 1 &&
+                !isTyping &&
+                initialOptions.length > 0 && (
+                  <div className="flex flex-col gap-2 mt-2">
+                    {initialOptions.map((option, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleOptionClick(option)}
+                        className="self-start px-4 py-2 bg-white dark:bg-neutral-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 border border-neutral-200 dark:border-neutral-700 rounded-full text-xs text-primary-600 dark:text-primary-400 transition-all text-left max-w-full"
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                )}
             </div>
 
             {/* Input Area */}
@@ -561,15 +630,20 @@ export default function ChatWidget() {
                   <div className="flex items-center gap-2 p-2 bg-primary-50 dark:bg-primary-950/20 rounded-xl border border-primary-100 dark:border-primary-900/30 relative">
                     {selectedFile.type.startsWith("image/") ? (
                       <div className="w-10 h-10 rounded-lg overflow-hidden relative flex-shrink-0">
-                         <img src={selectedFile.data} className="w-full h-full object-cover" />
+                        <img
+                          src={selectedFile.data}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     ) : (
                       <IoDocumentText className="text-2xl text-primary-500" />
                     )}
                     <div className="flex-1 min-w-0 pr-6">
-                      <div className="truncate text-[11px] font-medium text-primary-700 dark:text-primary-300">{selectedFile.name}</div>
+                      <div className="truncate text-[11px] font-medium text-primary-700 dark:text-primary-300">
+                        {selectedFile.name}
+                      </div>
                     </div>
-                    <button 
+                    <button
                       onClick={() => setSelectedFile(null)}
                       className="absolute right-2 p-1 hover:bg-primary-200/50 dark:hover:bg-primary-800/50 rounded-full text-primary-600"
                     >
@@ -605,25 +679,31 @@ export default function ChatWidget() {
                   </div>
                   <button
                     type="submit"
-                    disabled={(!inputValue.trim() && !selectedFile) || isTyping || isConnecting}
+                    disabled={
+                      (!inputValue.trim() && !selectedFile) ||
+                      isTyping ||
+                      isConnecting
+                    }
                     className="p-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 disabled:opacity-50 disabled:hover:bg-primary-600 transition-all shadow-lg shadow-primary-600/20"
                     aria-label="Send Message"
                   >
                     <IoSend className="text-xl" />
                   </button>
                 </form>
-                
-                {!(isWaitingForHuman || messages.some(m => m.isAdmin)) && (
+
+                {!(isWaitingForHuman || messages.some((m) => m.isAdmin)) && (
                   <button
                     onClick={handleTalkToHuman}
                     disabled={isConnecting}
                     className="flex items-center justify-center gap-2 w-full py-2.5 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950/30 rounded-xl hover:bg-primary-100 dark:hover:bg-primary-950/50 transition-colors border border-primary-100 dark:border-primary-900/50 disabled:opacity-50"
                   >
                     <IoChatbubbleEllipses className="text-lg" />
-                    {isConnecting ? t("responses.isConnecting") : t("talkToHuman")}
+                    {isConnecting
+                      ? t("responses.isConnecting")
+                      : t("talkToHuman")}
                   </button>
                 )}
-                
+
                 {isWaitingForHuman && (
                   <div className="text-[10px] text-center text-neutral-500 dark:text-neutral-400 font-medium bg-neutral-50 dark:bg-neutral-800/50 py-3 rounded-xl border border-dashed border-neutral-200 dark:border-neutral-700 px-4">
                     Our team has been notified. We will reply here shortly.
