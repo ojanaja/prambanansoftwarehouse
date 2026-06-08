@@ -4,6 +4,10 @@ const withNextIntl = createNextIntlPlugin('./src/i18n.js');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       { hostname: "images.unsplash.com" },

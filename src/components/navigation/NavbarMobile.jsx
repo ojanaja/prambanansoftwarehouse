@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 import { navLinks } from "@/config/navigation";
 
 export default function NavbarMobile({ isOpen, onClose }) {
+  const saasUrl = process.env.NEXT_PUBLIC_SAAS_URL || "http://app.localhost";
   const t = useTranslations("navigation");
   const locale = useLocale();
   const router = useRouter();
@@ -164,7 +165,7 @@ export default function NavbarMobile({ isOpen, onClose }) {
                   className="mt-4"
                 >
                   <a
-                    href={isHomePage ? "#contact" : `/${locale}#contact`}
+                    href={`${saasUrl}/signup`}
                     onClick={onClose}
                     className="btn-primary w-full text-lg shadow-lg shadow-primary-500/20"
                   >
