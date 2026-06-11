@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useFormatter } from "next-intl";
-import { urlForImage } from "@/sanity/lib/image";
 
 export default function BlogCard({ post }) {
   const t = useTranslations("blog");
@@ -27,7 +26,7 @@ export default function BlogCard({ post }) {
             {/* Image Section */}
             <div className="w-full tablet-landscape:w-2/5 relative aspect-[16/10] overflow-hidden rounded-xl">
               <Image
-                src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"}
+                src={post.imageUrl || (post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80")}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 alt={post.title || t("photosBlogAlt")}
@@ -54,7 +53,7 @@ export default function BlogCard({ post }) {
               <div className="mt-6 flex items-center gap-3 pt-4 border-t border-neutral-50 dark:border-white/5">
                 <div className="relative w-8 h-8 rounded-full overflow-hidden bg-neutral-200 ring-2 ring-white dark:ring-neutral-800">
                   <Image
-                    src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
+                    src={post.author?.imageUrl || (post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80")}
                     fill
                     className="object-cover"
                     alt={post.author?.name || t("authorAlt")}
@@ -80,7 +79,7 @@ export default function BlogCard({ post }) {
           <div className="bg-white dark:bg-neutral-900/60 rounded-2xl shadow-md border border-neutral-100 dark:border-white/10 overflow-hidden">
             <div className="relative aspect-video">
               <Image
-                src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80"}
+                src={post.imageUrl || (post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=80")}
                 fill
                 className="object-cover"
                 alt={post.title || t("photosBlogAlt")}
@@ -98,7 +97,7 @@ export default function BlogCard({ post }) {
               <div className="flex items-center gap-3 pt-3 border-t border-neutral-50 dark:border-white/5">
                 <div className="relative w-6 h-6 rounded-full overflow-hidden bg-neutral-200">
                   <Image
-                    src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
+                    src={post.author?.imageUrl || (post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80")}
                     fill
                     className="object-cover"
                     alt={post.author?.name || t("authorAlt")}

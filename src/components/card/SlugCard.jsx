@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations, useFormatter } from "next-intl";
 import { PortableText } from "@portabletext/react";
-import { urlForImage } from "@/sanity/lib/image";
 
 const ALLOWED_CONTENT_TAGS = /<img[^>]*>/g;
 const skeletonStyle = "bg-gray-300 animate-pulse rounded-lg";
@@ -141,7 +140,7 @@ export default function SlugCard({ slug }) {
               <div className={skeletonStyle} style={{ height: "100%", width: "100%" }} />
             ) : (
               <Image
-                src={slugData?.mainImage ? urlForImage(slugData.mainImage).width(1200).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80"}
+                src={slugData?.imageUrl || (slugData?.mainImage ? urlForImage(slugData.mainImage).width(1200).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80")}
                 fill
                 className="object-cover"
                 alt={slugData?.title || "Blog cover"}
@@ -173,7 +172,7 @@ export default function SlugCard({ slug }) {
             <div className="flex items-center gap-4 mb-6">
               <div className="relative w-16 h-16 rounded-2xl overflow-hidden bg-neutral-200 ring-4 ring-white dark:ring-neutral-800 shadow-lg">
                 <Image
-                  src={slugData?.author?.image ? urlForImage(slugData.author.image).width(200).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80"}
+                  src={slugData?.author?.imageUrl || (slugData?.author?.image ? urlForImage(slugData.author.image).width(200).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80")}
                   fill
                   className="object-cover"
                   alt="Author"

@@ -3,12 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
 import { notFound } from "next/navigation";
-import { client } from "@/sanity/lib/client";
-import { projectBySlugQuery } from "@/sanity/lib/queries";
-import { urlForImage } from "@/sanity/lib/image";
+import { getPortfolioBySlug } from "@/lib/api";
 
 export async function generateMetadata({ params: { locale, id } }) {
-    const project = await client.fetch(projectBySlugQuery, { slug: id }, { next: { revalidate: 0 } });
+    const project = await getPortfolioBySlug(id);
 
     if (!project) return { title: "Project Not Found" };
 
@@ -21,11 +19,11 @@ export async function generateMetadata({ params: { locale, id } }) {
 }
 
 export default async function ProjectDetail({ params: { locale, id } }) {
-    const project = await client.fetch(projectBySlugQuery, { slug: id }, { next: { revalidate: 0 } });
+    const project = await getPortfolioBySlug(id);
 
     if (!project) notFound();
 
-    const imageUrl = project.mainImage ? urlForImage(project.mainImage).width(1200).url() : "/projects/placeholder.webp";
+    const imageUrl = project.imageUrl || "/projects/placeholder.webp";
     const description = locale === 'id' ? project.description_id : project.description_en;
 
     // Formatting category dynamically or falling back to 'Web App'

@@ -1,36 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi";
-import { client } from "@/sanity/lib/client";
-import { urlForImage } from "@/sanity/lib/image";
+import { getArticles } from "@/lib/api";
 import { getTranslations, getFormatter } from "next-intl/server";
 
 export default async function BlogTeaserSection({ locale }) {
   const t = await getTranslations("blogTeaser");
   const format = await getFormatter();
 
-  //  Fetch latest 3 posts from Sanity
+  // Fetch latest 3 posts from API
   let posts = [];
   try {
-    posts = await client.fetch(
-      `*[_type == "post"] | order(publishedAt desc)[0...3] {
-        _id,
-        "id": _id,
-        title,
-        "slug": slug.current,
-        description,
-        publishedAt,
-        mainImage,
-        author->{
-          name,
-          image
-        }
-      }`,
-      {},
-      { next: { revalidate: 60 } }
-    );
+    const allPosts = await getArticles();
+    posts = (allPosts || []).slice(0, 3);
   } catch (error) {
-    console.error("Failed to fetch sanity data:", error.message);
+    console.error("Failed to fetch marketing articles:", error.message);
   }
 
   if (!posts || posts.length === 0) return null;
@@ -49,7 +33,7 @@ export default async function BlogTeaserSection({ locale }) {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {posts.map((post) => (
             <Link 
-              key={post.id} 
+              key={post._id} 
               href={`/blog/${post.slug}`} 
               className="group h-full"
             >
@@ -57,7 +41,7 @@ export default async function BlogTeaserSection({ locale }) {
                 {/* Image */}
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src={post.mainImage ? urlForImage(post.mainImage).width(600).url() : "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"}
+                    src={post.imageUrl || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     alt={post.title || "Blog post"}
@@ -78,7 +62,7 @@ export default async function BlogTeaserSection({ locale }) {
                   <div className="flex items-center gap-3 mt-6 pt-4 border-t border-neutral-50 dark:border-white/5">
                     <div className="relative w-8 h-8 rounded-full overflow-hidden bg-neutral-200 ring-2 ring-white dark:ring-neutral-800">
                       <Image
-                        src={post.author?.image ? urlForImage(post.author.image).width(100).url() : "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
+                        src={post.author?.imageUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
                         fill
                         className="object-cover"
                         alt={post.author?.name || "Author"}
@@ -89,7 +73,7 @@ export default async function BlogTeaserSection({ locale }) {
                         {post.author?.name || "Prambanan Editorial"}
                       </p>
                       <p className="text-neutral-400 font-medium">
-                        {new Date(post.publishedAt).toLocaleDateString(locale === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short' })}
+                        {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString(locale === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short' }) : ""}
                       </p>
                     </div>
                   </div>

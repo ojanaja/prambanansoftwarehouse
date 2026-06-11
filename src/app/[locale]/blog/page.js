@@ -1,6 +1,5 @@
 import BlogCard from "@/components/card/BlogCard";
-import { client } from "@/sanity/lib/client";
-import { postsQuery } from "@/sanity/lib/queries";
+import { getArticles } from "@/lib/api";
 
 export async function generateMetadata({ params: { locale } }) {
   return {
@@ -16,7 +15,7 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Blog() {
-  const posts = await client.fetch(postsQuery, {}, { next: { revalidate: 60 } });
+  const posts = await getArticles();
 
   if (!posts || posts.length === 0) {
     return (

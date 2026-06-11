@@ -10,13 +10,10 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useTranslations, useLocale } from "next-intl";
-import { urlForImage } from "@/sanity/lib/image";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-
 
 export default function OurProjectSection({ initialProjects = [] }) {
   const containerRef = useRef(null);
@@ -32,7 +29,7 @@ export default function OurProjectSection({ initialProjects = [] }) {
       company: p.title,
       name: locale === 'id' ? p.description_id : p.description_en,
       category: p.category || 'all',
-      imageUrl: p.mainImage ? urlForImage(p.mainImage).width(600).url() : null,
+      imageUrl: p.imageUrl,
     }));
   }, [initialProjects, locale]);
 

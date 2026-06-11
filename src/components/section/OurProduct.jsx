@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useTranslations, useLocale } from "next-intl";
-import { urlForImage } from "@/sanity/lib/image";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,12 +19,12 @@ export default function OurProductSection({ initialProducts = [] }) {
 
   const localizedProducts = useMemo(() => {
     return initialProducts.map((p) => ({
-      id: p._id,
+      id: p._id || p.id,
       name: locale === 'id' ? p.name_id : p.name_en,
       description: locale === 'id' ? p.description_id : p.description_en,
-      imageURL2: p.image2 ? urlForImage(p.image2).width(800).url() : null, // main image
-      imageURL: p.image1 ? urlForImage(p.image1).width(800).url() : null,
-      imageURL3: p.image3 ? urlForImage(p.image3).width(800).url() : null,
+      imageURL: p.imageURL,
+      imageURL2: p.imageURL2,
+      imageURL3: p.imageURL3,
     }));
   }, [initialProducts, locale]);
 

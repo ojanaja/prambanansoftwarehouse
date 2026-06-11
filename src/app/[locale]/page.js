@@ -16,8 +16,7 @@ import TechStackSection from "@/components/section/TechStack";
 import TestimonialsSection from "@/components/section/Testimonials";
 import WhyChooseUsSection from "@/components/section/WhyChooseUs";
 import ServicesSection from "@/components/section/Services";
-import { client } from "@/sanity/lib/client";
-import { projectsQuery, servicesQuery, testimonialsQuery, productsQuery } from "@/sanity/lib/queries";
+import { getServices, getShowcaseProducts, getPortfolios, getTestimonials } from "@/lib/api";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
@@ -43,10 +42,10 @@ export default async function Home() {
 
   try {
     const [fetchedProjects, fetchedServices, fetchedTestimonials, fetchedProducts] = await Promise.all([
-      client.fetch(projectsQuery, {}, { next: { revalidate: 0 } }),
-      client.fetch(servicesQuery, {}, { next: { revalidate: 0 } }),
-      client.fetch(testimonialsQuery, {}, { next: { revalidate: 0 } }),
-      client.fetch(productsQuery, {}, { next: { revalidate: 0 } })
+      getPortfolios(),
+      Promise.resolve(getServices()),
+      getTestimonials(),
+      Promise.resolve(getShowcaseProducts())
     ]);
 
     if (fetchedProjects && fetchedProjects.length > 0) sanityProjects = fetchedProjects;
@@ -54,7 +53,7 @@ export default async function Home() {
     if (fetchedTestimonials && fetchedTestimonials.length > 0) sanityTestimonials = fetchedTestimonials;
     if (fetchedProducts && fetchedProducts.length > 0) sanityProducts = fetchedProducts;
   } catch (error) {
-    console.error("Failed to fetch sanity data:", error.message);
+    console.error("Failed to fetch marketing data:", error.message);
   }
 
   return (
