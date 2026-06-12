@@ -551,6 +551,7 @@ export default function ChatWidget() {
                       <div className="mb-2">
                         {msg.attachment.type.startsWith("image/") ? (
                           <div className="rounded-xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-neutral-900/50">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={msg.attachment.data}
                               alt={msg.attachment.name}
@@ -638,9 +639,11 @@ export default function ChatWidget() {
                   <div className="flex items-center gap-2 p-2 bg-primary-50 dark:bg-primary-950/20 rounded-xl border border-primary-100 dark:border-primary-900/30 relative">
                     {selectedFile.type.startsWith("image/") ? (
                       <div className="w-10 h-10 rounded-lg overflow-hidden relative flex-shrink-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={selectedFile.data}
                           className="w-full h-full object-cover"
+                          alt="Attachment Preview"
                         />
                       </div>
                     ) : (

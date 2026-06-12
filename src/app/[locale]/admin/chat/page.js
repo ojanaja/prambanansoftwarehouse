@@ -299,6 +299,7 @@ export default function AdminChatPage() {
                       <div className="mb-2">
                         {msg.attachment.type?.startsWith("image/") ? (
                           <div className="rounded-lg overflow-hidden border border-neutral-300 dark:border-white/10">
+                             {/* eslint-disable-next-line @next/next/no-img-element */}
                              <img src={msg.attachment.data} alt="Attachment" className="max-w-full h-auto max-h-60" />
                           </div>
                         ) : (
