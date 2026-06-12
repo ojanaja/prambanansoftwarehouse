@@ -4,11 +4,11 @@ import { getArticles } from "@/lib/api";
 export async function generateMetadata({ params: { locale } }) {
   return {
     alternates: {
-      canonical: `/${locale}/blog`,
+      canonical: `/${locale}/insights`,
       languages: {
-        en: '/en/blog',
-        id: '/id/blog',
-        'x-default': '/id/blog',
+        en: '/en/insights',
+        id: '/id/insights',
+        'x-default': '/id/insights',
       },
     },
   };
