@@ -52,7 +52,7 @@ export default async function BlogTeaserSection({ locale }) {
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-500 transition-colors line-clamp-2 leading-tight">
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2 leading-tight">
                     {post.title}
                   </h3>
                   <p className="text-neutral-500 dark:text-neutral-400 mt-3 text-sm line-clamp-3 leading-relaxed flex-1">
@@ -87,7 +87,7 @@ export default async function BlogTeaserSection({ locale }) {
         <div className="text-center mt-10">
           <Link
             href="/insights"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors group"
           >
             {t("viewAll")}
             <HiArrowRight className="group-hover:translate-x-1 transition-transform duration-300" />

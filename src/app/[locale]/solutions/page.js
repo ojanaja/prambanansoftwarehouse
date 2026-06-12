@@ -54,7 +54,7 @@ export default async function SolutionsOverviewPage({ params: { locale } }) {
             <div className="section-container">
                 {/* Header */}
                 <div className="max-w-3xl mx-auto text-center mb-20">
-                    <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-500 mb-3 block">
+                    <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600 mb-3 block">
                         {t("heading")}
                     </span>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight mb-6">
@@ -93,7 +93,7 @@ export default async function SolutionsOverviewPage({ params: { locale } }) {
                                     </div>
 
                                     {/* Action button */}
-                                    <Link href={sector.path} className={`inline-flex items-center gap-2 font-semibold text-neutral-900 dark:text-white group-hover:text-primary-500 transition-colors duration-300 w-fit focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-lg p-1`}>
+                                    <Link href={sector.path} className={`inline-flex items-center gap-2 font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors duration-300 w-fit focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-lg p-1`}>
                                         <span>{t("explore")}</span>
                                         <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
                                     </Link>

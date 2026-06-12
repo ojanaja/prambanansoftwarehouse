@@ -70,7 +70,7 @@ export default async function ProjectDetail({ params: { locale, slug } }) {
                 {/* Back Link */}
                 <Link
                     href={`/${locale}`}
-                    className="inline-flex items-center gap-2 text-neutral-500 hover:text-primary-500 transition-colors mb-10 group"
+                    className="inline-flex items-center gap-2 text-neutral-500 hover:text-primary-600 transition-colors mb-10 group"
                 >
                     <HiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
                     <span>Back to Projects</span>
@@ -79,7 +79,7 @@ export default async function ProjectDetail({ params: { locale, slug } }) {
                 {/* Hero Section */}
                 <div className="grid lg:grid-cols-2 gap-12 lg:items-center">
                     <div>
-                        <span className="inline-block text-primary-500 font-bold tracking-widest uppercase text-sm mb-4">
+                        <span className="inline-block text-primary-600 font-bold tracking-widest uppercase text-sm mb-4">
                             {formatCategory(project.category)}
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white leading-tight mb-6">
@@ -96,7 +96,7 @@ export default async function ProjectDetail({ params: { locale, slug } }) {
                             {project.liveLink && (
                                 <div className="p-4 bg-neutral-100 dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-white/5">
                                     <p className="text-xs text-neutral-500 mb-1">Live Url</p>
-                                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary-500 hover:underline">View Project</a>
+                                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary-600 hover:underline">View Project</a>
                                 </div>
                             )}
                         </div>
@@ -118,7 +118,7 @@ export default async function ProjectDetail({ params: { locale, slug } }) {
                     <div className="lg:col-span-2 space-y-12">
                         <section>
                             <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                                <span className="w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-500 flex items-center justify-center font-bold text-sm">01</span>
+                                <span className="w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-600 flex items-center justify-center font-bold text-sm">01</span>
                                 Overview
                             </h2>
                             <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed whitespace-pre-wrap">
@@ -129,7 +129,7 @@ export default async function ProjectDetail({ params: { locale, slug } }) {
                         {(project.galleryImages && project.galleryImages.length > 0) && (
                             <section>
                                 <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                                    <span className="w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-500 flex items-center justify-center font-bold text-sm">02</span>
+                                    <span className="w-8 h-8 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-600 flex items-center justify-center font-bold text-sm">02</span>
                                     Project Gallery
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

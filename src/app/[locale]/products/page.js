@@ -100,7 +100,7 @@ export default async function ProductsPage({ params: { locale } }) {
                                         {locale === 'id' ? prod.description_id : prod.description_en}
                                     </p>
                                 </div>
-                                <Link href={`/${locale}#contact`} className="text-sm font-bold text-primary-500 hover:text-primary-600 transition-colors inline-flex items-center gap-1 group-hover:underline">
+                                <Link href={`/${locale}#contact`} className="text-sm font-bold text-primary-600 hover:text-primary-700 transition-colors inline-flex items-center gap-1 group-hover:underline">
                                     <span>Request Custom Deployment</span>
                                     <HiArrowRight className="text-xs" />
                                 </Link>
