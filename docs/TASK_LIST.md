@@ -142,8 +142,8 @@
 - [ ] Set LCP <= 2.5 s, CLS <= 0.1, and INP <= 200 ms targets
 - [ ] Audit and reduce `"use client"` boundaries
 - [ ] Remove overlapping animation libraries where possible
-- [ ] Lazy-load chat and optional interactive widgets
-- [ ] Replace raw `<img>` elements with optimized media components where appropriate
+- [x] Lazy-load chat and optional interactive widgets
+- [x] Replace raw `<img>` elements with optimized media components where appropriate
 - [ ] Remove unused original assets from `public`
 - [ ] Compress and resize all production images
 - [ ] Add responsive `sizes` and priority rules
