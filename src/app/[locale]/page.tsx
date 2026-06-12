@@ -1,3 +1,4 @@
+import React from "react";
 import ContactSection from "@/components/section/Contact";
 import HeroSection from "@/components/section/Hero";
 import OurProjectSection from "@/components/section/OurProject";
@@ -7,10 +8,17 @@ import SecurityComplianceSection from "@/components/section/SecurityCompliance";
 import StatsSection from "@/components/section/Stats";
 import TestimonialsSection from "@/components/section/Testimonials";
 import { getServices, getShowcaseProducts, getPortfolios, getTestimonials } from "@/lib/api";
+import { Metadata } from "next";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
-export async function generateMetadata({ params: { locale } }) {
+interface PageParams {
+  params: {
+    locale: string;
+  };
+}
+
+export async function generateMetadata({ params: { locale } }: PageParams): Promise<Metadata> {
   return {
     alternates: {
       canonical: `/${locale}`,
@@ -24,10 +32,10 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function Home() {
-  let sanityProjects = [];
-  let sanityServices = [];
-  let sanityTestimonials = [];
-  let sanityProducts = [];
+  let sanityProjects: any[] = [];
+  let sanityServices: any[] = [];
+  let sanityTestimonials: any[] = [];
+  let sanityProducts: any[] = [];
 
   try {
     const [fetchedProjects, fetchedServices, fetchedTestimonials, fetchedProducts] = await Promise.all([
@@ -41,7 +49,7 @@ export default async function Home() {
     if (fetchedServices && fetchedServices.length > 0) sanityServices = fetchedServices;
     if (fetchedTestimonials && fetchedTestimonials.length > 0) sanityTestimonials = fetchedTestimonials;
     if (fetchedProducts && fetchedProducts.length > 0) sanityProducts = fetchedProducts;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to fetch marketing data:", error.message);
   }
 

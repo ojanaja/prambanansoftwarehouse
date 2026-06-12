@@ -1,3 +1,4 @@
+import React from "react";
 import { Analytics } from "@vercel/analytics/next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
@@ -6,6 +7,7 @@ import CallGoogleAnalytics from "@/components/CallGoogleAnalytics";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import dynamic from "next/dynamic";
+import { Metadata } from "next";
 
 const CursorGlow = dynamic(
   () => import("@/components/particles/CursorGlow"),
@@ -30,7 +32,13 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export async function generateMetadata({ params }) {
+interface GenerateMetadataProps {
+  params: {
+    locale?: string;
+  };
+}
+
+export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
   // Add a fallback in case locale is unexpectedly undefined
   let locale = params?.locale;
   // Fall back to 'id' if invalid locale, though middleware handles this
@@ -65,7 +73,14 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default async function RootLayout({ children, params }) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params: {
+    locale: string;
+  };
+}
+
+export default async function RootLayout({ children, params }: RootLayoutProps) {
   const { locale } = params;
   console.log('RootLayout locale:', locale);
 
@@ -138,4 +153,3 @@ export default async function RootLayout({ children, params }) {
     </html>
   );
 }
-
