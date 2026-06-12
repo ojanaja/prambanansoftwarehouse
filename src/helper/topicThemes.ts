@@ -1,4 +1,4 @@
-export const BLOG_THEMES = [
+export const BLOG_THEMES: string[] = [
   "Digitalisasi Bisnis Proses untuk Efisiensi Operasional",
   "Pemanfaatan Cloud Computing bagi UMKM dan Perusahaan Menengah",
   "Transformasi Digital di Sektor Publik: Implementasi SPBE",
@@ -16,6 +16,6 @@ export const BLOG_THEMES = [
   "Agile Development: Cara Prambanan Digital Memberikan Solusi Cepat dan Berkualitas"
 ];
 
-export const getRandomTheme = () => {
+export const getRandomTheme = (): string => {
   return BLOG_THEMES[Math.floor(Math.random() * BLOG_THEMES.length)];
 };

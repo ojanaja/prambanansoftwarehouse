@@ -1,4 +1,19 @@
-export const siteConfig = {
+export interface ContactConfig {
+  email: string;
+  phone: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  whatsapp: string;
+  instagram: string;
+  instagramHref: string;
+}
+
+export interface SiteConfig {
+  name: string;
+  contact: ContactConfig;
+}
+
+export const siteConfig: SiteConfig = {
   name: "Prambanan Digital",
   contact: {
     email: "prambanandigital@gmail.com",
