@@ -1,14 +1,18 @@
-// In-memory rate limiter for Next.js App Router standalone deployments
-const rateLimitMap = new Map();
+const rateLimitMap = new Map<string, number[]>();
+
+export interface RateLimitResult {
+  success: boolean;
+  remaining: number;
+  reset: number;
+}
 
 /**
  * Basic IP-based rate limiting helper.
- * @param {string} ip - The requester IP address.
- * @param {number} limit - Maximum number of requests allowed within the window.
- * @param {number} windowMs - Time window in milliseconds (default: 1 minute).
- * @returns {{ success: boolean, remaining: number, reset: number }}
+ * @param ip - The requester IP address.
+ * @param limit - Maximum number of requests allowed within the window.
+ * @param windowMs - Time window in milliseconds (default: 1 minute).
  */
-export function rateLimit(ip, limit = 10, windowMs = 60000) {
+export function rateLimit(ip: string, limit: number = 10, windowMs: number = 60000): RateLimitResult {
   const now = Date.now();
   
   // Clean up old entries periodically to prevent memory leak
@@ -28,7 +32,7 @@ export function rateLimit(ip, limit = 10, windowMs = 60000) {
     rateLimitMap.set(ip, []);
   }
 
-  const timestamps = rateLimitMap.get(ip).filter(ts => now - ts < windowMs);
+  const timestamps = (rateLimitMap.get(ip) || []).filter(ts => now - ts < windowMs);
   timestamps.push(now);
   rateLimitMap.set(ip, timestamps);
 
