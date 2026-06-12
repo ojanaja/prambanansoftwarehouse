@@ -444,5 +444,30 @@
         }
       ]
     }
+  },
+  "servicesPage": {
+    "title": "Custom Engineering & DaaS",
+    "subtitle": "High-performance custom applications, software modernization, and flexible developer resources.",
+    "daasTitle": "Developer as a Service (DaaS)",
+    "daasDesc": "Scale your team instantly with our experienced developers. We integrate directly into your workflow, standups, and Git repository.",
+    "customTitle": "Custom Software Development",
+    "customDesc": "End-to-end custom application development, from wireframing and UI/UX design to robust cloud architecture and deployment.",
+    "optimizeTitle": "Legacy System Modernization",
+    "optimizeDesc": "Audit, optimize, and refactor your existing legacy software to resolve bottlenecks, patch security holes, and boost performance.",
+    "featuresTitle": "Our Engineering Standards",
+    "features": [
+      "Clean Architecture (SOLID Principles)",
+      "Strict Code Reviews & Automated Testing",
+      "Robust Security & Regulatory Compliance",
+      "99.9% Uptime Cloud Deployments"
+    ]
+  },
+  "productsPage": {
+    "title": "Innovative Digital Products",
+    "subtitle": "Pioneering platforms and SaaS tools built by Prambanan Digital to solve specific business and administrative challenges.",
+    "viewDemo": "View Demo",
+    "cmsTitle": "CMS Landing Page",
+    "cmsDesc": "A high-conversion SaaS landing page builder with built-in multi-language management, fast load speed, and SEO capabilities.",
+    "cmsButton": "Learn More About CMS"
   }
 }

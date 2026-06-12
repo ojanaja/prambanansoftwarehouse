@@ -444,5 +444,30 @@
         }
       ]
     }
+  },
+  "servicesPage": {
+    "title": "Custom Engineering & DaaS",
+    "subtitle": "Aplikasi kustom berkinerja tinggi, modernisasi perangkat lunak, dan sumber daya developer yang fleksibel.",
+    "daasTitle": "Developer as a Service (DaaS)",
+    "daasDesc": "Skalakan tim Anda secara instan dengan developer berpengalaman kami. Kami terintegrasi langsung ke dalam alur kerja, standup, dan repositori Git Anda.",
+    "customTitle": "Pengembangan Software Kustom",
+    "customDesc": "Pengembangan aplikasi kustom ujung-ke-ujung, dari pembuatan wireframe dan desain UI/UX hingga arsitektur cloud yang kuat dan penerapan.",
+    "optimizeTitle": "Modernisasi Sistem Warisan (Legacy)",
+    "optimizeDesc": "Audit, optimalkan, dan refactor perangkat lunak legacy Anda untuk mengatasi kendala performa, menambal celah keamanan, dan meningkatkan kecepatan.",
+    "featuresTitle": "Standar Rekayasa Kami",
+    "features": [
+      "Arsitektur Bersih (SOLID Principles)",
+      "Review Kode Ketat & Pengujian Otomatis",
+      "Keamanan Kuat & Kepatuhan Regulasi",
+      "Penerapan Cloud dengan Uptime 99.9%"
+    ]
+  },
+  "productsPage": {
+    "title": "Produk Digital Inovatif",
+    "subtitle": "Platform perintis dan alat SaaS yang dibangun oleh Prambanan Digital untuk memecahkan tantangan bisnis dan administratif tertentu.",
+    "viewDemo": "Lihat Demo",
+    "cmsTitle": "CMS Landing Page",
+    "cmsDesc": "Pembuat halaman arahan SaaS dengan konversi tinggi, dilengkapi dengan manajemen multi-bahasa bawaan, kecepatan pemuatan cepat, dan kemampuan SEO.",
+    "cmsButton": "Pelajari Selengkapnya Tentang CMS"
   }
 }
