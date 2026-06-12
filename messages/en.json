@@ -9,9 +9,12 @@
   },
   "navigation": {
     "home": "Home",
+    "solutions": "Solutions",
     "services": "Services",
+    "work": "Portfolio",
     "about": "About Us",
     "blog": "Blog",
+    "contact": "Contact",
     "requestDemo": "Strategic Consultation",
     "light": "Light",
     "dark": "Dark"

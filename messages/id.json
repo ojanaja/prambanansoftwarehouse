@@ -9,9 +9,12 @@
   },
   "navigation": {
     "home": "Beranda",
+    "solutions": "Solusi",
     "services": "Layanan",
+    "work": "Portofolio",
     "about": "Tentang Kami",
     "blog": "Blog",
+    "contact": "Kontak",
     "requestDemo": "Konsultasi Strategis",
     "light": "Terang",
     "dark": "Gelap"

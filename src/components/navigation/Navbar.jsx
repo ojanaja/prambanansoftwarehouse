@@ -98,9 +98,8 @@ export default function Navbar({ disabledScroll = false }) {
   }, [isHomePage]);
 
   const isActive = (link) => {
-    if (link.href === "/" && isHomePage && !activeSection) return true;
-    if (link.href === "/blog" && pathname === "/blog") return true;
-    return link.href === `#${activeSection}`;
+    if (link.href === "/") return pathname === "/";
+    return pathname.startsWith(link.href);
   };
 
   // Language switch handler
