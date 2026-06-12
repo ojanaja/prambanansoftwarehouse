@@ -1,13 +1,20 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter, useParams } from "next/navigation";
 import { supabase } from "@/helper/supabase";
-import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText, IoArrowBack } from "react-icons/io5";
+import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText, IoArrowBack, IoLogOutOutline } from "react-icons/io5";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 export default function AdminChatPage() {
+  const router = useRouter();
+  const params = useParams();
+  const locale = params?.locale || "id";
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+
   const [conversations, setConversations] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -19,8 +26,39 @@ export default function AdminChatPage() {
 
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
+  // Auth Guard
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.replace(`/${locale}/admin/login`);
+      } else {
+        setIsAuthenticated(true);
+        setAuthLoading(false);
+      }
+    };
+
+    checkAuth();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session) {
+        router.replace(`/${locale}/admin/login`);
+      } else {
+        setIsAuthenticated(true);
+        setAuthLoading(false);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router, locale]);
+
   // 1. Fetch Conversations
   useEffect(() => {
+    if (authLoading || !isAuthenticated) return;
+
     const fetchConversations = async () => {
       const { data, error } = await supabase
         .from("conversations")
@@ -59,11 +97,11 @@ export default function AdminChatPage() {
       .subscribe();
 
     return () => supabase.removeChannel(convChannel);
-  }, [selectedChat]);
+  }, [selectedChat, authLoading, isAuthenticated, isInitialLoad, targetSession]);
 
   // 2. Fetch Messages for Selected Chat
   useEffect(() => {
-    if (!selectedChat) return;
+    if (!selectedChat || authLoading || !isAuthenticated) return;
 
     const fetchMessages = async () => {
       const { data, error } = await supabase
@@ -99,7 +137,7 @@ export default function AdminChatPage() {
       .subscribe();
 
     return () => supabase.removeChannel(msgChannel);
-  }, [selectedChat]);
+  }, [selectedChat, authLoading, isAuthenticated]);
 
   // 3. Scroll to bottom
   useEffect(() => {
@@ -133,7 +171,12 @@ export default function AdminChatPage() {
     }
   };
 
-  if (isLoading) {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.replace(`/${locale}/admin/login`);
+  };
+
+  if (authLoading || isLoading) {
     return (
       <div className="flex items-center justify-center h-screen bg-neutral-50 dark:bg-neutral-950">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
@@ -146,12 +189,21 @@ export default function AdminChatPage() {
       {/* Sidebar - Conversations List */}
       <div className={`flex-col bg-white dark:bg-neutral-900 border-r border-neutral-200 dark:border-neutral-800 transition-all duration-300 h-full min-h-0
         ${selectedChat ? 'hidden md:flex md:w-80' : 'flex w-full md:w-80'}`}>
-        <div className="p-4 md:p-6 border-b border-neutral-200 dark:border-neutral-800">
-          <h1 className="text-xl font-bold flex items-center gap-2">
-            <IoChatbubbles className="text-primary-600" />
-            Chat Admin
-          </h1>
-          <p className="text-xs text-neutral-500 mt-1">Manage visitor inquiries</p>
+        <div className="p-4 md:p-6 border-b border-neutral-200 dark:border-neutral-800 flex justify-between items-center">
+          <div>
+            <h1 className="text-xl font-bold flex items-center gap-2">
+              <IoChatbubbles className="text-primary-600" />
+              Chat Admin
+            </h1>
+            <p className="text-xs text-neutral-500 mt-1">Manage visitor inquiries</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            title={locale === "en" ? "Sign Out" : "Keluar"}
+            className="p-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-600 dark:text-neutral-300 transition-all shadow-sm"
+          >
+            <IoLogOutOutline size={20} />
+          </button>
         </div>
         <div className="flex-1 overflow-y-auto" data-lenis-prevent>
           {conversations.length === 0 ? (
