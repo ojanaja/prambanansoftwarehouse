@@ -153,7 +153,7 @@
 
 ## Phase 8 - Accessibility
 
-- [ ] Add visible labels and help/error text to forms
+- [x] Add visible labels and help/error text to forms
 - [ ] Audit keyboard navigation and focus order
 - [ ] Audit color contrast in light and dark modes
 - [ ] Audit heading hierarchy and landmarks
