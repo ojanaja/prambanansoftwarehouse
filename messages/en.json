@@ -392,5 +392,57 @@
         "desc": "Digitalization of asset, finance, and HR management for foundations/schools."
       }
     ]
+  },
+  "solutions": {
+    "heading": "Sectoral Solutions",
+    "title": "Tailored Systems for Key Industries",
+    "subtitle": "Discover how our custom platforms enable digital readiness, compliance, and growth for your sector.",
+    "explore": "Explore Solution",
+    "govTitle": "Government & Public Services",
+    "govDesc": "Robust, compliant, and secure platforms (SPBE) to automate public licensing, track assets, and drive data-backed administrative decisions.",
+    "eduTitle": "Education & SIAKAD",
+    "eduDesc": "Integrated academic management (SIAKAD), interactive LMS platforms, and educational foundation ERPs tailored for schools and universities.",
+    "bizTitle": "Business ERP & Custom Systems",
+    "bizDesc": "Tailored Enterprise Resource Planning systems, automated inventory, real-time dashboards, and CRM integrations to optimize private sector operations.",
+    "govPage": {
+      "title": "Government Digitalization (SPBE)",
+      "subtitle": "Empowering public service delivery through secure, regulatory-compliant, and transparent software solutions.",
+      "featureTitle": "Core E-Government Solutions",
+      "featureSubtitle": "Built according to the Indonesian SPBE guidelines to simplify bureaucracy and improve accountability.",
+      "features": [
+        {
+          "title": "E-Government System (SPBE)",
+          "desc": "Digitalization of electronic-based public and government services to enhance citizen experience and optimize workflow efficiency."
+        },
+        {
+          "title": "One-Stop Licensing System",
+          "desc": "Automated queues, multi-department approval routing, and digital licensing issuance designed to reduce processing times."
+        },
+        {
+          "title": "Executive Dashboard (Command Center)",
+          "desc": "Consolidate regional and departmental KPIs into a real-time analytics panel for rapid policy decision-making."
+        }
+      ]
+    },
+    "bizPage": {
+      "title": "Business Systems & Custom ERP",
+      "subtitle": "Streamline your business operations, automate manual workflows, and scale with custom ERP software.",
+      "featureTitle": "Enterprise Custom Engineering",
+      "featureSubtitle": "We construct solutions specifically matching your company workflows, removing overheads and maximizing yield.",
+      "features": [
+        {
+          "title": "Custom ERP Integrations",
+          "desc": "Consolidate your procurement, inventory, finance, and human resource modules under a single, cohesive database."
+        },
+        {
+          "title": "Smart Inventory & Warehouse Management",
+          "desc": "Real-time stock level tracking, automated low-stock warnings, and multi-location warehouse synchronization."
+        },
+        {
+          "title": "Advanced CRM & Sales Portals",
+          "desc": "Lead pipelines, sales intelligence dashboards, and customer portals designed to boost conversion and retention."
+        }
+      ]
+    }
   }
 }

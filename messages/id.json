@@ -392,5 +392,57 @@
         "desc": "Digitalisasi manajemen aset, keuangan, dan SDM untuk yayasan/sekolah."
       }
     ]
+  },
+  "solutions": {
+    "heading": "Solusi Sektoral",
+    "title": "Sistem yang Dirancang untuk Industri Utama",
+    "subtitle": "Temukan bagaimana platform kustom kami menghadirkan kesiapan digital, kepatuhan regulasi, dan pertumbuhan bagi sektor Anda.",
+    "explore": "Jelajahi Solusi",
+    "govTitle": "Pemerintah & Layanan Publik",
+    "govDesc": "Platform kokoh, patuh regulasi, dan aman (SPBE) untuk otomatisasi perizinan publik, pelacakan aset, dan keputusan administratif berbasis data.",
+    "eduTitle": "Pendidikan & SIAKAD",
+    "eduDesc": "Manajemen akademik terintegrasi (SIAKAD), platform LMS interaktif, dan ERP yayasan pendidikan yang disesuaikan untuk sekolah dan universitas.",
+    "bizTitle": "ERP Bisnis & Sistem Kustom",
+    "bizDesc": "Sistem Enterprise Resource Planning (ERP) kustom, otomatisasi inventaris, dashboard real-time, dan integrasi CRM untuk optimasi operasi bisnis.",
+    "govPage": {
+      "title": "Digitalisasi Pemerintahan (SPBE)",
+      "subtitle": "Memberdayakan penyampaian layanan publik melalui solusi perangkat lunak yang aman, patuh regulasi, dan transparan.",
+      "featureTitle": "Solusi Utama E-Government",
+      "featureSubtitle": "Dibangun sesuai dengan pedoman SPBE Indonesia untuk menyederhanakan birokrasi dan meningkatkan akuntabilitas.",
+      "features": [
+        {
+          "title": "Sistem E-Government (SPBE)",
+          "desc": "Digitalisasi layanan publik dan pemerintahan berbasis elektronik untuk meningkatkan pengalaman masyarakat dan efisiensi kerja."
+        },
+        {
+          "title": "Sistem Perizinan Satu Pintu",
+          "desc": "Antrean otomatis, perutean persetujuan multi-dinas, dan penerbitan izin digital yang dirancang untuk mengurangi waktu pemrosesan."
+        },
+        {
+          "title": "Dashboard Eksekutif (Command Center)",
+          "desc": "Konsolidasikan KPI regional dan dinas ke dalam panel analitik real-time untuk pengambilan keputusan kebijakan secara cepat."
+        }
+      ]
+    },
+    "bizPage": {
+      "title": "Sistem Bisnis & ERP Kustom",
+      "subtitle": "Rampingkan operasi bisnis Anda, otomatisasi alur kerja manual, dan tumbuh lebih cepat dengan perangkat lunak ERP kustom.",
+      "featureTitle": "Rekayasa Kustom Enterprise",
+      "featureSubtitle": "Kami membangun solusi yang secara khusus mencocokkan alur kerja perusahaan Anda, menghilangkan beban berlebih dan memaksimalkan hasil.",
+      "features": [
+        {
+          "title": "Integrasi ERP Kustom",
+          "desc": "Konsolidasikan modul pengadaan, inventaris, keuangan, dan sumber daya manusia di bawah satu database yang kohesif."
+        },
+        {
+          "title": "Manajemen Inventaris & Gudang Pintar",
+          "desc": "Pelacakan tingkat stok real-time, peringatan otomatis stok menipis, dan sinkronisasi gudang multi-lokasi."
+        },
+        {
+          "title": "Portal Penjualan & CRM Lanjutan",
+          "desc": "Pipa prospek, dashboard kecerdasan penjualan, dan portal pelanggan yang dirancang untuk meningkatkan konversi dan retensi."
+        }
+      ]
+    }
   }
 }
