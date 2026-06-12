@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
 import axios from "axios";
 
@@ -6,7 +6,7 @@ import axios from "axios";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const WHATSAPP_REGEX = /^\d{10,15}$/;
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   // Extract client IP address for rate limiting
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || 
              req.headers.get("x-real-ip") || 
@@ -69,7 +69,7 @@ export async function POST(req) {
     }
 
     // Forward request to EmailJS REST API
-    const response = await axios.post("https://api.emailjs.com/api/v1.0/email/send", {
+    await axios.post("https://api.emailjs.com/api/v1.0/email/send", {
       service_id: serviceId,
       template_id: templateId,
       user_id: userId,
@@ -89,7 +89,7 @@ export async function POST(req) {
     });
 
     return NextResponse.json({ success: true, message: "Message sent successfully." });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error sending contact email in server route:", error.response?.data || error.message);
     
     return NextResponse.json(

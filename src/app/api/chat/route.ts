@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
 
 const PRIMARY_MODEL = "qwen/qwen3.6-plus:free";
@@ -9,7 +9,7 @@ const FALLBACK_MODELS = [
   "google/gemini-flash-1.5-8b"
 ];
 
-async function callOpenRouter(model, messages, apiKey, signal) {
+async function callOpenRouter(model: string, messages: any[], apiKey: string, signal: AbortSignal) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -29,7 +29,7 @@ async function callOpenRouter(model, messages, apiKey, signal) {
   return response;
 }
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   // Extract client IP address for rate limiting
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || 
              req.headers.get("x-real-ip") || 
@@ -102,7 +102,7 @@ Handoff:
 - If the user explicitly asks for "Tanya Manusia" or a real person, the system will handle the notification, but you should acknowledge their request and ask for context if they haven't provided any.`;
 
     // Format messages for OpenRouter (multimodal support)
-    const formattedMessages = messages.map((m) => {
+    const formattedMessages = messages.map((m: any) => {
       // Validate schema of message object
       if (!m || typeof m.content !== "string") {
         throw new Error("Invalid message content format.");
@@ -153,7 +153,7 @@ Handoff:
               break;
             }
             console.warn(`Fallback model ${fallbackModel} also failed with status ${response.status}`);
-          } catch (fallbackError) {
+          } catch (fallbackError: any) {
             console.error(`Error attempting fallback ${fallbackModel}:`, fallbackError.message);
           }
         }
@@ -182,7 +182,7 @@ Handoff:
         model: data.model
       });
 
-    } catch (fetchError) {
+    } catch (fetchError: any) {
       clearTimeout(timeoutId);
       if (fetchError.name === "AbortError") {
         return NextResponse.json(
@@ -193,7 +193,7 @@ Handoff:
       throw fetchError;
     }
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in AI Route:", error.message || error);
     return NextResponse.json(
       { error: "Failed to connect to AI assistant." },

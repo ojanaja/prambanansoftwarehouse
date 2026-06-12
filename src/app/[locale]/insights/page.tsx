@@ -1,7 +1,15 @@
+import React from "react";
 import BlogCard from "@/components/card/BlogCard";
 import { getArticles } from "@/lib/api";
+import { Metadata } from "next";
 
-export async function generateMetadata({ params: { locale } }) {
+interface PageParams {
+  params: {
+    locale: string;
+  };
+}
+
+export async function generateMetadata({ params: { locale } }: PageParams): Promise<Metadata> {
   return {
     alternates: {
       canonical: `/${locale}/insights`,

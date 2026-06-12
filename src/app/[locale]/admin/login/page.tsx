@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/helper/supabase";
 import { toast } from "sonner";
@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
     checkUser();
   }, [router, locale]);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
       toast.error(locale === "en" ? "Please fill in all fields" : "Harap isi semua kolom");
@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
 
     setIsLoading(true);
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password: password,
       });
@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
 
       toast.success(locale === "en" ? "Logged in successfully!" : "Berhasil masuk!");
       router.replace(`/${locale}/admin/chat`);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Login Error:", err);
       toast.error(
         locale === "en" 

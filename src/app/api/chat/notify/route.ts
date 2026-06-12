@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
 import axios from "axios";
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   // Extract client IP address for rate limiting
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || 
              req.headers.get("x-real-ip") || 
@@ -61,7 +61,7 @@ export async function POST(req) {
     });
 
     return NextResponse.json({ success: true, data: response.data });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error sending Telegram notification in server route:", error);
     
     // Do not leak internal system details

@@ -33,6 +33,8 @@ export interface Portfolio {
   description_id: string;
   category: string;
   imageUrl: string;
+  liveLink?: string;
+  galleryImages?: any[];
 }
 
 export interface Testimonial {
@@ -144,7 +146,9 @@ export async function getPortfolios(): Promise<Portfolio[]> {
       description_en: item.description,
       description_id: item.description,
       category: "webapp",
-      imageUrl: item.image
+      imageUrl: item.image,
+      liveLink: item.liveLink || undefined,
+      galleryImages: item.galleryImages || undefined
     }));
   } catch (err) {
     console.error("getPortfolios error, returning fallback:", err);

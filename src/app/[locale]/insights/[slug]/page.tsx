@@ -1,8 +1,17 @@
+import React from "react";
 import { getArticleBySlug } from "@/lib/api";
 import SlugCard from "@/components/card/SlugCard";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-export async function generateMetadata({ params: { locale, slug } }) {
+interface PageParams {
+  params: {
+    locale: string;
+    slug: string;
+  };
+}
+
+export async function generateMetadata({ params: { locale, slug } }: PageParams): Promise<Metadata> {
   const post = await getArticleBySlug(slug);
   if (!post) return { title: "Article Not Found" };
 
@@ -15,7 +24,7 @@ export async function generateMetadata({ params: { locale, slug } }) {
   };
 }
 
-export default async function BlogPost({ params: { locale, slug } }) {
+export default async function BlogPost({ params: { locale, slug } }: PageParams) {
   const post = await getArticleBySlug(slug);
   if (!post) notFound();
 

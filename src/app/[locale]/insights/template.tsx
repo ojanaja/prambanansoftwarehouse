@@ -1,6 +1,11 @@
+import React from "react";
 import Navbar from "@/components/navigation/Navbar";
 
-export default function Template({ children }) {
+interface TemplateProps {
+  children: React.ReactNode;
+}
+
+export default function Template({ children }: TemplateProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar disabledScroll={true} />

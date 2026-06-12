@@ -1,11 +1,35 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, useParams } from "next/navigation";
 import { supabase } from "@/helper/supabase";
 import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText, IoArrowBack, IoLogOutOutline } from "react-icons/io5";
-import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+interface Conversation {
+  id: string;
+  session_id: string;
+  user_name?: string;
+  last_message?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface MessageAttachment {
+  type?: string;
+  data?: string;
+  name?: string;
+}
+
+interface Message {
+  id: string;
+  conversation_id: string;
+  text: string;
+  sender: string; // "admin", "bot", "user", etc.
+  attachment?: MessageAttachment;
+  created_at?: string;
+}
 
 export default function AdminChatPage() {
   const router = useRouter();
@@ -15,12 +39,12 @@ export default function AdminChatPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authLoading, setAuthLoading] = useState(true);
 
-  const [conversations, setConversations] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [selectedChat, setSelectedChat] = useState<Conversation | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [replyText, setReplyText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const targetSession = searchParams.get("session");
 
@@ -65,18 +89,19 @@ export default function AdminChatPage() {
         .select("*")
         .order("updated_at", { ascending: false });
 
-      if (error) console.error("Fetch Conversations Error:", error);
-      else {
-        setConversations(data);
+      if (error) {
+        console.error("Fetch Conversations Error:", error);
+      } else if (data) {
+        setConversations(data as Conversation[]);
         
         // Only perform auto-selection/deep-link on initial load
         if (isInitialLoad) {
           if (targetSession) {
             const target = data.find(c => c.session_id === targetSession);
-            if (target) setSelectedChat(target);
-            else if (data.length > 0) setSelectedChat(data[0]);
+            if (target) setSelectedChat(target as Conversation);
+            else if (data.length > 0) setSelectedChat(data[0] as Conversation);
           } else if (data.length > 0) {
-            setSelectedChat(data[0]);
+            setSelectedChat(data[0] as Conversation);
           }
           setIsInitialLoad(false);
         }
@@ -92,11 +117,15 @@ export default function AdminChatPage() {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "conversations" },
-        () => fetchConversations()
+        () => {
+          fetchConversations();
+        }
       )
       .subscribe();
 
-    return () => supabase.removeChannel(convChannel);
+    return () => {
+      supabase.removeChannel(convChannel);
+    };
   }, [selectedChat, authLoading, isAuthenticated, isInitialLoad, targetSession]);
 
   // 2. Fetch Messages for Selected Chat
@@ -110,8 +139,11 @@ export default function AdminChatPage() {
         .eq("conversation_id", selectedChat.id)
         .order("created_at", { ascending: true });
 
-      if (error) console.error("Fetch Messages Error:", error);
-      else setMessages(data);
+      if (error) {
+        console.error("Fetch Messages Error:", error);
+      } else if (data) {
+        setMessages(data as Message[]);
+      }
     };
 
     fetchMessages();
@@ -130,13 +162,15 @@ export default function AdminChatPage() {
         (payload) => {
           setMessages((prev) => {
             if (prev.find((m) => m.id === payload.new.id)) return prev;
-            return [...prev, payload.new];
+            return [...prev, payload.new as Message];
           });
         }
       )
       .subscribe();
 
-    return () => supabase.removeChannel(msgChannel);
+    return () => {
+      supabase.removeChannel(msgChannel);
+    };
   }, [selectedChat, authLoading, isAuthenticated]);
 
   // 3. Scroll to bottom
@@ -146,7 +180,7 @@ export default function AdminChatPage() {
     }
   }, [messages]);
 
-  const handleSendReply = async (e) => {
+  const handleSendReply = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!replyText.trim() || !selectedChat) return;
 
@@ -162,7 +196,7 @@ export default function AdminChatPage() {
       // Update conversation's last message time
       await supabase
         .from("conversations")
-        .update({ last_message: replyText, updated_at: new Date() })
+        .update({ last_message: replyText, updated_at: new Date().toISOString() })
         .eq("id", selectedChat.id);
 
       setReplyText("");
@@ -205,7 +239,7 @@ export default function AdminChatPage() {
             <IoLogOutOutline size={20} />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto" data-lenis-prevent>
+        <div className="flex-1 overflow-y-auto" data-lenis-prevent="true">
           {conversations.length === 0 ? (
             <div className="p-10 text-center opacity-50">
               <IoPerson size={48} className="mx-auto mb-2 opacity-20" />
@@ -278,7 +312,7 @@ export default function AdminChatPage() {
             <div
               ref={scrollRef}
               className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 bg-neutral-50 dark:bg-neutral-950/20 min-h-0"
-              data-lenis-prevent
+              data-lenis-prevent="true"
             >
               {messages.map((msg) => (
                 <div
