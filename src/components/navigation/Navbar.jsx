@@ -192,6 +192,8 @@ export default function Navbar({ disabledScroll = false }) {
                 }`}>
                 <button
                   onClick={() => switchLocale("id")}
+                  aria-label="Switch language to Indonesian"
+                  aria-current={locale === "id" ? "true" : undefined}
                   className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${locale === "id"
                     ? "bg-primary-500 text-white shadow-sm"
                     : scrolled ? "text-neutral-500 hover:text-neutral-800" : "text-white/60 hover:text-white"
@@ -201,6 +203,8 @@ export default function Navbar({ disabledScroll = false }) {
                 </button>
                 <button
                   onClick={() => switchLocale("en")}
+                  aria-label="Switch language to English"
+                  aria-current={locale === "en" ? "true" : undefined}
                   className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${locale === "en"
                     ? "bg-primary-500 text-white shadow-sm"
                     : scrolled ? "text-neutral-500 hover:text-neutral-800" : "text-white/60 hover:text-white"
@@ -256,6 +260,7 @@ export default function Navbar({ disabledScroll = false }) {
                   : "text-white hover:bg-white/10"
                   }`}
                 aria-label="Open menu"
+                aria-expanded={isNavbarOpen}
               >
                 <HiMenu className="text-2xl" />
               </button>

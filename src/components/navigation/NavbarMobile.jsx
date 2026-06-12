@@ -54,6 +54,9 @@ export default function NavbarMobile({ isOpen, onClose }) {
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className="fixed inset-y-0 right-0 z-[1000] w-full max-w-sm md:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
           >
             <div className="bg-white dark:bg-neutral-900 w-full h-full px-6 py-5 flex flex-col shadow-2xl">
               {/* Header */}
@@ -132,6 +135,8 @@ export default function NavbarMobile({ isOpen, onClose }) {
                   <div className="flex bg-neutral-100 dark:bg-neutral-800 p-1 rounded-xl w-fit">
                     <button
                       onClick={() => switchLocale("id")}
+                      aria-label="Switch language to Indonesian"
+                      aria-current={locale === "id" ? "true" : undefined}
                       className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "id" ? "bg-primary-500 text-white shadow-sm" : "text-neutral-500"
                         }`}
                     >
@@ -139,6 +144,8 @@ export default function NavbarMobile({ isOpen, onClose }) {
                     </button>
                     <button
                       onClick={() => switchLocale("en")}
+                      aria-label="Switch language to English"
+                      aria-current={locale === "en" ? "true" : undefined}
                       className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "en" ? "bg-primary-500 text-white shadow-sm" : "text-neutral-500"
                         }`}
                     >
