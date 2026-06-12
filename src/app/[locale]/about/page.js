@@ -51,9 +51,9 @@ export default async function AboutPage({ params: { locale } }) {
                             <div className="w-14 h-14 rounded-2xl bg-primary-500/5 dark:bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 mb-8">
                                 <HiOutlineLightningBolt className="text-3xl" />
                             </div>
-                            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
                                 {t("missionTitle")}
-                            </h3>
+                            </h2>
                             <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                 {t("missionDescription")}
                             </p>
@@ -64,9 +64,9 @@ export default async function AboutPage({ params: { locale } }) {
                             <div className="w-14 h-14 rounded-2xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-8">
                                 <HiOutlineEye className="text-3xl" />
                             </div>
-                            <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
                                 {t("visionTitle")}
-                            </h3>
+                            </h2>
                             <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                 {t("visionDescription")}
                             </p>
