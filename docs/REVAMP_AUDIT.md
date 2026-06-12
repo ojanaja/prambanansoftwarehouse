@@ -156,6 +156,19 @@ The website should become a focused Prambanan Digital marketing platform with:
 - Measurable conversion events and performance budgets.
 - Production-grade security, test coverage, and deployment documentation.
 
+## Domain Transition
+
+The active pre-release marketing domain is:
+
+- `https://prambanandigital.web.id`
+
+The current source still contains hardcoded references to
+`prambanandigital.com` in metadata, sitemap, robots, structured data, and the
+OpenRouter referrer header. These references must be centralized and changed
+before the transition-domain deployment is treated as SEO-ready.
+
+The final marketing and SaaS domains remain a separate release decision.
+
 ## Success Metrics
 
 - Mobile LCP <= 2.5 seconds at p75.

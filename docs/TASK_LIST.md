@@ -36,7 +36,15 @@
 - [ ] Define offer taxonomy: Solutions, Custom Engineering, Products
 - [ ] Define CTA mapping for each offer
 - [ ] Keep SaaS signup as a product-specific CTA
-- [ ] Define final production domain boundary with `app.prambanandigital.com`
+- [x] Confirm transition marketing domain: `https://prambanandigital.web.id`
+- [ ] Define and approve the final-release marketing and SaaS domain boundary separately
+- [ ] Centralize public marketing base URL in one validated server-side configuration
+- [ ] Replace hardcoded `prambanandigital.com` references with the transition domain in metadata, sitemap, robots, JSON-LD, and OpenRouter referrer
+- [ ] Configure canonical URL to `https://prambanandigital.web.id`
+- [ ] Configure optional `www.prambanandigital.web.id` redirect to the canonical transition domain
+- [ ] Verify DNS and TLS for `prambanandigital.web.id`
+- [ ] Verify analytics, Search Console, CORS, Supabase, Sanity, and external API allowlists for the transition domain
+- [ ] Prepare redirect and canonical migration checklist for the future final domain
 - [ ] Validate client/project/team/experience claims and evidence
 - [ ] Inventory all existing Indonesian and English content
 - [ ] Inventory Sanity documents and identify incomplete records

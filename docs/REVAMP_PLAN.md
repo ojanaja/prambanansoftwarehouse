@@ -4,12 +4,20 @@
 
 Prambanan Digital remains the customer-facing marketing brand. The separate SaaS repository remains the application platform for signup, pricing, admin, super-admin, billing, provisioning, and tenant websites.
 
-Recommended domain boundary:
+Current transition domain:
 
-- `prambanandigital.com`: marketing website.
-- `www.prambanandigital.com`: redirect to marketing canonical domain.
-- `app.prambanandigital.com`: SaaS platform.
+- `prambanandigital.web.id`: active marketing website before the full release.
+- `www.prambanandigital.web.id`: redirect to the canonical transition domain if the DNS record is enabled.
+- SaaS platform: keep using the currently configured SaaS URL until the final production application domain is approved.
 - Tenant subdomains and custom domains: SaaS public renderer.
+
+Final-release domain boundary must be approved separately. Do not assume
+`prambanandigital.com` or `app.prambanandigital.com` is active until DNS,
+ownership, TLS, and deployment decisions are confirmed.
+
+During the transition period, use `https://prambanandigital.web.id` consistently
+for metadata, sitemap, robots, structured data, analytics allowlists, API
+referrers, and public links.
 
 ## 2. Positioning Decision
 
@@ -194,4 +202,3 @@ Use incremental releases:
 5. Chat/AI reintroduction only after security and conversion validation.
 
 Keep the current website deployable until each replacement route passes staging acceptance criteria.
-
