@@ -10,16 +10,18 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-function AccordionItem({ question, answer, isOpen, onToggle }) {
+function AccordionItem({ id, question, answer, isOpen, onToggle }) {
   const contentRef = useRef(null);
-
+  
   return (
     <div className="glass-card overflow-hidden transition-all duration-300">
       <button
         onClick={onToggle}
+        aria-expanded={isOpen ? "true" : "false"}
+        aria-controls={`faq-content-${id}`}
         className="w-full flex items-center justify-between p-5 lg:p-6 text-left group"
       >
-        <span className="font-semibold text-sm lg:text-base pr-4 group-hover:text-primary-500 transition-colors duration-300">
+        <span id={`faq-title-${id}`} className="font-semibold text-sm lg:text-base pr-4 group-hover:text-primary-500 transition-colors duration-300">
           {question}
         </span>
         <HiChevronDown
@@ -29,6 +31,9 @@ function AccordionItem({ question, answer, isOpen, onToggle }) {
         />
       </button>
       <div
+        id={`faq-content-${id}`}
+        role="region"
+        aria-labelledby={`faq-title-${id}`}
         ref={contentRef}
         className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{
@@ -111,8 +116,9 @@ export default function FAQSection() {
           {/* Accordion */}
           <div className="space-y-3">
             {items.map((item, index) => (
-              <div key={item.id} className="faq-item">
+              <div key={item.id || index} className="faq-item">
                 <AccordionItem
+                  id={item.id || index}
                   question={item.question}
                   answer={item.answer}
                   isOpen={openIndex === index}

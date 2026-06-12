@@ -110,10 +110,12 @@ export default function OurProductSection({ initialProducts = [] }) {
 
         {/* Product Tabs */}
         <div className="flex justify-center mb-10 md:mb-14">
-          <div className="product-tabs-container inline-flex flex-wrap justify-center gap-2 md:gap-3 p-1.5 rounded-2xl bg-white/60 dark:bg-neutral-800/40 backdrop-blur-sm border border-neutral-200 dark:border-white/10">
+          <div role="tablist" className="product-tabs-container inline-flex flex-wrap justify-center gap-2 md:gap-3 p-1.5 rounded-2xl bg-white/60 dark:bg-neutral-800/40 backdrop-blur-sm border border-neutral-200 dark:border-white/10">
             {localizedProducts.map((product, index) => (
               <button
                 key={product.id}
+                role="tab"
+                aria-selected={activeIndex === index ? "true" : "false"}
                 onClick={() => handleProductChange(index)}
                 className={`product-tab-item px-4 py-2.5 md:px-6 md:py-3 rounded-xl text-sm md:text-base font-medium transition-all duration-300 whitespace-nowrap ${activeIndex === index
                   ? "bg-gradient-to-r from-primary-500 to-primary-400 text-white shadow-lg shadow-primary-500/25"
