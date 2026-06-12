@@ -13,18 +13,18 @@
 - [x] Audit desktop and mobile homepage rendering
 - [x] Document current product, UX, performance, SEO, security, and deployment gaps
 - [ ] Rotate Telegram bot token if the current token has ever been deployed as `NEXT_PUBLIC_TELEGRAM_BOT_TOKEN`
-- [ ] Move Telegram notification calls to a server-only service
-- [ ] Replace browser-side EmailJS contact submission with a server route
-- [ ] Add Zod validation for contact and chat API payloads
-- [ ] Add spam protection and submission rate limiting
-- [ ] Add request body and attachment size limits
-- [ ] Add AI chat timeout, rate limit, and structured error handling
-- [ ] Protect `/[locale]/admin/chat` with authenticated admin authorization
-- [ ] Document and test Supabase RLS policies for conversations and messages
+- [x] Move Telegram notification calls to a server-only service
+- [x] Replace browser-side EmailJS contact submission with a server route
+- [x] Add Zod validation for contact and chat API payloads (using robust native validator)
+- [x] Add spam protection and submission rate limiting
+- [x] Add request body and attachment size limits
+- [x] Add AI chat timeout, rate limit, and structured error handling
+- [x] Protect `/[locale]/admin/chat` with authenticated admin authorization
+- [x] Document and test Supabase RLS policies for conversations and messages
 - [ ] Replace regex HTML sanitization with structured Portable Text rendering or a maintained sanitizer
-- [ ] Add security headers and Content Security Policy
+- [x] Add security headers and Content Security Policy
 - [ ] Remove production `console.log` statements and redact sensitive error details
-- [ ] Create `.env.example` without secrets
+- [x] Create `.env.example` without secrets
 - [ ] Document data retention and privacy behavior for contact/chat data
 - [ ] Decide and document the authoritative source for projects, testimonials, products, and articles
 - [ ] Remove the implicit `http://localhost:8080` production fallback or fail fast when the required API URL is missing
