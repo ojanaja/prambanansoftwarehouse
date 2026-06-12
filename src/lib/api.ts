@@ -1,6 +1,67 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === "production" ? (() => { throw new Error("Missing NEXT_PUBLIC_API_URL environment variable in production") })() : "http://localhost:8080");
+const API_URL: string = process.env.NEXT_PUBLIC_API_URL || 
+  (process.env.NODE_ENV === "production" 
+    ? (() => { throw new Error("Missing NEXT_PUBLIC_API_URL environment variable in production") })() 
+    : "http://localhost:8080");
 
-export function getServices() {
+export interface Service {
+  _id: string;
+  title_en: string;
+  title_id: string;
+  description_en: string;
+  description_id: string;
+  icon: string;
+  order: number;
+}
+
+export interface Product {
+  _id: string;
+  name_en: string;
+  name_id: string;
+  description_en: string;
+  description_id: string;
+  imageURL: string;
+  imageURL2: string;
+  imageURL3: string;
+  order: number;
+}
+
+export interface Portfolio {
+  _id: string;
+  title: string;
+  slug: string;
+  description_en: string;
+  description_id: string;
+  category: string;
+  imageUrl: string;
+}
+
+export interface Testimonial {
+  _id: string;
+  name: string;
+  role_id: string;
+  role_en: string;
+  content_id: string;
+  content_en: string;
+  rating: number;
+  imageUrl: string;
+}
+
+export interface Article {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string;
+  publishedAt: string;
+  imageUrl: string;
+  content?: string;
+  author: {
+    name: string;
+    image: string | null;
+  };
+  categories: Array<{ title: string; description: string }>;
+}
+
+export function getServices(): Service[] {
   return [
     {
       _id: "custom",
@@ -32,7 +93,7 @@ export function getServices() {
   ];
 }
 
-export function getShowcaseProducts() {
+export function getShowcaseProducts(): Product[] {
   return [
     {
       _id: "product-binder",
@@ -70,13 +131,13 @@ export function getShowcaseProducts() {
   ];
 }
 
-export async function getPortfolios() {
+export async function getPortfolios(): Promise<Portfolio[]> {
   const url = `${API_URL}/v1/public/marketing/portfolios`;
   try {
     const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    return (data || []).map((item) => ({
+    return (data || []).map((item: any) => ({
       _id: item.id,
       title: item.title,
       slug: item.slug || item.id,
@@ -91,18 +152,18 @@ export async function getPortfolios() {
   }
 }
 
-export async function getPortfolioBySlug(slug) {
+export async function getPortfolioBySlug(slug: string): Promise<Portfolio | null> {
   const list = await getPortfolios();
   return list.find((item) => item.slug === slug) || null;
 }
 
-export async function getTestimonials() {
+export async function getTestimonials(): Promise<Testimonial[]> {
   const url = `${API_URL}/v1/public/marketing/testimonials`;
   try {
     const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    return (data || []).map((item) => ({
+    return (data || []).map((item: any) => ({
       _id: item.id,
       name: item.name,
       role_id: item.company,
@@ -118,13 +179,13 @@ export async function getTestimonials() {
   }
 }
 
-export async function getArticles() {
+export async function getArticles(): Promise<Article[]> {
   const url = `${API_URL}/v1/public/marketing/articles`;
   try {
     const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    return (data || []).map((item) => ({
+    return (data || []).map((item: any) => ({
       _id: item.id,
       title: item.title,
       slug: item.slug,
@@ -135,7 +196,7 @@ export async function getArticles() {
         name: item.author,
         image: null
       },
-      categories: (item.tags || []).map((tag) => ({ title: tag, description: "" }))
+      categories: (item.tags || []).map((tag: string) => ({ title: tag, description: "" }))
     }));
   } catch (err) {
     console.error("getArticles error:", err);
@@ -143,7 +204,7 @@ export async function getArticles() {
   }
 }
 
-export async function getArticleBySlug(slug) {
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const url = `${API_URL}/v1/public/marketing/articles/${slug}`;
   try {
     const res = await fetch(url, { next: { revalidate: 60 } });
@@ -161,7 +222,7 @@ export async function getArticleBySlug(slug) {
         name: item.author,
         image: null
       },
-      categories: (item.tags || []).map((tag) => ({ title: tag, description: "" }))
+      categories: (item.tags || []).map((tag: string) => ({ title: tag, description: "" }))
     };
   } catch (err) {
     console.error(`getArticleBySlug error for slug ${slug}:`, err);
