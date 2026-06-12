@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { sendEmail } from "@/helper/sendEmail";
 import { toast } from "sonner";
 import { HiArrowRight } from "react-icons/hi";
 import { useTranslations } from "next-intl";
@@ -56,13 +55,23 @@ export default function ContactSection() {
     };
 
     try {
-      await sendEmail(templateParams);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit form.");
+      }
+
       toast.success(t("sendSuccess"), { id: toastId });
       // Reset form on success
       setFormData({ name: "", institution: "", whatsapp: "", email: "", appType: "" });
     } catch (error) {
-      toast.error(t("sendError"), { id: toastId });
-      console.error("Error sending email:", error);
+      toast.error(error.message || t("sendError"), { id: toastId });
+      console.error("Error sending contact form:", error);
     } finally {
       setIsSubmitting(false);
     }
