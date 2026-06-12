@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { rateLimit } from "@/helper/rateLimit";
 
 const PRIMARY_MODEL = "qwen/qwen3.6-plus:free";
 const FALLBACK_MODELS = [
@@ -8,13 +9,13 @@ const FALLBACK_MODELS = [
   "google/gemini-flash-1.5-8b"
 ];
 
-async function callOpenRouter(model, messages, apiKey) {
+async function callOpenRouter(model, messages, apiKey, signal) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://prambanandigital.com",
+      "HTTP-Referer": "https://prambanandigital.web.id", // Updated domain referrer
       "X-Title": "Prambanan Digital Assistant",
     },
     body: JSON.stringify({
@@ -22,21 +23,50 @@ async function callOpenRouter(model, messages, apiKey) {
       messages: messages,
       temperature: 0.7,
     }),
+    signal,
   });
 
   return response;
 }
 
 export async function POST(req) {
+  // Extract client IP address for rate limiting
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || 
+             req.headers.get("x-real-ip") || 
+             "127.0.0.1";
+
+  // Enforce rate limiting: max 10 chat completions requests per minute per IP
+  const limitCheck = rateLimit(ip, 10, 60000);
+  if (!limitCheck.success) {
+    return NextResponse.json(
+      { error: "Too many chat requests. Please wait a minute before sending another message." },
+      { 
+        status: 429, 
+        headers: { "Retry-After": limitCheck.reset.toString() } 
+      }
+    );
+  }
+
+  // Size limit: 2.5MB payload max to prevent large base64 image flooding
+  const contentLength = parseInt(req.headers.get("content-length") || "0", 10);
+  if (contentLength > 2.5 * 1024 * 1024) {
+    return NextResponse.json({ error: "Payload too large. Max attachment size is 2MB." }, { status: 413 });
+  }
+
   try {
     const { messages } = await req.json();
     const apiKey = process.env.OPENROUTER_API_KEY;
 
     if (!apiKey) {
+      console.error("OpenRouter API key is not configured.");
       return NextResponse.json(
-        { error: "OpenRouter API Key not configured." },
+        { error: "Chat service is temporarily unavailable." },
         { status: 500 }
       );
+    }
+
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ error: "Invalid request payload." }, { status: 400 });
     }
 
     const systemPrompt = `You are the official AI Assistant for Prambanan Digital, a premier software house specializing in Digital Transformation for the Public Sector and Education in Indonesia.
@@ -73,9 +103,14 @@ Handoff:
 
     // Format messages for OpenRouter (multimodal support)
     const formattedMessages = messages.map((m) => {
-      if (m.attachment && m.attachment.type.startsWith("image/")) {
+      // Validate schema of message object
+      if (!m || typeof m.content !== "string") {
+        throw new Error("Invalid message content format.");
+      }
+
+      if (m.attachment && m.attachment.type && m.attachment.type.startsWith("image/") && m.attachment.data) {
         return {
-          role: m.role,
+          role: m.role || "user",
           content: [
             { type: "text", text: m.content || "" },
             {
@@ -87,7 +122,10 @@ Handoff:
           ]
         };
       }
-      return m;
+      return {
+        role: m.role || "user",
+        content: m.content
+      };
     });
 
     const finalMessages = [
@@ -95,38 +133,68 @@ Handoff:
       ...formattedMessages
     ];
 
-    // Try primary model first
-    let response = await callOpenRouter(PRIMARY_MODEL, finalMessages, apiKey);
-    let data;
+    // Set up AbortController for overall timeout of 15 seconds
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-    // Retry with fallbacks if Rate Limited (429) or other temporary errors
-    if (response.status === 429 || response.status >= 500) {
-      console.warn(`Primary model ${PRIMARY_MODEL} failed with status ${response.status}. Trying fallbacks...`);
+    try {
+      // Try primary model first
+      let response = await callOpenRouter(PRIMARY_MODEL, finalMessages, apiKey, controller.signal);
       
-      for (const fallbackModel of FALLBACK_MODELS) {
-        response = await callOpenRouter(fallbackModel, finalMessages, apiKey);
-        if (response.ok) {
-          console.info(`Successfully fell back to ${fallbackModel}`);
-          break;
+      // Retry with fallbacks if Rate Limited (429) or other temporary errors
+      if (response.status === 429 || response.status >= 500) {
+        console.warn(`Primary model ${PRIMARY_MODEL} failed with status ${response.status}. Trying fallbacks...`);
+        
+        for (const fallbackModel of FALLBACK_MODELS) {
+          try {
+            response = await callOpenRouter(fallbackModel, finalMessages, apiKey, controller.signal);
+            if (response.ok) {
+              console.info(`Successfully fell back to ${fallbackModel}`);
+              break;
+            }
+            console.warn(`Fallback model ${fallbackModel} also failed with status ${response.status}`);
+          } catch (fallbackError) {
+            console.error(`Error attempting fallback ${fallbackModel}:`, fallbackError.message);
+          }
         }
-        console.warn(`Fallback model ${fallbackModel} also failed with status ${response.status}`);
       }
-    }
 
-    data = await response.json();
-    
-    if (data.error) {
-       console.error("OpenRouter API Error:", data.error);
-       return NextResponse.json({ error: data.error.message }, { status: response.status || 500 });
-    }
+      clearTimeout(timeoutId);
 
-    return NextResponse.json({ 
-      text: data.choices[0].message.content,
-      model: data.model // Return which model actually answered
-    });
+      if (!response.ok) {
+        throw new Error(`OpenRouter returned status ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.error) {
+         console.error("OpenRouter API error detail:", data.error);
+         return NextResponse.json({ error: "AI assistant returned an error." }, { status: 500 });
+      }
+
+      const messageContent = data.choices?.[0]?.message?.content;
+      if (!messageContent) {
+        throw new Error("Invalid response schema from OpenRouter.");
+      }
+
+      return NextResponse.json({ 
+        text: messageContent,
+        model: data.model
+      });
+
+    } catch (fetchError) {
+      clearTimeout(timeoutId);
+      if (fetchError.name === "AbortError") {
+        return NextResponse.json(
+          { error: "AI request timed out. Please try again." }, 
+          { status: 504 }
+        );
+      }
+      throw fetchError;
+    }
 
   } catch (error) {
-    console.error("Error in AI Route:", error);
+    console.error("Error in AI Route:", error.message || error);
     return NextResponse.json(
       { error: "Failed to connect to AI assistant." },
       { status: 500 }
