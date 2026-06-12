@@ -27,7 +27,7 @@
 - [x] Create `.env.example` without secrets
 - [ ] Document data retention and privacy behavior for contact/chat data
 - [ ] Decide and document the authoritative source for projects, testimonials, products, and articles
-- [ ] Remove the implicit `http://localhost:8080` production fallback or fail fast when the required API URL is missing
+- [x] Remove the implicit `http://localhost:8080` production fallback or fail fast when the required API URL is missing
 
 ## Phase 1 - Product Strategy and Information Architecture
 
@@ -90,23 +90,23 @@
 
 ## Phase 4 - Core Pages
 
-- [ ] Build Solutions overview page
-- [ ] Build Government Solutions page
-- [ ] Build Education Solutions page
-- [ ] Build Business Solutions page
-- [ ] Build Custom Engineering services page
-- [ ] Build Products overview page
-- [ ] Build CMS Landing Page SaaS product page
-- [ ] Build Work/Case Studies index
-- [ ] Replace project ID routes with descriptive slug routes
-- [ ] Build case-study detail template: context, challenge, solution, implementation, outcome
-- [ ] Build About page with company evidence and team/process
-- [ ] Build Contact page with server-side lead submission
+- [x] Build Solutions overview page
+- [x] Build Government Solutions page
+- [x] Build Education Solutions page
+- [x] Build Business Solutions page
+- [x] Build Custom Engineering services page
+- [x] Build Products overview page
+- [x] Build CMS Landing Page SaaS product page
+- [x] Build Work/Case Studies index
+- [x] Replace project ID routes with descriptive slug routes
+- [x] Build case-study detail template: context, challenge, solution, implementation, outcome
+- [x] Build About page with company evidence and team/process
+- [x] Build Contact page with server-side lead submission
 
 ## Phase 5 - CMS and Content Architecture
 
 - [ ] Confirm Sanity as the single marketing CMS
-- [ ] Remove Wisp integration if no longer used
+- [x] Remove Wisp integration if no longer used
 - [ ] Remove unused API helper and fallback content paths
 - [ ] Create global site settings schema
 - [ ] Refine service schema
@@ -123,11 +123,11 @@
 
 ## Phase 6 - Blog and SEO
 
-- [ ] Rename/reposition Blog as Insights if approved
-- [ ] Rebuild insight index and article detail pages
-- [ ] Add per-route dynamic metadata
-- [ ] Add canonical and hreflang validation
-- [ ] Include articles, case studies, solutions, services, and products in sitemap
+- [x] Rename/reposition Blog as Insights if approved
+- [x] Rebuild insight index and article detail pages
+- [x] Add per-route dynamic metadata
+- [x] Add canonical and hreflang validation
+- [x] Include articles, case studies, solutions, services, and products in sitemap
 - [ ] Disallow admin/studio/internal paths in robots
 - [ ] Add Organization and WebSite structured data
 - [ ] Add Service, Product, Article, BreadcrumbList, and FAQ structured data where applicable
