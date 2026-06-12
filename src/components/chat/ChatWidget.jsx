@@ -11,7 +11,6 @@ import {
   IoDocumentText,
   IoTrash,
 } from "react-icons/io5";
-import { sendTelegramNotification } from "@/helper/sendTelegram";
 import {
   getAllMessages,
   saveMessage,
@@ -379,7 +378,16 @@ export default function ChatWidget() {
         `<i>${summary || "No previous messages."}</i>\n\n` +
         `👉 <b>Balas di Dashboard Admin:</b>\n${adminLink}`;
 
-      await sendTelegramNotification(fullMessage);
+      const notifyRes = await fetch("/api/chat/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: fullMessage }),
+      });
+
+      if (!notifyRes.ok) {
+        const errorData = await notifyRes.json();
+        throw new Error(errorData.error || "Failed to trigger notification via server.");
+      }
 
       setIsWaitingForHuman(true);
 
