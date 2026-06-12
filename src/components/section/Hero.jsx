@@ -77,7 +77,7 @@ export default function HeroSection() {
             {/* Buttons */}
             <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mt-10">
               <MagneticButton>
-                <Link href={`${saasUrl}/signup`} className="btn-primary text-base relative group">
+                <Link href="#contact" className="btn-primary text-base relative group">
                   <span className="absolute -inset-1 bg-primary-400/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <span className="relative flex items-center gap-2">
                     {t("requestDemo")}
