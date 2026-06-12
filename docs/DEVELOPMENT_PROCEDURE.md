@@ -17,6 +17,10 @@ graph TD
     E --> F[6. Git Push]
 ```
 
+### Aturan Pembagian Tugas (Task Batching Rules)
+- **Tugas Besar (Large Tasks):** Kerjakan **hanya 1 tugas** saja dalam satu waktu. Selesaikan seluruh siklusnya (implementasi, uji coba, commit, dan push) sebelum berpindah ke tugas lain.
+- **Tugas Kecil (Small Tasks):** Diperbolehkan mengerjakan **beberapa tugas kecil sekaligus** dalam satu waktu sebelum melakukan uji coba, commit, dan push.
+
 ### Langkah 1: Pahami Task & Cek Codebase
 - Teliti area kode yang terpengaruh.
 - Pastikan tidak ada dependensi yang bentrok.
