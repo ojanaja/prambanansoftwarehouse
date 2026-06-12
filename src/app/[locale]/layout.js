@@ -12,12 +12,16 @@ const CursorGlow = dynamic(
   { ssr: false }
 );
 
+const ChatWidget = dynamic(
+  () => import("@/components/chat/ChatWidget"),
+  { ssr: false }
+);
+
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/section/Footer";
-import ChatWidget from "@/components/chat/ChatWidget";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
