@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { HiOutlineEye, HiOutlineTarget, HiOutlineBadgeCheck } from "react-icons/hi";
+import { HiOutlineEye, HiOutlineLightningBolt, HiOutlineBadgeCheck } from "react-icons/hi";
 import StatsSection from "@/components/section/Stats";
 import ContactSection from "@/components/section/Contact";
 
@@ -49,7 +49,7 @@ export default async function AboutPage({ params: { locale } }) {
                         {/* Mission */}
                         <div className="bg-white dark:bg-neutral-900 p-8 md:p-12 rounded-3xl border border-neutral-200/60 dark:border-white/5 shadow-sm flex flex-col items-start">
                             <div className="w-14 h-14 rounded-2xl bg-primary-500/5 dark:bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-500 mb-8">
-                                <HiOutlineTarget className="text-3xl" />
+                                <HiOutlineLightningBolt className="text-3xl" />
                             </div>
                             <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
                                 {t("missionTitle")}
