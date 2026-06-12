@@ -57,16 +57,16 @@
 
 ## Phase 2 - Design System
 
-- [ ] Create color tokens with Prambanan orange/red as accent
-- [ ] Define neutral and semantic color scales
-- [ ] Define typography scale and line-height rules
-- [ ] Define spacing, grid, container, radius, shadow, and motion tokens
-- [ ] Define mobile-first breakpoints and content-width constraints
-- [ ] Build accessible Button, IconButton, Link, Input, Select, Textarea, and FormField
+- [x] Create color tokens with Prambanan orange/red as accent
+- [x] Define neutral and semantic color scales
+- [x] Define typography scale and line-height rules
+- [x] Define spacing, grid, container, radius, shadow, and motion tokens
+- [x] Define mobile-first breakpoints and content-width constraints
+- [/] Build accessible Button, IconButton, Link, Input, Select, Textarea, and FormField (Created Button, Input, Textarea, Select, FormField)
 - [ ] Build Header, MobileNavigation, Footer, Breadcrumbs, and LanguageSwitcher
-- [ ] Build SectionHeader, LogoStrip, Metric, Testimonial, CaseStudy, Service, and Product components
+- [/] Build SectionHeader, LogoStrip, Metric, Testimonial, CaseStudy, Service, and Product components (Created SectionHeader)
 - [ ] Define loading, empty, error, and unavailable states
-- [ ] Add `prefers-reduced-motion` behavior
+- [x] Add `prefers-reduced-motion` behavior
 - [ ] Produce homepage desktop prototype
 - [ ] Produce homepage mobile prototype
 - [ ] Review prototype against WCAG 2.2 AA
