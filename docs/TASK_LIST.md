@@ -148,7 +148,7 @@
 - [ ] Compress and resize all production images
 - [ ] Add responsive `sizes` and priority rules
 - [ ] Optimize font loading and subsets
-- [ ] Add bundle analysis command
+- [x] Add bundle analysis command
 - [ ] Add Lighthouse CI or equivalent performance gate
 
 ## Phase 8 - Accessibility
