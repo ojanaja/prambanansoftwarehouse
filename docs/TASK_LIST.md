@@ -128,11 +128,11 @@
 - [x] Add per-route dynamic metadata
 - [x] Add canonical and hreflang validation
 - [x] Include articles, case studies, solutions, services, and products in sitemap
-- [ ] Disallow admin/studio/internal paths in robots
-- [ ] Add Organization and WebSite structured data
-- [ ] Add Service, Product, Article, BreadcrumbList, and FAQ structured data where applicable
+- [x] Disallow admin/studio/internal paths in robots
+- [x] Add Organization and WebSite structured data
+- [x] Add Service, Product, Article, BreadcrumbList, and FAQ structured data where applicable
 - [ ] Add Open Graph image strategy
-- [ ] Add redirect map for changed routes
+- [x] Add redirect map for changed routes
 - [ ] Add 404 and error pages aligned with the brand
 - [ ] Validate search-console readiness
 
