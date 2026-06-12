@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://prambanandigital.com';
+  const baseUrl = 'https://prambanandigital.web.id';
 
   return [
     {

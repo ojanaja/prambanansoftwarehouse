@@ -35,7 +35,7 @@ export async function generateMetadata({ params }) {
   try {
     const t = await getTranslations({ locale });
     return {
-      metadataBase: new URL("https://prambanandigital.com"),
+      metadataBase: new URL("https://prambanandigital.web.id"),
       title: t('metadata.title'),
       description: t('metadata.description'),
       keywords: t('metadata.keywords').split(', '),
@@ -72,8 +72,8 @@ export default async function RootLayout({ children, params }) {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Prambanan Digital",
-    "image": "https://prambanandigital.com/logo.png",
-    "url": "https://prambanandigital.com",
+    "image": "https://prambanandigital.web.id/logo.png",
+    "url": "https://prambanandigital.web.id",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bandung",

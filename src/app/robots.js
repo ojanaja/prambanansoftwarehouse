@@ -3,8 +3,8 @@ export default function robots() {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/private/'],
+      disallow: ['/private/', '/api/', '/studio/', '/*/admin/'],
     },
-    sitemap: 'https://prambanandigital.com/sitemap.xml',
+    sitemap: 'https://prambanandigital.web.id/sitemap.xml',
   }
 }
