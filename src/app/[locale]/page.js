@@ -1,27 +1,16 @@
-import Navbar from "@/components/navigation/Navbar";
-import AboutSection from "@/components/section/About";
-import BlogTeaserSection from "@/components/section/BlogTeaser";
 import ContactSection from "@/components/section/Contact";
-import ContactBottom from "@/components/section/ContactBottom";
-import FAQSection from "@/components/section/FAQ";
-import Footer from "@/components/section/Footer";
 import HeroSection from "@/components/section/Hero";
-import OurProductSection from "@/components/section/OurProduct";
 import OurProjectSection from "@/components/section/OurProject";
 import ProcessSection from "@/components/section/Process";
 import SpecializedSolutionsSection from "@/components/section/SpecializedSolutions";
 import SecurityComplianceSection from "@/components/section/SecurityCompliance";
 import StatsSection from "@/components/section/Stats";
-import TechStackSection from "@/components/section/TechStack";
 import TestimonialsSection from "@/components/section/Testimonials";
-import WhyChooseUsSection from "@/components/section/WhyChooseUs";
-import ServicesSection from "@/components/section/Services";
 import { getServices, getShowcaseProducts, getPortfolios, getTestimonials } from "@/lib/api";
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
 export async function generateMetadata({ params: { locale } }) {
-  const isEn = locale === 'en';
   return {
     alternates: {
       canonical: `/${locale}`,
@@ -58,22 +47,33 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col min-h-screen">
+      {/* 1. Hero with literal promise */}
       <HeroSection />
+      
+      {/* 2. Stats Section (Verified proof / Client count) */}
       <StatsSection />
-      <ServicesSection initialServices={sanityServices} />
+      
+      {/* 3. Three Offer Paths (Government solutions, Education, Custom Engineering) */}
       <SpecializedSolutionsSection />
+      
+      {/* 4. Security, compliance, and engineering standards */}
       <SecurityComplianceSection />
-      <TechStackSection />
-      <WhyChooseUsSection />
+      
+      {/* 5. Delivery Process */}
       <ProcessSection />
-      <OurProjectSection initialProjects={sanityProjects} />
-      <TestimonialsSection initialTestimonials={sanityTestimonials} />
-      <OurProductSection initialProducts={sanityProducts} />
-      <AboutSection />
-      <FAQSection />
-      <BlogTeaserSection />
+      
+      {/* 6. Case Studies / Projects (Render only if CMS data exists) */}
+      {sanityProjects && sanityProjects.length > 0 && (
+        <OurProjectSection initialProjects={sanityProjects} />
+      )}
+      
+      {/* 7. Testimonials (Render only if customer proof exists) */}
+      {sanityTestimonials && sanityTestimonials.length > 0 && (
+        <TestimonialsSection initialTestimonials={sanityTestimonials} />
+      )}
+      
+      {/* 8. Focused lead capture / Consultation CTA */}
       <ContactSection />
     </main>
   );
 }
-
