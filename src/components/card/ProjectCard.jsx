@@ -1,10 +1,11 @@
+"use client";
 import Image from "next/image";
 import { HiArrowRight } from "react-icons/hi";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-export default function ProjectCard({ id, company, name, imageUrl, index = 0 }) {
+export default function ProjectCard({ slug, company, name, imageUrl, index = 0 }) {
   const number = String(index + 1).padStart(2, "0");
   const t = useTranslations("projects");
   const params = useParams();
@@ -12,7 +13,7 @@ export default function ProjectCard({ id, company, name, imageUrl, index = 0 }) 
 
   return (
     <Link
-      href={`/${locale}/projects/${id}`}
+      href={`/${locale}/work/${slug}`}
       className="group relative w-full h-[380px] md:h-[420px] rounded-2xl overflow-hidden cursor-pointer block"
     >
       {/* Accent bar */}

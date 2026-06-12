@@ -10,7 +10,7 @@ export async function generateMetadata({ params: { locale } }) {
         title: "Sistem Pendidikan & SIAKAD | Prambanan Digital",
         description: "Partner Digitalisasi Sekolah Menuju Standar Global. Kami membangun sistem SIAKAD, LMS, dan manajemen yayasan.",
         alternates: {
-            canonical: `/${locale}/education`,
+            canonical: `/${locale}/solutions/education`,
         },
     };
 }

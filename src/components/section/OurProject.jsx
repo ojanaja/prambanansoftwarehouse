@@ -25,7 +25,7 @@ export default function OurProjectSection({ initialProjects = [] }) {
 
   const projects = useMemo(() => {
     return initialProjects.map((p) => ({
-      id: p._id || p.slug,
+      slug: p.slug || p._id,
       company: p.title,
       name: locale === 'id' ? p.description_id : p.description_en,
       category: p.category || 'all',
@@ -107,9 +107,9 @@ export default function OurProjectSection({ initialProjects = [] }) {
               className="w-full h-full py-6 !pb-12"
             >
               {filteredProjects.map((project, index) => (
-                <SwiperSlide key={project.id} className="h-auto !flex">
+                <SwiperSlide key={project.slug} className="h-auto !flex">
                   <ProjectCard
-                    id={project.id}
+                    slug={project.slug}
                     company={project.company}
                     name={project.name}
                     imageUrl={project.imageUrl}

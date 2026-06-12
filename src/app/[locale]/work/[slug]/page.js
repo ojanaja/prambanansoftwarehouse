@@ -5,8 +5,8 @@ import { HiArrowLeft } from "react-icons/hi";
 import { notFound } from "next/navigation";
 import { getPortfolioBySlug } from "@/lib/api";
 
-export async function generateMetadata({ params: { locale, id } }) {
-    const project = await getPortfolioBySlug(id);
+export async function generateMetadata({ params: { locale, slug } }) {
+    const project = await getPortfolioBySlug(slug);
 
     if (!project) return { title: "Project Not Found" };
 
@@ -18,8 +18,8 @@ export async function generateMetadata({ params: { locale, id } }) {
     };
 }
 
-export default async function ProjectDetail({ params: { locale, id } }) {
-    const project = await getPortfolioBySlug(id);
+export default async function ProjectDetail({ params: { locale, slug } }) {
+    const project = await getPortfolioBySlug(slug);
 
     if (!project) notFound();
 
