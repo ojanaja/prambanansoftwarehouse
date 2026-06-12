@@ -1,9 +1,13 @@
 import React from "react";
 
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean;
+}
+
 /**
  * A sleek, accessible Input component with consistent focus states.
  */
-export const Input = React.forwardRef(({
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   className = "",
   type = "text",
   error = false,

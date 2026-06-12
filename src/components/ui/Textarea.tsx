@@ -1,9 +1,13 @@
 import React from "react";
 
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  error?: boolean;
+}
+
 /**
  * A styled resizable Textarea component matching input configurations.
  */
-export const Textarea = React.forwardRef(({
+export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
   className = "",
   rows = 4,
   error = false,

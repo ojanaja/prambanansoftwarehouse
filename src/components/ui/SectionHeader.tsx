@@ -1,5 +1,13 @@
 import React from "react";
 
+export interface SectionHeaderProps {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  align?: "left" | "center" | "right";
+  className?: string;
+}
+
 /**
  * Reusable SectionHeader component to maintain clean editorial heading layouts.
  */
@@ -9,7 +17,7 @@ export function SectionHeader({
   subtitle,
   align = "center",
   className = "",
-}) {
+}: SectionHeaderProps) {
   const alignments = {
     left: "text-left items-start",
     center: "text-center items-center mx-auto",

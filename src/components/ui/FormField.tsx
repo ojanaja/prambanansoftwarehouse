@@ -1,5 +1,13 @@
 import React from "react";
 
+export interface FormFieldProps {
+  label?: string;
+  error?: string | boolean;
+  id?: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
 /**
  * A FormField component that binds HTML labels, inputs, and error states.
  */
@@ -9,7 +17,7 @@ export function FormField({
   id,
   children,
   className = "",
-}) {
+}: FormFieldProps) {
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && id && (
@@ -23,7 +31,7 @@ export function FormField({
       
       <div>
         {React.isValidElement(children) 
-          ? React.cloneElement(children, { 
+          ? React.cloneElement(children as React.ReactElement<any>, { 
               id, 
               error: !!error,
               ...(error && id ? { "aria-describedby": `${id}-error`, "aria-invalid": "true" } : {})

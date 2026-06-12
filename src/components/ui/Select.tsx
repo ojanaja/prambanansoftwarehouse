@@ -1,9 +1,13 @@
 import React from "react";
 
+export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  error?: boolean;
+}
+
 /**
  * A custom styled Dropdown Select component.
  */
-export const Select = React.forwardRef(({
+export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
   children,
   className = "",
   error = false,

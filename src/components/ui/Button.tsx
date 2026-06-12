@@ -1,10 +1,15 @@
 import React from "react";
 
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+}
+
 /**
  * A highly accessible, responsive button component.
  * Supports primary gradient, outline, and ghost variants.
  */
-export const Button = React.forwardRef(({
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   type = "button",
   variant = "primary",
