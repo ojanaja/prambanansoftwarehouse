@@ -123,6 +123,7 @@ export default function ContactSection() {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder={t("namePlaceholder")}
+                      aria-label={t("namePlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
                       required
                     />
@@ -134,6 +135,7 @@ export default function ContactSection() {
                       value={formData.institution}
                       onChange={handleInputChange}
                       placeholder={t("institutionPlaceholder")}
+                      aria-label={t("institutionPlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
                       required
                     />
@@ -146,6 +148,7 @@ export default function ContactSection() {
                       onChange={handleWhatsappInput}
                       inputMode="numeric"
                       placeholder={t("whatsappPlaceholder")}
+                      aria-label={t("whatsappPlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
                       required
                     />
@@ -157,6 +160,7 @@ export default function ContactSection() {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder={t("emailPlaceholder")}
+                      aria-label={t("emailPlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
                     />
                   </div>
@@ -165,6 +169,7 @@ export default function ContactSection() {
                       name="appType"
                       value={formData.appType}
                       onChange={handleInputChange}
+                      aria-label={t("selectAppType")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 transition-all duration-300 text-sm appearance-none cursor-pointer"
                       required
                     >
