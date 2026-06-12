@@ -15,9 +15,38 @@ export async function generateMetadata({ params: { locale } }) {
     };
 }
 
-export default async function EducationPage() {
+export default async function EducationPage({ params: { locale } }) {
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": locale === 'id' ? "Beranda" : "Home",
+                "item": `https://prambanandigital.web.id/${locale}`
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": locale === 'id' ? "Solusi" : "Solutions",
+                "item": `https://prambanandigital.web.id/${locale}/solutions`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": locale === 'id' ? "Pendidikan & SIAKAD" : "Education & SIAKAD",
+                "item": `https://prambanandigital.web.id/${locale}/solutions/education`
+            }
+        ]
+    };
+
     return (
         <main className="flex flex-col min-h-screen">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <EducationHero />
             <StatsSection />
             <SecurityComplianceSection />

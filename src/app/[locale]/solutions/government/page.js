@@ -21,8 +21,37 @@ export default async function GovernmentSolutionsPage({ params: { locale } }) {
     // Features list
     const features = t.raw("govPage.features");
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": locale === 'id' ? "Beranda" : "Home",
+                "item": `https://prambanandigital.web.id/${locale}`
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": locale === 'id' ? "Solusi" : "Solutions",
+                "item": `https://prambanandigital.web.id/${locale}/solutions`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": t("govTitle"),
+                "item": `https://prambanandigital.web.id/${locale}/solutions/government`
+            }
+        ]
+    };
+
     return (
         <main className="min-h-screen bg-white dark:bg-neutral-950">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             {/* Hero Section */}
             <div className="relative overflow-hidden bg-neutral-900 pt-32 pb-24 md:pt-40 md:pb-36 text-white">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-orange-500/20 via-neutral-950 to-neutral-950 -z-10" />

@@ -72,7 +72,7 @@ export default async function RootLayout({ children, params }) {
   // Re-enable this to see if it catches the throw in request.js
   const messages = await getMessages();
 
-  const jsonLd = {
+  const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Prambanan Digital",
@@ -86,12 +86,31 @@ export default async function RootLayout({ children, params }) {
     "description": "Prambanan Digital is a software house based in Bandung, Indonesia."
   };
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Prambanan Digital",
+    "url": `https://prambanandigital.web.id/${locale}`,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `https://prambanandigital.web.id/${locale}/insights?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className={poppins.className}>

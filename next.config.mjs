@@ -48,6 +48,61 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/projects',
+        destination: '/work',
+        permanent: true,
+      },
+      {
+        source: '/projects/:id',
+        destination: '/work/:id',
+        permanent: true,
+      },
+      {
+        source: '/education',
+        destination: '/solutions/education',
+        permanent: true,
+      },
+      {
+        source: '/blog',
+        destination: '/insights',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug',
+        destination: '/insights/:slug',
+        permanent: true,
+      },
+      // Localized redirects
+      {
+        source: '/:locale(id|en)/projects',
+        destination: '/:locale/work',
+        permanent: true,
+      },
+      {
+        source: '/:locale(id|en)/projects/:id',
+        destination: '/:locale/work/:id',
+        permanent: true,
+      },
+      {
+        source: '/:locale(id|en)/education',
+        destination: '/:locale/solutions/education',
+        permanent: true,
+      },
+      {
+        source: '/:locale(id|en)/blog',
+        destination: '/:locale/insights',
+        permanent: true,
+      },
+      {
+        source: '/:locale(id|en)/blog/:slug',
+        destination: '/:locale/insights/:slug',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

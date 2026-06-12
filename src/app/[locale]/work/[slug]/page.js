@@ -35,8 +35,37 @@ export default async function ProjectDetail({ params: { locale, slug } }) {
         return cat;
     };
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": locale === 'id' ? "Beranda" : "Home",
+                "item": `https://prambanandigital.web.id/${locale}`
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": locale === 'id' ? "Portofolio" : "Portfolio",
+                "item": `https://prambanandigital.web.id/${locale}/work`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": project.title,
+                "item": `https://prambanandigital.web.id/${locale}/work/${slug}`
+            }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-white dark:bg-neutral-950 pt-28 pb-20">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <div className="section-container">
                 {/* Back Link */}
                 <Link
