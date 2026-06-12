@@ -8,6 +8,10 @@ export default function CursorGlow() {
     const rafRef = useRef(null);
 
     useEffect(() => {
+        // Disable on reduced motion
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion) return;
+
         // Hide on touch devices
         const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
         if (isTouchDevice) return;

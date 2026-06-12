@@ -62,11 +62,17 @@ const PRESETS = {
 };
 
 export default function ParticleBackground({ variant = "hero", className = "" }) {
+    const prefersReducedMotion = typeof window !== "undefined"
+        ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        : false;
+
     const particlesInit = useCallback(async (engine) => {
         await loadSlim(engine);
     }, []);
 
     const options = useMemo(() => PRESETS[variant] || PRESETS.hero, [variant]);
+
+    if (prefersReducedMotion) return null;
 
     return (
         <div className={`absolute inset-0 pointer-events-none z-[1] ${className}`}>
