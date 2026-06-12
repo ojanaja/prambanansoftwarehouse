@@ -162,6 +162,12 @@ The active pre-release marketing domain is:
 
 - `https://prambanandigital.web.id`
 
+The complete pre-release ecosystem uses the same base domain:
+
+- `https://app.prambanandigital.web.id` for the SaaS platform.
+- `https://{tenant}.prambanandigital.web.id` for default tenant websites.
+- Client custom domains continue to resolve through the SaaS tenant engine.
+
 The current source still contains hardcoded references to
 `prambanandigital.com` in metadata, sitemap, robots, structured data, and the
 OpenRouter referrer header. These references must be centralized and changed
