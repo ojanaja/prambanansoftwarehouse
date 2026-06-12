@@ -57,6 +57,8 @@ export default function OurProjectSection({ initialProjects = [] }) {
     { scope: containerRef }
   );
 
+  if (!initialProjects || initialProjects.length === 0) return null;
+
   return (
     <div className="section-padding" ref={containerRef}>
       <div className="section-container">

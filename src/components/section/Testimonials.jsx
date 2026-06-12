@@ -54,6 +54,8 @@ export default function TestimonialsSection({ initialTestimonials = [] }) {
     { scope: containerRef }
   );
 
+  if (!initialTestimonials || initialTestimonials.length === 0) return null;
+
   return (
     <div className="section-padding" ref={containerRef}>
       <div className="section-container">
