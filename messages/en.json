@@ -13,7 +13,7 @@
     "services": "Services",
     "work": "Portfolio",
     "about": "About Us",
-    "blog": "Blog",
+    "insights": "Insights",
     "contact": "Contact",
     "requestDemo": "Strategic Consultation",
     "light": "Light",
@@ -334,7 +334,7 @@
   },
   "common": {
     "home": "Home",
-    "blog": "Blog"
+    "insights": "Insights"
   },
   "blogTeaser": {
     "heading": "Blog & Insights",

@@ -13,7 +13,7 @@
     "services": "Layanan",
     "work": "Portofolio",
     "about": "Tentang Kami",
-    "blog": "Blog",
+    "insights": "Wawasan",
     "contact": "Kontak",
     "requestDemo": "Konsultasi Strategis",
     "light": "Terang",
@@ -334,7 +334,7 @@
   },
   "common": {
     "home": "Beranda",
-    "blog": "Blog"
+    "insights": "Wawasan"
   },
   "blogTeaser": {
     "heading": "Blog & Wawasan",
