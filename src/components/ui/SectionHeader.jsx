@@ -19,7 +19,7 @@ export function SectionHeader({
   return (
     <div className={`flex flex-col max-w-3xl ${alignments[align]} ${className}`}>
       {badge && (
-        <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-500 mb-3 select-none">
+        <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600 mb-3 select-none">
           {badge}
         </span>
       )}

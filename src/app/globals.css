@@ -62,6 +62,11 @@
 
     --section-bg-alt: #1e293b;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+  }
 }
 
 /* ===== Base Styles ===== */
@@ -108,7 +113,7 @@ body {
   }
 
   .section-heading {
-    @apply text-sm font-semibold uppercase tracking-[0.2em] text-primary-500;
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-primary-600;
   }
 
   .section-title {
