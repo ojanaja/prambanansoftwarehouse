@@ -482,6 +482,8 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-24 right-1.5 sm:right-6 z-50 w-[calc(100vw-0.75rem)] sm:w-[380px] h-[620px] max-h-[85vh] bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 flex flex-col"
+            role="dialog"
+            aria-label={t("title")}
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary-600 to-primary-500 p-4 text-white flex items-center justify-between shadow-md">
@@ -489,7 +491,7 @@ export default function ChatWidget() {
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border border-white/30 overflow-hidden relative">
                   <Image
                     src="/logo/logo.png"
-                    alt="Logo"
+                    alt="Prambanan Software House Logo"
                     fill
                     className="p-1 object-contain"
                   />
@@ -514,6 +516,7 @@ export default function ChatWidget() {
                     onClick={handleClearChat}
                     className="p-2 hover:bg-white/10 rounded-full transition-colors"
                     title="Clear Chat"
+                    aria-label="Clear Chat"
                   >
                     <IoTrash className="text-lg" />
                   </button>
@@ -670,6 +673,7 @@ export default function ChatWidget() {
                       onClick={() => fileInputRef.current?.click()}
                       className="p-2 text-neutral-500 hover:text-primary-600 transition-colors"
                       title="Attach File"
+                      aria-label="Attach File"
                     >
                       <IoAttach className="text-2xl rotate-45" />
                     </button>
@@ -685,6 +689,7 @@ export default function ChatWidget() {
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       placeholder={t("placeholder")}
+                      aria-label={t("placeholder")}
                       className="flex-1 py-3 bg-transparent border-none text-sm focus:ring-0 outline-none transition-all dark:text-white"
                     />
                   </div>
