@@ -21,7 +21,7 @@ export default function BlogCard({ post }) {
     <>
       {/* Tablet and Desktop Mode */}
       <div className="hidden md:block group h-full">
-        <Link href={`/blog/${post.slug}`} className="block h-full">
+        <Link href={`/insights/${post.slug}`} className="block h-full">
           <div className="bg-white dark:bg-neutral-900/40 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 border border-neutral-100 dark:border-white/10 flex flex-col tablet-landscape:flex-row p-4 gap-6 h-full group-hover:-translate-y-1">
             {/* Image Section */}
             <div className="w-full tablet-landscape:w-2/5 relative aspect-[16/10] overflow-hidden rounded-xl">
@@ -75,7 +75,7 @@ export default function BlogCard({ post }) {
 
       {/* Mobile Mode */}
       <div className="block md:hidden">
-        <Link href={`/blog/${post.slug}`} className="block">
+        <Link href={`/insights/${post.slug}`} className="block">
           <div className="bg-white dark:bg-neutral-900/60 rounded-2xl shadow-md border border-neutral-100 dark:border-white/10 overflow-hidden">
             <div className="relative aspect-video">
               <Image

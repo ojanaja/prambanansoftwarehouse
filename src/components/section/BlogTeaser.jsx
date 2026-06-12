@@ -34,7 +34,7 @@ export default async function BlogTeaserSection({ locale }) {
           {posts.map((post) => (
             <Link 
               key={post._id} 
-              href={`/blog/${post.slug}`} 
+              href={`/insights/${post.slug}`} 
               className="group h-full"
             >
               <div className="bg-white dark:bg-neutral-900/40 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 border border-neutral-100 dark:border-white/10 overflow-hidden h-full flex flex-col group-hover:-translate-y-1">
@@ -86,7 +86,7 @@ export default async function BlogTeaserSection({ locale }) {
         {/* View All CTA */}
         <div className="text-center mt-10">
           <Link
-            href="/blog"
+            href="/insights"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors group"
           >
             {t("viewAll")}

@@ -105,8 +105,8 @@ export default function SlugCard({ slug }) {
           {tCommon("home")}
         </Link>
         <span>/</span>
-        <Link href="/blog" className="hover:text-primary-500 transition-colors">
-          {tCommon("blog")}
+        <Link href="/insights" className="hover:text-primary-500 transition-colors">
+          {tCommon("insights")}
         </Link>
         <span>/</span>
         <span className="text-neutral-300 dark:text-neutral-600 truncate max-w-[200px]">{slug}</span>
