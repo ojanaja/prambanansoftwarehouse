@@ -131,9 +131,9 @@
 - [x] Disallow admin/studio/internal paths in robots
 - [x] Add Organization and WebSite structured data
 - [x] Add Service, Product, Article, BreadcrumbList, and FAQ structured data where applicable
-- [ ] Add Open Graph image strategy
+- [x] Add Open Graph image strategy
 - [x] Add redirect map for changed routes
-- [ ] Add 404 and error pages aligned with the brand
+- [x] Add 404 and error pages aligned with the brand
 - [ ] Validate search-console readiness
 
 ## Phase 7 - Performance and Asset Optimization

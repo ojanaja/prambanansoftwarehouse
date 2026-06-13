@@ -33,11 +33,26 @@ export async function generateMetadata({ params: { locale, slug } }: PageParams)
 
   if (!project) return { title: "Project Not Found" };
 
-  const description = locale === 'id' ? project.description_id : project.description_en;
+  const title = `${project.title} | Prambanan Digital`;
+  const description = (locale === 'id' ? project.description_id : project.description_en) || `Case study for ${project.title} by Prambanan Digital.`;
 
   return {
-    title: `${project.title} | Prambanan Digital`,
-    description: description || `Case study for ${project.title} by Prambanan Digital.`,
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/work/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: `https://prambanandigital.web.id/${locale}/work/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 

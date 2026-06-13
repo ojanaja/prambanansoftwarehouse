@@ -57,11 +57,20 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
         siteName: "Prambanan Digital",
         locale: locale === 'id' ? 'id_ID' : 'en_US',
         type: "website",
+        images: [
+          {
+            url: "/image/Image%20Card%20Prambanan.png",
+            width: 1200,
+            height: 630,
+            alt: "Prambanan Digital",
+          },
+        ],
       },
       twitter: {
         card: "summary_large_image",
         title: t('metadata.title'),
         description: t('metadata.description'),
+        images: ["/image/Image%20Card%20Prambanan.png"],
       },
     };
   } catch (error) {

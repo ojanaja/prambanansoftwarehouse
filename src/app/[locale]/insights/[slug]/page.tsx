@@ -15,11 +15,25 @@ export async function generateMetadata({ params: { locale, slug } }: PageParams)
   const post = await getArticleBySlug(slug);
   if (!post) return { title: "Article Not Found" };
 
+  const title = `${post.title} | Prambanan Digital`;
+  const description = post.description || `Read about ${post.title} on Prambanan Digital Insights.`;
+
   return {
-    title: `${post.title} | Prambanan Digital`,
-    description: post.description || `Read about ${post.title} on Prambanan Digital Insights.`,
+    title,
+    description,
     alternates: {
       canonical: `/${locale}/insights/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `https://prambanandigital.web.id/${locale}/insights/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
