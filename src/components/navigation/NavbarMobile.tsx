@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MotionDiv = motion.div as any;
@@ -30,8 +30,62 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Save previous active element to restore focus when menu closes
+    const previousActiveElement = document.activeElement as HTMLElement;
+
+    // Focus the first focusable element initially
+    const focusableElements = panelRef.current?.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusableElements && focusableElements.length > 0) {
+      focusableElements[0].focus();
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        if (!panelRef.current) return;
+        const selectables = panelRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (selectables.length === 0) return;
+
+        const firstElement = selectables[0];
+        const lastElement = selectables[selectables.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      if (previousActiveElement) {
+        previousActiveElement.focus();
+      }
+    };
+  }, [isOpen, onClose]);
 
   const isHomePage = pathname === "/";
 
@@ -70,7 +124,7 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
             aria-modal="true"
             aria-label="Mobile Navigation"
           >
-            <div className="bg-white dark:bg-neutral-900 w-full h-full px-6 py-5 flex flex-col shadow-2xl">
+            <div ref={panelRef} className="bg-white dark:bg-neutral-900 w-full h-full px-6 py-5 flex flex-col shadow-2xl">
               {/* Header */}
               <div className="flex justify-between items-center">
                 <Link href="/" onClick={onClose} className="w-12 cursor-pointer">

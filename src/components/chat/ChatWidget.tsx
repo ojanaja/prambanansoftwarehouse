@@ -43,6 +43,9 @@ export default function ChatWidget() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const chatInputRef = useRef<HTMLInputElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
   const t = useTranslations("chatbot");
   const locale = useLocale();
   const pathname = usePathname();
@@ -60,6 +63,30 @@ export default function ChatWidget() {
     }
     setSessionId(sid);
   }, []);
+
+  // Focus management & Escape key close for ChatWidget
+  useEffect(() => {
+    if (isOpen) {
+      wasOpen.current = true;
+      const timer = setTimeout(() => {
+        chatInputRef.current?.focus();
+      }, 100);
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setIsOpen(false);
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    } else if (wasOpen.current) {
+      toggleButtonRef.current?.focus();
+    }
+  }, [isOpen]);
 
   // Load from IndexedDB on mount
   useEffect(() => {
@@ -460,6 +487,7 @@ export default function ChatWidget() {
       {/* Floating Button */}
       <div className="fixed bottom-6 right-6 z-50">
         <button
+          ref={toggleButtonRef}
           onClick={toggleChat}
           className="group relative flex items-center justify-center p-0 border-none bg-transparent"
           aria-label={t("title")}
@@ -698,6 +726,7 @@ export default function ChatWidget() {
                     />
                     <input
                       type="text"
+                      ref={chatInputRef}
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       placeholder={t("placeholder")}
