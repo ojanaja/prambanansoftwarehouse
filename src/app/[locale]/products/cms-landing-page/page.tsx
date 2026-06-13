@@ -91,6 +91,7 @@ export default async function CmsLandingPage({ params: { locale } }: PageParams)
                 src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80" 
                 alt="SaaS Dashboard Interface Mockup"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>

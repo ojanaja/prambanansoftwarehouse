@@ -55,9 +55,9 @@ export default function BlogCard({ post }: BlogCardProps) {
               <Image
                 src={coverImage}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 20vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 alt={post.title || t("photosBlogAlt")}
-                priority
               />
               {/* Category Badge overlay if needed */}
               <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 dark:bg-black/80 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-primary-600">
@@ -82,6 +82,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                   <Image
                     src={authorImage}
                     fill
+                    sizes="32px"
                     className="object-cover"
                     alt={post.author?.name || t("authorAlt")}
                   />
@@ -108,9 +109,9 @@ export default function BlogCard({ post }: BlogCardProps) {
               <Image
                 src={coverImage}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 20vw"
                 className="object-cover"
                 alt={post.title || t("photosBlogAlt")}
-                priority
               />
             </div>
             <div className="p-5">
@@ -126,6 +127,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                   <Image
                     src={authorImage}
                     fill
+                    sizes="24px"
                     className="object-cover"
                     alt={post.author?.name || t("authorAlt")}
                   />

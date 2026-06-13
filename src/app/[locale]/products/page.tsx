@@ -72,6 +72,7 @@ export default async function ProductsPage({ params: { locale } }: PageParams) {
                 src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" 
                 alt="CMS Landing Page Creator Preview"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
@@ -96,6 +97,7 @@ export default async function ProductsPage({ params: { locale } }: PageParams) {
                   src={prod.imageURL}
                   alt={locale === 'id' ? prod.name_id : prod.name_en}
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>

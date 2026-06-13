@@ -504,6 +504,7 @@ export default function ChatWidget() {
                     src="/logo/logo.png"
                     alt="Prambanan Software House Logo"
                     fill
+                    sizes="40px"
                     className="p-1 object-contain"
                   />
                 </div>

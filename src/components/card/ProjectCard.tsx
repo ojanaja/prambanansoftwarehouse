@@ -34,10 +34,9 @@ export default function ProjectCard({ slug, company, name, imageUrl, index = 0 }
         <Image
           src={imageUrl}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-          width={600}
-          height={500}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           alt={name}
-          priority
         />
       )}
 

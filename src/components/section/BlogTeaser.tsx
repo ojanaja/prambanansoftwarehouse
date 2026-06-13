@@ -47,6 +47,7 @@ export default async function BlogTeaserSection({ locale }: BlogTeaserSectionPro
                   <Image
                     src={post.imageUrl || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     alt={post.title || "Blog post"}
                   />
@@ -68,6 +69,7 @@ export default async function BlogTeaserSection({ locale }: BlogTeaserSectionPro
                       <Image
                         src={post.author?.image || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80"}
                         fill
+                        sizes="32px"
                         className="object-cover"
                         alt={post.author?.name || "Author"}
                       />

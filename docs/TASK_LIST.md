@@ -144,10 +144,10 @@
 - [ ] Remove overlapping animation libraries where possible
 - [x] Lazy-load chat and optional interactive widgets
 - [x] Replace raw `<img>` elements with optimized media components where appropriate
-- [ ] Remove unused original assets from `public`
-- [ ] Compress and resize all production images
-- [ ] Add responsive `sizes` and priority rules
-- [ ] Optimize font loading and subsets
+- [x] Remove unused original assets from `public`
+- [x] Compress and resize all production images
+- [x] Add responsive `sizes` and priority rules
+- [x] Optimize font loading and subsets
 - [x] Add bundle analysis command
 - [ ] Add Lighthouse CI or equivalent performance gate
 

@@ -173,7 +173,6 @@ export default function OurProductSection({ initialProducts = [] }: OurProductSe
                         fill
                         sizes="(max-width: 768px) 100vw, 66vw"
                         className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
-                        priority
                       />
                     )}
                   </div>

@@ -118,7 +118,7 @@ export default function AboutSection() {
                 width={1000}
                 height={500}
                 quality={50}
-                priority
+                sizes="(max-width: 768px) 100vw, 450px"
               />
             </div>
           </div>

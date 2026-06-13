@@ -162,6 +162,7 @@ export default function SlugCard({ slug }: SlugCardProps) {
               <Image
                 src={slugData?.imageUrl || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80"}
                 fill
+                sizes="(max-width: 1024px) 100vw, 66vw"
                 className="object-cover"
                 alt={slugData?.title || "Blog cover"}
                 priority
@@ -194,6 +195,7 @@ export default function SlugCard({ slug }: SlugCardProps) {
                 <Image
                   src={authorImage}
                   fill
+                  sizes="64px"
                   className="object-cover"
                   alt="Author"
                 />

@@ -110,8 +110,8 @@ export default function OurClient() {
                 src={client.imageUrl}
                 alt={client.name}
                 className="grayscale hover:grayscale-0 cursor-pointer object-contain w-full h-full"
-                width={500}
-                height={500}
+                width={112}
+                height={112}
                 title={client.name}
               />
             </div>

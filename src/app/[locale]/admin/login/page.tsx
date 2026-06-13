@@ -84,6 +84,7 @@ export default function AdminLoginPage() {
               src="/logo/logo.png"
               alt="Prambanan Digital Logo"
               fill
+              sizes="64px"
               className="p-2 object-contain"
               priority
             />

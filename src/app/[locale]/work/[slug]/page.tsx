@@ -146,6 +146,7 @@ export default async function ProjectDetail({ params: { locale, slug } }: PagePa
               src={imageUrl}
               alt={project.title}
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
               priority
             />
@@ -178,6 +179,7 @@ export default async function ProjectDetail({ params: { locale, slug } }: PagePa
                         src={urlForImage(img).width(800).url()}
                         alt={`Gallery image ${idx + 1}`}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover"
                       />
                     </div>
