@@ -113,7 +113,7 @@ body {
   }
 
   .section-heading {
-    @apply text-sm font-semibold uppercase tracking-[0.2em] text-primary-600;
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-primary-700;
   }
 
   .section-title {
@@ -121,7 +121,7 @@ body {
   }
 
   .section-subtitle {
-    @apply text-base md:text-lg text-neutral-500 mt-4 max-w-2xl;
+    @apply text-base md:text-lg text-neutral-600 mt-4 max-w-2xl;
   }
 
   .glass-card {

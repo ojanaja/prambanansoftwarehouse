@@ -92,7 +92,7 @@ export default async function ServicesPage({ params: { locale } }: PageParams) {
                 className={`flex flex-col lg:flex-row items-center gap-12 p-8 md:p-12 rounded-3xl bg-white dark:bg-neutral-900 border border-neutral-200/60 dark:border-white/5 shadow-sm transition-all duration-500 hover:shadow-xl`}
               >
                 <div className={`w-full lg:w-1/2 ${!isEven ? "lg:order-last" : ""}`}>
-                  <span className="inline-block px-3 py-1 bg-primary-50 dark:bg-primary-950/30 text-primary-600 dark:text-primary-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                  <span className="inline-block px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
                     {service.badge}
                   </span>
                   <h2 className="text-2xl md:text-3xl font-extrabold text-neutral-900 dark:text-white mb-6">

@@ -117,7 +117,7 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
                       <a
                         href={isHomePage ? link.href : `/${locale}${link.href}`}
                         onClick={onClose}
-                        className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-500 transition-all duration-300"
+                        className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300"
                       >
                         <span className="w-1 h-6 rounded-full bg-transparent group-hover:bg-primary-400 transition-all duration-300" />
                         {t(link.labelKey)}
@@ -126,7 +126,7 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
                       <Link
                         href={link.href}
                         onClick={onClose}
-                        className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-500 transition-all duration-300"
+                        className="group flex items-center gap-4 px-4 py-4 rounded-xl text-2xl font-medium text-neutral-800 dark:text-neutral-200 hover:bg-primary-50 dark:hover:bg-primary-950/30 hover:text-primary-700 dark:hover:text-primary-300 transition-all duration-300"
                       >
                         <span className="w-1 h-6 rounded-full bg-transparent group-hover:bg-primary-400 transition-all duration-300" />
                         {t(link.labelKey)}
@@ -149,7 +149,7 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
                       onClick={() => switchLocale("id")}
                       aria-label="Switch language to Indonesian"
                       aria-current={locale === "id" ? "true" : undefined}
-                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "id" ? "bg-primary-500 text-white shadow-sm" : "text-neutral-500"
+                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "id" ? "bg-primary-700 dark:bg-primary-600 text-white shadow-sm" : "text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white"
                         }`}
                     >
                       Indonesian
@@ -158,7 +158,7 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
                       onClick={() => switchLocale("en")}
                       aria-label="Switch language to English"
                       aria-current={locale === "en" ? "true" : undefined}
-                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "en" ? "bg-primary-500 text-white shadow-sm" : "text-neutral-500"
+                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${locale === "en" ? "bg-primary-700 dark:bg-primary-600 text-white shadow-sm" : "text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white"
                         }`}
                     >
                       English
@@ -171,7 +171,7 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
                     className="flex justify-between items-center px-4 py-3.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-all"
                   >
                     <span className="text-sm font-medium">Switch Appearance</span>
-                    {mounted && (resolvedTheme === "dark" ? <FaSun className="text-amber-400" /> : <FaMoon className="text-primary-500" />)}
+                    {mounted && (resolvedTheme === "dark" ? <FaSun className="text-amber-400" /> : <FaMoon className="text-primary-700" />)}
                   </button>
                 </MotionDiv>
 

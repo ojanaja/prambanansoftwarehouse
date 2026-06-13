@@ -35,13 +35,13 @@ export default async function ProductsPage({ params: { locale } }: PageParams) {
       <div className="section-container">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-20">
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-500 mb-3 block">
+          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-700 mb-3 block">
             {tHead("heading")}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight mb-6">
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-600 leading-relaxed">
             {t("subtitle")}
           </p>
         </div>
@@ -84,7 +84,7 @@ export default async function ProductsPage({ params: { locale } }: PageParams) {
           <h2 className="text-3xl font-extrabold text-neutral-900 dark:text-white mb-4">
             {tHead("title")}
           </h2>
-          <p className="text-lg text-neutral-500 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             {tHead("subtitle")}
           </p>
         </div>

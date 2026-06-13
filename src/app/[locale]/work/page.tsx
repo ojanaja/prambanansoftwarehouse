@@ -32,13 +32,13 @@ export default async function WorkPage({ params: { locale } }: PageParams) {
       <div className="section-container">
         {/* Header Section */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-500 mb-3 block">
+          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-700 mb-3 block">
             {t("heading")}
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight mb-6">
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed">
             {t("subtitle")}
           </p>
         </div>

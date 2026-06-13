@@ -116,7 +116,7 @@ export default function StatsSection() {
                   <p className="text-3xl md:text-4xl lg:text-5xl font-bold gradient-text">
                     <CountUp target={item.value} suffix={item.suffix} />
                   </p>
-                  <p className="text-neutral-500 text-sm mt-2 font-medium">
+                  <p className="text-neutral-700 text-sm mt-2 font-medium">
                     {item.label}
                   </p>
                 </div>

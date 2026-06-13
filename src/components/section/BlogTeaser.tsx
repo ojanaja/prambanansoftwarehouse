@@ -60,7 +60,7 @@ export default async function BlogTeaserSection({ locale }: BlogTeaserSectionPro
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2 leading-tight">
                     {post.title}
                   </h3>
-                  <p className="text-neutral-500 dark:text-neutral-400 mt-3 text-sm line-clamp-3 leading-relaxed flex-1">
+                  <p className="text-neutral-600 mt-3 text-sm line-clamp-3 leading-relaxed flex-1">
                     {post.description}
                   </p>
 
@@ -78,7 +78,7 @@ export default async function BlogTeaserSection({ locale }: BlogTeaserSectionPro
                       <p className="font-bold text-neutral-800 dark:text-neutral-200">
                         {post.author?.name || "Prambanan Editorial"}
                       </p>
-                      <p className="text-neutral-400 font-medium">
+                      <p className="text-neutral-600 font-medium">
                         {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString(locale === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short' }) : ""}
                       </p>
                     </div>

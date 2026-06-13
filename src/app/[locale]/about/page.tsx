@@ -93,7 +93,7 @@ export default async function AboutPage({ params: { locale } }: PageParams) {
       <div className="section-padding bg-white dark:bg-neutral-950">
         <div className="section-container">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-500 mb-3 block">
+            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-700 mb-3 block">
               {tWhy("heading")}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4">

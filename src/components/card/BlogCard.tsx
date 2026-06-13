@@ -71,7 +71,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                 <h2 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-500 transition-colors line-clamp-2 leading-tight">
                   {post.title || t("noTitle")}
                 </h2>
-                <p className="text-neutral-500 dark:text-neutral-400 mt-3 text-sm line-clamp-3 leading-relaxed">
+                <p className="text-neutral-600 mt-3 text-sm line-clamp-3 leading-relaxed">
                   {post.description || t("noDescription")}
                 </p>
               </div>
@@ -91,7 +91,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                   <p className="font-bold text-neutral-800 dark:text-neutral-200">
                     {post.author?.name || "Prambanan Editorial"}
                   </p>
-                  <p className="text-neutral-400 font-medium">
+                  <p className="text-neutral-600 font-medium">
                     {formatDate(post.publishedAt)}
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export default function BlogCard({ post }: BlogCardProps) {
               <h2 className="text-lg font-bold text-neutral-900 dark:text-white mb-2 leading-snug">
                 {post.title || t("noTitle")}
               </h2>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 line-clamp-3 mb-4 leading-relaxed">
+              <p className="text-sm text-neutral-600 line-clamp-3 mb-4 leading-relaxed">
                 {post.description || t("noDescription")}
               </p>
               
@@ -132,7 +132,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                     alt={post.author?.name || t("authorAlt")}
                   />
                 </div>
-                <p className="text-[10px] font-bold text-neutral-400 tracking-wide">
+                <p className="text-[10px] font-bold text-neutral-600 tracking-wide">
                   {formatDate(post.publishedAt).toUpperCase()}
                 </p>
               </div>

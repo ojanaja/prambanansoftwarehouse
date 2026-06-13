@@ -155,14 +155,14 @@
 
 - [x] Add visible labels and help/error text to forms
 - [ ] Audit keyboard navigation and focus order
-- [ ] Audit color contrast in light and dark modes
+- [x] Audit color contrast in light and dark modes
 - [ ] Audit heading hierarchy and landmarks
 - [ ] Audit image alt text
 - [ ] Audit language switcher semantics
 - [ ] Audit dialogs, mobile navigation, accordions, sliders, and chat
 - [ ] Ensure animations respect reduced motion
 - [ ] Ensure content remains available without hover
-- [ ] Run automated axe checks
+- [x] Run automated axe checks
 - [ ] Complete manual screen-reader smoke test
 
 ## Phase 9 - Technical Modernization

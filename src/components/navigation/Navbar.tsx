@@ -155,8 +155,8 @@ export default function Navbar({ disabledScroll = false }: NavbarProps) {
                   const isLinkActive = isActive(link);
                   const textColorClass = scrolled
                     ? isLinkActive
-                      ? "text-primary-500 bg-primary-50 dark:bg-primary-950/50"
-                      : "text-neutral-700 dark:text-neutral-300 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                      ? "text-primary-700 bg-primary-50"
+                      : "text-neutral-800 dark:text-neutral-200 hover:text-primary-700 hover:bg-primary-50"
                     : isLinkActive
                       ? "text-white bg-white/15"
                       : "text-white/90 hover:text-white hover:bg-white/10";
@@ -202,8 +202,8 @@ export default function Navbar({ disabledScroll = false }: NavbarProps) {
                   aria-label="Switch language to Indonesian"
                   aria-current={locale === "id" ? "true" : undefined}
                   className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${locale === "id"
-                    ? "bg-primary-500 text-white shadow-sm"
-                    : scrolled ? "text-neutral-500 hover:text-neutral-800" : "text-white/60 hover:text-white"
+                    ? "bg-primary-700 dark:bg-primary-50 text-white shadow-sm"
+                    : scrolled ? "text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white" : "text-white/60 hover:text-white"
                     }`}
                 >
                   ID
@@ -213,8 +213,8 @@ export default function Navbar({ disabledScroll = false }: NavbarProps) {
                   aria-label="Switch language to English"
                   aria-current={locale === "en" ? "true" : undefined}
                   className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${locale === "en"
-                    ? "bg-primary-500 text-white shadow-sm"
-                    : scrolled ? "text-neutral-500 hover:text-neutral-800" : "text-white/60 hover:text-white"
+                    ? "bg-primary-700 dark:bg-primary-50 text-white shadow-sm"
+                    : scrolled ? "text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white" : "text-white/60 hover:text-white"
                     }`}
                 >
                   EN
@@ -224,7 +224,7 @@ export default function Navbar({ disabledScroll = false }: NavbarProps) {
               <button
                 onClick={toggleTheme}
                 className={`p-2.5 rounded-full transition-all duration-300 ${scrolled
-                  ? "text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                  ? "text-neutral-800 dark:text-neutral-200 hover:text-primary-700 hover:bg-primary-50"
                   : "text-white/90 hover:text-white hover:bg-white/10"
                   }`}
                 aria-label="Switch theme"
