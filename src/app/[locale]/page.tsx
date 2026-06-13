@@ -57,10 +57,10 @@ export async function generateMetadata({ params: { locale } }: PageParams): Prom
 }
 
 export default async function Home() {
-  let sanityProjects: any[] = [];
-  let sanityServices: any[] = [];
-  let sanityTestimonials: any[] = [];
-  let sanityProducts: any[] = [];
+  let cmsProjects: any[] = [];
+  let cmsServices: any[] = [];
+  let cmsTestimonials: any[] = [];
+  let cmsProducts: any[] = [];
 
   try {
     const [fetchedProjects, fetchedServices, fetchedTestimonials, fetchedProducts] = await Promise.all([
@@ -70,10 +70,10 @@ export default async function Home() {
       Promise.resolve(getShowcaseProducts())
     ]);
 
-    if (fetchedProjects && fetchedProjects.length > 0) sanityProjects = fetchedProjects;
-    if (fetchedServices && fetchedServices.length > 0) sanityServices = fetchedServices;
-    if (fetchedTestimonials && fetchedTestimonials.length > 0) sanityTestimonials = fetchedTestimonials;
-    if (fetchedProducts && fetchedProducts.length > 0) sanityProducts = fetchedProducts;
+    if (fetchedProjects && fetchedProjects.length > 0) cmsProjects = fetchedProjects;
+    if (fetchedServices && fetchedServices.length > 0) cmsServices = fetchedServices;
+    if (fetchedTestimonials && fetchedTestimonials.length > 0) cmsTestimonials = fetchedTestimonials;
+    if (fetchedProducts && fetchedProducts.length > 0) cmsProducts = fetchedProducts;
   } catch (error: any) {
     console.error("Failed to fetch marketing data:", error.message);
   }
@@ -96,13 +96,13 @@ export default async function Home() {
       <ProcessSection />
       
       {/* 6. Case Studies / Projects (Render only if CMS data exists) */}
-      {sanityProjects && sanityProjects.length > 0 && (
-        <OurProjectSection initialProjects={sanityProjects} />
+      {cmsProjects && cmsProjects.length > 0 && (
+        <OurProjectSection initialProjects={cmsProjects} />
       )}
       
       {/* 7. Testimonials (Render only if customer proof exists) */}
-      {sanityTestimonials && sanityTestimonials.length > 0 && (
-        <TestimonialsSection initialTestimonials={sanityTestimonials} />
+      {cmsTestimonials && cmsTestimonials.length > 0 && (
+        <TestimonialsSection initialTestimonials={cmsTestimonials} />
       )}
       
       {/* 8. Focused lead capture / Consultation CTA */}

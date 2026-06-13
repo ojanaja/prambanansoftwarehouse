@@ -8,14 +8,14 @@ This document establishes the authoritative sources of truth, data retention bou
 
 We separate static marketing content management from dynamic application data storage to ensure operational integrity and compliance.
 
-### A. Sanity CMS (Marketing & Editorial Content)
-Sanity is the single, authoritative source of truth for all public-facing marketing resources.
+### A. Custom CMS API (Marketing & Editorial Content)
+Prambanan's Custom CMS API is the single, authoritative source of truth for all public-facing marketing resources.
 - **Portfolios / Case Studies**: All project details, slugs, client categories, descriptions, live deployment links, and gallery assets.
 - **Insights / Articles**: Blog posts, author info, cover photos, tags, and publication timestamps.
 - **Products**: SaaS features, product names, showcase links, and pricing details.
 - **Testimonials**: Customer quotes, ratings, company names, and review avatars.
 
-*Operational Policy*: No fallback databases or local markdown duplicates are maintained in production. If Sanity CMS is unreachable, fallback logic caught at compilation or runtime gracefully defaults to empty UI boundaries to prevent page crashes.
+*Operational Policy*: No fallback databases or local markdown duplicates are maintained in production. If the Custom CMS API is unreachable, fallback logic caught at compilation or runtime gracefully defaults to empty UI boundaries to prevent page crashes.
 
 ### B. Supabase (Dynamic Customer Data)
 Supabase is the single, authoritative source of truth for dynamic visitor interactions and backend settings.

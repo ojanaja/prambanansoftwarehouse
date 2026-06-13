@@ -46,11 +46,11 @@
 - [ ] Configure optional `www.prambanandigital.web.id` redirect to the canonical transition domain
 - [ ] Configure marketing CTA and `NEXT_PUBLIC_SAAS_URL` to `https://app.prambanandigital.web.id`
 - [ ] Verify DNS and TLS for `prambanandigital.web.id`, `app.prambanandigital.web.id`, and `*.prambanandigital.web.id`
-- [ ] Verify analytics, Search Console, CORS, Supabase, Sanity, and external API allowlists for the transition domain
+- [ ] Verify analytics, Search Console, CORS, Supabase, Custom CMS API, and external API allowlists for the transition domain
 - [ ] Prepare redirect and canonical migration checklist for the future final domain
 - [ ] Validate client/project/team/experience claims and evidence
 - [ ] Inventory all existing Indonesian and English content
-- [ ] Inventory Sanity documents and identify incomplete records
+- [ ] Inventory Custom CMS API content and identify incomplete records
 - [ ] Inventory all public assets and usage rights
 - [ ] Approve target sitemap
 - [ ] Define conversion funnel and analytics events
@@ -105,7 +105,7 @@
 
 ## Phase 5 - CMS and Content Architecture
 
-- [ ] Confirm Sanity as the single marketing CMS
+- [ ] Confirm Custom CMS API as the single marketing CMS
 - [x] Remove Wisp integration if no longer used
 - [ ] Remove unused API helper and fallback content paths
 - [ ] Create global site settings schema
@@ -220,7 +220,7 @@
 - [ ] Add staging deployment
 - [ ] Add uptime and error monitoring
 - [ ] Add structured server logging
-- [ ] Add backup/restore documentation for Sanity/Supabase-dependent data
+- [ ] Add backup/restore documentation for Custom CMS/Supabase-dependent data
 - [ ] Add incident response for lead/chat data exposure
 - [ ] Add rollback procedure
 - [ ] Add launch checklist
