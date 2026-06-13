@@ -5,7 +5,16 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/private/', '/api/', '/studio/', '/*/admin/'],
+      disallow: [
+        '/private',
+        '/private/*',
+        '/api',
+        '/api/*',
+        '/studio',
+        '/studio/*',
+        '/*/admin',
+        '/*/admin/*',
+      ],
     },
     sitemap: 'https://prambanandigital.web.id/sitemap.xml',
   };

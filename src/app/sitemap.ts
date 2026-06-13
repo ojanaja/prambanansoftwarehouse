@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
+import { getPortfolios, getArticles } from '@/lib/api';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://prambanandigital.web.id';
-
   const languages = ['id', 'en'];
-  const routes = [
+
+  const staticRoutes = [
     { path: '', changeFrequency: 'yearly' as const, priority: 1.0 },
     { path: '/solutions', changeFrequency: 'monthly' as const, priority: 0.8 },
     { path: '/solutions/government', changeFrequency: 'monthly' as const, priority: 0.8 },
@@ -21,14 +22,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
+  // Fetch dynamic portfolios and articles
+  const [portfolios, articles] = await Promise.all([
+    getPortfolios().catch(() => []),
+    getArticles().catch(() => []),
+  ]);
+
+  // Generate static and dynamic sitemap entries
   languages.forEach((lang) => {
-    routes.forEach((route) => {
+    // 1. Static Routes
+    staticRoutes.forEach((route) => {
       sitemapEntries.push({
         url: `${baseUrl}/${lang}${route.path}`,
         lastModified: new Date(),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
+    });
+
+    // 2. Dynamic Portfolios (Work)
+    portfolios.forEach((project) => {
+      if (project.slug) {
+        sitemapEntries.push({
+          url: `${baseUrl}/${lang}/work/${project.slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.6,
+        });
+      }
+    });
+
+    // 3. Dynamic Insights (Articles)
+    articles.forEach((article) => {
+      if (article.slug) {
+        sitemapEntries.push({
+          url: `${baseUrl}/${lang}/insights/${article.slug}`,
+          lastModified: new Date(),
+          changeFrequency: 'weekly' as const,
+          priority: 0.6,
+        });
+      }
     });
   });
 
