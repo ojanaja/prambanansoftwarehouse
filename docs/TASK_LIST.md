@@ -12,7 +12,7 @@
 - [x] Audit repository structure, dependencies, build, lint, routes, and assets
 - [x] Audit desktop and mobile homepage rendering
 - [x] Document current product, UX, performance, SEO, security, and deployment gaps
-- [ ] Rotate Telegram bot token if the current token has ever been deployed as `NEXT_PUBLIC_TELEGRAM_BOT_TOKEN`
+- [x] Rotate Telegram bot token if the current token has ever been deployed as `NEXT_PUBLIC_TELEGRAM_BOT_TOKEN`
 - [x] Move Telegram notification calls to a server-only service
 - [x] Replace browser-side EmailJS contact submission with a server route
 - [x] Add Zod validation for contact and chat API payloads (using robust native validator)
@@ -25,8 +25,8 @@
 - [x] Add security headers and Content Security Policy
 - [x] Remove production `console.log` statements and redact sensitive error details
 - [x] Create `.env.example` without secrets
-- [ ] Document data retention and privacy behavior for contact/chat data
-- [ ] Decide and document the authoritative source for projects, testimonials, products, and articles
+- [x] Document data retention and privacy behavior for contact/chat data
+- [x] Decide and document the authoritative source for projects, testimonials, products, and articles
 - [x] Remove the implicit `http://localhost:8080` production fallback or fail fast when the required API URL is missing
 
 ## Phase 1 - Product Strategy and Information Architecture
