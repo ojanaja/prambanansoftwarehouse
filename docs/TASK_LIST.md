@@ -197,7 +197,7 @@
 - [x] Test reduced-motion mode
 - [x] Test admin chat authorization denial
 - [x] Add visual regression screenshots for critical routes
-- [ ] Add build, lint, test, and accessibility CI gate
+- [x] Add build, lint, test, and accessibility CI gate
 
 ## Phase 11 - Analytics and Conversion
 
