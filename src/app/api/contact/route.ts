@@ -3,6 +3,7 @@ import { rateLimit } from "@/helper/rateLimit";
 import { validateContactPayload } from "@/helper/validation";
 import { supabase } from "@/helper/supabase";
 import axios from "axios";
+import { logger } from "@/helper/logger";
 
 export async function POST(req: NextRequest) {
   // Extract client IP address for rate limiting
@@ -71,10 +72,10 @@ export async function POST(req: NextRequest) {
       });
 
       if (dbError) {
-        console.warn("Database storage failed for lead (non-blocking):", dbError.message);
+        logger.warn(`Database storage failed for lead (non-blocking): ${dbError.message}`, { error: dbError });
       }
     } catch (dbErr) {
-      console.warn("Database connection failed for lead (non-blocking):", dbErr);
+      logger.warn("Database connection failed for lead (non-blocking)", { error: dbErr });
     }
 
     // Retrieve server-only EmailJS credentials
@@ -83,7 +84,7 @@ export async function POST(req: NextRequest) {
     const userId = process.env.EMAILJS_USER_ID;
 
     if (!serviceId || !templateId || !userId) {
-      console.error("EmailJS credentials are not configured on the server.");
+      logger.error("EmailJS credentials are not configured on the server.");
       return NextResponse.json(
         { error: "Email delivery configuration is missing." }, 
         { status: 500 }
@@ -112,7 +113,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, message: "Message sent successfully." });
   } catch (error: any) {
-    console.error("Error sending contact email in server route:", error.response?.data || error.message);
+    logger.error("Error sending contact email in server route", { error: error.response?.data || error });
     
     return NextResponse.json(
       { error: "Failed to deliver message. Please try again later." }, 

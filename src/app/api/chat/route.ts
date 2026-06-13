@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
 import { validateChatPayload } from "@/helper/validation";
+import { logger } from "@/helper/logger";
 
 const PRIMARY_MODEL = "qwen/qwen3.6-plus:free";
 const FALLBACK_MODELS = [
@@ -67,7 +68,7 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.OPENROUTER_API_KEY;
 
     if (!apiKey) {
-      console.error("OpenRouter API key is not configured.");
+      logger.error("OpenRouter API key is not configured.");
       return NextResponse.json(
         { error: "Chat service is temporarily unavailable." },
         { status: 500 }
@@ -148,18 +149,18 @@ Handoff:
       
       // Retry with fallbacks if Rate Limited (429) or other temporary errors
       if (response.status === 429 || response.status >= 500) {
-        console.warn(`Primary model ${PRIMARY_MODEL} failed with status ${response.status}. Trying fallbacks...`);
+        logger.warn(`Primary model ${PRIMARY_MODEL} failed with status ${response.status}. Trying fallbacks...`, { status: response.status });
         
         for (const fallbackModel of FALLBACK_MODELS) {
           try {
             response = await callOpenRouter(fallbackModel, finalMessages, apiKey, controller.signal);
             if (response.ok) {
-              console.info(`Successfully fell back to ${fallbackModel}`);
+              logger.info(`Successfully fell back to ${fallbackModel}`, { fallbackModel });
               break;
             }
-            console.warn(`Fallback model ${fallbackModel} also failed with status ${response.status}`);
+            logger.warn(`Fallback model ${fallbackModel} also failed with status ${response.status}`, { fallbackModel, status: response.status });
           } catch (fallbackError: any) {
-            console.error(`Error attempting fallback ${fallbackModel}:`, fallbackError.message);
+            logger.error(`Error attempting fallback ${fallbackModel}: ${fallbackError.message}`, { fallbackModel, error: fallbackError });
           }
         }
       }
@@ -173,7 +174,7 @@ Handoff:
       const data = await response.json();
       
       if (data.error) {
-         console.error("OpenRouter API error detail:", data.error);
+         logger.error("OpenRouter API error detail", { error: data.error });
          return NextResponse.json({ error: "AI assistant returned an error." }, { status: 500 });
       }
 
@@ -199,7 +200,7 @@ Handoff:
     }
 
   } catch (error: any) {
-    console.error("Error in AI Route:", error.message || error);
+    logger.error("Error in AI Route", { error });
     return NextResponse.json(
       { error: "Failed to connect to AI assistant." },
       { status: 500 }

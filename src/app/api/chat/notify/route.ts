@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
 import axios from "axios";
+import { logger } from "@/helper/logger";
 
 export async function POST(req: NextRequest) {
   // Extract client IP address for rate limiting
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
     const chatId = process.env.TELEGRAM_CHAT_ID;
 
     if (!botToken || !chatId) {
-      console.error("Server-side Telegram configuration is missing.");
+      logger.error("Server-side Telegram configuration is missing.");
       return NextResponse.json(
         { error: "Notification service configuration error." }, 
         { status: 500 }
@@ -62,7 +63,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: response.data });
   } catch (error: any) {
-    console.error("Error sending Telegram notification in server route:", error);
+    logger.error("Error sending Telegram notification in server route", { error });
     
     // Do not leak internal system details
     return NextResponse.json(

@@ -212,18 +212,18 @@
 
 ## Phase 12 - Deployment and Operations
 
-- [/] Rewrite repository README with architecture, local setup, environment contract, and deployment
+- [x] Rewrite repository README with architecture, local setup, environment contract, and deployment
 - [x] Add health endpoint and Docker healthcheck
 - [x] Add production security headers
 - [x] Document Docker build arguments and runtime environment variables
 - [x] Validate non-root standalone container
-- [ ] Add staging deployment
-- [ ] Add uptime and error monitoring
-- [ ] Add structured server logging
-- [ ] Add backup/restore documentation for Sanity/Supabase-dependent data
-- [ ] Add incident response for lead/chat data exposure
-- [ ] Add rollback procedure
-- [ ] Add launch checklist
+- [x] Add staging deployment
+- [x] Add uptime and error monitoring
+- [x] Add structured server logging
+- [x] Add backup/restore documentation for Sanity/Supabase-dependent data
+- [x] Add incident response for lead/chat data exposure
+- [x] Add rollback procedure
+- [x] Add launch checklist
 
 ## Phase 13 - Launch Gate
 
