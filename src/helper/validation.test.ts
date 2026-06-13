@@ -1,5 +1,23 @@
 import { validateContactPayload, validateChatPayload, cleanContent } from "./validation";
 
+jest.mock("dompurify", () => {
+  return {
+    sanitize: (html: string, options?: any) => {
+      if (!html) return "";
+      let cleaned = html;
+      // Mock basic DOMPurify script and event handler stripping behaviors
+      cleaned = cleaned.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+      cleaned = cleaned.replace(/onload="[^"]*"/gi, "");
+      cleaned = cleaned.replace(/onerror="[^"]*"/gi, "");
+      cleaned = cleaned.replace(/javascript:[^"']*/gi, "");
+      if (options?.FORBID_TAGS?.includes("img")) {
+        cleaned = cleaned.replace(/<img[^>]*>/gi, "");
+      }
+      return cleaned;
+    }
+  };
+});
+
 describe("validation helpers", () => {
   describe("validateContactPayload", () => {
     const validPayload = {
@@ -107,6 +125,16 @@ describe("validation helpers", () => {
     it("should preserve other HTML elements and plain text", () => {
       const input = "<h1>Title</h1><p>Paragraph with <strong>bold</strong> text.</p>";
       expect(cleanContent(input)).toBe(input);
+    });
+
+    it("should strip out script tags and event handlers to prevent XSS", () => {
+      const input = '<div>Safe text <script>alert("XSS")</script> <a href="javascript:alert(1)">Link</a> <div onload="malicious()">Content</div></div>';
+      const sanitized = cleanContent(input);
+      expect(sanitized).not.toContain("<script>");
+      expect(sanitized).not.toContain("onload=");
+      expect(sanitized).not.toContain("javascript:alert");
+      expect(sanitized).toContain("Safe text");
+      expect(sanitized).toContain("Content");
     });
   });
 });

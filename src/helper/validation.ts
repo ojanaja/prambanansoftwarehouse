@@ -1,3 +1,5 @@
+import DOMPurify from "dompurify";
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const WHATSAPP_REGEX = /^\d{10,15}$/;
 
@@ -63,6 +65,15 @@ export const ALLOWED_CONTENT_TAGS = /<img[^>]*>/g;
 
 export function cleanContent(htmlContent?: string): string {
   if (!htmlContent) return "";
-  return htmlContent.replace(ALLOWED_CONTENT_TAGS, "");
+  
+  // If running on server-side pre-rendering (SSR), return basic sanitized content
+  if (typeof window === "undefined") {
+    return htmlContent.replace(ALLOWED_CONTENT_TAGS, "");
+  }
+
+  // Client-side execution: utilize full secure DOMPurify sanitization
+  return DOMPurify.sanitize(htmlContent, {
+    FORBID_TAGS: ["img"],
+  });
 }
 

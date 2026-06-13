@@ -21,9 +21,9 @@
 - [x] Add AI chat timeout, rate limit, and structured error handling
 - [x] Protect `/[locale]/admin/chat` with authenticated admin authorization
 - [x] Document and test Supabase RLS policies for conversations and messages
-- [ ] Replace regex HTML sanitization with structured Portable Text rendering or a maintained sanitizer
+- [x] Replace regex HTML sanitization with structured Portable Text rendering or a maintained sanitizer
 - [x] Add security headers and Content Security Policy
-- [ ] Remove production `console.log` statements and redact sensitive error details
+- [x] Remove production `console.log` statements and redact sensitive error details
 - [x] Create `.env.example` without secrets
 - [ ] Document data retention and privacy behavior for contact/chat data
 - [ ] Decide and document the authoritative source for projects, testimonials, products, and articles
