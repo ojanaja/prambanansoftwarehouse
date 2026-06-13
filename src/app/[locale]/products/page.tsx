@@ -28,7 +28,7 @@ export default async function ProductsPage({ params: { locale } }: PageParams) {
   const tHead = await getTranslations({ locale, namespace: "ourProduct" });
 
   // Fetch products
-  const dynamicProducts = getShowcaseProducts();
+  const dynamicProducts = await getShowcaseProducts();
 
   return (
     <main className="min-h-screen bg-white dark:bg-neutral-950 pt-32 pb-24">

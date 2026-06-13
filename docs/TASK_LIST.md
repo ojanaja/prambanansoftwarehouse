@@ -46,11 +46,11 @@
 - [ ] Configure optional `www.prambanandigital.web.id` redirect to the canonical transition domain
 - [ ] Configure marketing CTA and `NEXT_PUBLIC_SAAS_URL` to `https://app.prambanandigital.web.id`
 - [ ] Verify DNS and TLS for `prambanandigital.web.id`, `app.prambanandigital.web.id`, and `*.prambanandigital.web.id`
-- [ ] Verify analytics, Search Console, CORS, Supabase, Custom CMS API, and external API allowlists for the transition domain
+- [ ] Verify analytics, Search Console, CORS, Supabase, Sanity, and external API allowlists for the transition domain
 - [ ] Prepare redirect and canonical migration checklist for the future final domain
 - [ ] Validate client/project/team/experience claims and evidence
 - [ ] Inventory all existing Indonesian and English content
-- [ ] Inventory Custom CMS API content and identify incomplete records
+- [ ] Inventory Sanity documents and identify incomplete records
 - [ ] Inventory all public assets and usage rights
 - [ ] Approve target sitemap
 - [ ] Define conversion funnel and analytics events
@@ -105,21 +105,21 @@
 
 ## Phase 5 - CMS and Content Architecture
 
-- [ ] Confirm Custom CMS API as the single marketing CMS
+- [x] Confirm Sanity as the single marketing CMS
 - [x] Remove Wisp integration if no longer used
-- [ ] Remove unused API helper and fallback content paths
-- [ ] Create global site settings schema
-- [ ] Refine service schema
-- [ ] Create solution schema
-- [ ] Refine product schema
-- [ ] Refine project schema into case-study schema
-- [ ] Refine testimonial schema with approval/source metadata
-- [ ] Add client/logo schema
-- [ ] Refine post schema and category taxonomy
-- [ ] Add bilingual validation for required fields
-- [ ] Add preview and draft workflow
-- [ ] Migrate existing content
-- [ ] Add content completeness checks
+- [x] Remove unused API helper and fallback content paths
+- [x] Create global site settings schema
+- [x] Refine service schema
+- [x] Create solution schema
+- [x] Refine product schema
+- [x] Refine project schema into case-study schema
+- [x] Refine testimonial schema with approval/source metadata
+- [x] Add client/logo schema
+- [x] Refine post schema and category taxonomy
+- [x] Add bilingual validation for required fields
+- [x] Add preview and draft workflow
+- [x] Migrate existing content
+- [x] Add content completeness checks
 
 ## Phase 6 - Blog and SEO
 
@@ -220,7 +220,7 @@
 - [ ] Add staging deployment
 - [ ] Add uptime and error monitoring
 - [ ] Add structured server logging
-- [ ] Add backup/restore documentation for Custom CMS/Supabase-dependent data
+- [ ] Add backup/restore documentation for Sanity/Supabase-dependent data
 - [ ] Add incident response for lead/chat data exposure
 - [ ] Add rollback procedure
 - [ ] Add launch checklist

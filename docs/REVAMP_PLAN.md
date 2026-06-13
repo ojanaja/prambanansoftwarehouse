@@ -111,7 +111,7 @@ Remove or move secondary material from the homepage:
 
 ### Content
 
-- Choose Custom CMS API as the single marketing CMS.
+- Choose Sanity as the single marketing CMS.
 - Remove Wisp and unused API/fallback paths after migration.
 - Define schemas for:
   - services,
@@ -170,7 +170,7 @@ Remove or move secondary material from the homepage:
 
 - Build homepage, navigation, footer, contact, solutions, services, products, work, and about pages.
 - Add robust empty/error states.
-- Migrate content to the final Custom CMS API.
+- Migrate content to the final Sanity schemas.
 
 ### Phase 4 - Insights and Case Studies
 

@@ -1,3 +1,29 @@
+jest.mock("next-sanity", () => {
+  const mockClient = {
+    fetch: jest.fn(),
+  };
+  return {
+    createClient: jest.fn(() => mockClient),
+  };
+});
+
+jest.mock("@sanity/image-url", () => {
+  const mockBuilder = {
+    image: jest.fn((source) => ({
+      url: () => {
+        if (typeof source === "string") return source;
+        if (source?.asset?.url) return source.asset.url;
+        if (source?.url) return source.url;
+        return "https://example.com/image.png";
+      }
+    }))
+  };
+  return jest.fn(() => mockBuilder);
+});
+
+import { client } from "@/sanity/client";
+const mockClientFetch = client.fetch as jest.Mock;
+
 import {
   getServices,
   getShowcaseProducts,
@@ -9,35 +35,79 @@ import {
 } from "./api";
 
 describe("api library mappings", () => {
-  const mockFetch = jest.fn();
-
-  beforeAll(() => {
-    global.fetch = mockFetch as any;
-  });
-
   afterAll(() => {
     jest.restoreAllMocks();
   });
 
   beforeEach(() => {
-    mockFetch.mockReset();
+    mockClientFetch.mockReset();
   });
 
   describe("getServices", () => {
-    it("should return static services list", () => {
-      const services = getServices();
+    it("should fetch services from Sanity if available", async () => {
+      const mockServices = [
+        {
+          _id: "s1",
+          title_en: "Service One",
+          title_id: "Layanan Satu",
+          description_en: "Desc One",
+          description_id: "Desc Satu",
+          icon: "icon-one",
+          order: 1
+        }
+      ];
+      mockClientFetch.mockResolvedValueOnce(mockServices);
+
+      const services = await getServices();
+      expect(mockClientFetch).toHaveBeenCalledTimes(1);
+      expect(services).toEqual(mockServices);
+    });
+
+    it("should return static fallback if Sanity fetch fails or is empty", async () => {
+      mockClientFetch.mockRejectedValueOnce(new Error("Network Error"));
+
+      const services = await getServices();
       expect(services).toHaveLength(3);
-      expect(services[0]).toHaveProperty("title_en");
-      expect(services[0]).toHaveProperty("title_id");
+      expect(services[0].icon).toBe("custom");
     });
   });
 
   describe("getShowcaseProducts", () => {
-    it("should return static products list", () => {
-      const products = getShowcaseProducts();
+    it("should fetch and map products from Sanity successfully", async () => {
+      const mockProducts = [
+        {
+          _id: "p1",
+          name_en: "Product One",
+          name_id: "Produk Satu",
+          description_en: "Desc One",
+          description_id: "Desc Satu",
+          image: "img1",
+          order: 1
+        }
+      ];
+      mockClientFetch.mockResolvedValueOnce(mockProducts);
+
+      const products = await getShowcaseProducts();
+      expect(products).toHaveLength(1);
+      expect(products[0]).toEqual({
+        _id: "p1",
+        name_en: "Product One",
+        name_id: "Produk Satu",
+        description_en: "Desc One",
+        description_id: "Desc Satu",
+        imageURL: "img1",
+        imageURL2: "",
+        imageURL3: "",
+        order: 1
+      });
+    });
+
+    it("should return static fallback if products fetch fails", async () => {
+      mockClientFetch.mockRejectedValueOnce(new Error("Sanity Error"));
+
+      const products = await getShowcaseProducts();
       expect(products).toHaveLength(3);
-      expect(products[0]).toHaveProperty("name_en");
-      expect(products[0]).toHaveProperty("imageURL");
+      expect(products[0]._id).toBe("product-binder");
     });
   });
 
@@ -45,23 +115,22 @@ describe("api library mappings", () => {
     it("should fetch and map portfolios list successfully", async () => {
       const mockPortfoliosData = [
         {
-          id: "p1",
+          _id: "p1",
           title: "Project One",
-          slug: "project-one",
-          description: "Description of project one",
-          image: "https://example.com/image.png",
+          slug: { current: "project-one" },
+          description_en: "Description of project one",
+          description_id: "Description of project one",
+          category: "webapp",
+          coverImage: "https://example.com/image.png",
           liveLink: "https://example.com",
           galleryImages: ["g1.png", "g2.png"],
         },
       ];
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockPortfoliosData,
-      });
+      mockClientFetch.mockResolvedValueOnce(mockPortfoliosData);
 
       const portfolios = await getPortfolios();
-      expect(mockFetch).toHaveBeenCalledTimes(1);
+      expect(mockClientFetch).toHaveBeenCalledTimes(1);
       expect(portfolios).toHaveLength(1);
       expect(portfolios[0]).toEqual({
         _id: "p1",
@@ -77,10 +146,7 @@ describe("api library mappings", () => {
     });
 
     it("should return empty array if fetch fails", async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 500,
-      });
+      mockClientFetch.mockRejectedValueOnce(new Error("Sanity offline"));
 
       const portfolios = await getPortfolios();
       expect(portfolios).toEqual([]);
@@ -89,26 +155,26 @@ describe("api library mappings", () => {
 
   describe("getPortfolioBySlug", () => {
     it("should return portfolio matching the slug", async () => {
-      const mockPortfoliosData = [
-        { id: "p1", title: "Project One", slug: "project-one", description: "Desc", image: "img1" },
-        { id: "p2", title: "Project Two", slug: "project-two", description: "Desc", image: "img2" },
-      ];
+      const mockPortfolio = {
+        _id: "p2",
+        title: "Project Two",
+        slug: { current: "project-two" },
+        description_en: "Desc",
+        description_id: "Desc",
+        category: "webapp",
+        coverImage: "img2"
+      };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockPortfoliosData,
-      });
+      mockClientFetch.mockResolvedValueOnce(mockPortfolio);
 
       const match = await getPortfolioBySlug("project-two");
+      expect(mockClientFetch).toHaveBeenCalledTimes(1);
       expect(match).not.toBeNull();
       expect(match?.title).toBe("Project Two");
     });
 
     it("should return null if slug is not found", async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => [],
-      });
+      mockClientFetch.mockResolvedValueOnce(null);
 
       const match = await getPortfolioBySlug("non-existent");
       expect(match).toBeNull();
@@ -119,19 +185,18 @@ describe("api library mappings", () => {
     it("should fetch and map testimonials successfully", async () => {
       const mockTestimonialsData = [
         {
-          id: "t1",
+          _id: "t1",
           name: "Alice",
-          company: "Tech Corp",
-          content: "Great service",
+          role_id: "Tech Corp",
+          role_en: "Tech Corp",
+          content_id: "Great service",
+          content_en: "Great service",
           rating: 5,
-          avatarImage: "https://example.com/avatar.png",
+          avatar: "https://example.com/avatar.png",
         },
       ];
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockTestimonialsData,
-      });
+      mockClientFetch.mockResolvedValueOnce(mockTestimonialsData);
 
       const testimonials = await getTestimonials();
       expect(testimonials).toHaveLength(1);
@@ -148,10 +213,7 @@ describe("api library mappings", () => {
     });
 
     it("should return empty array if testimonials fetch fails", async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 404,
-      });
+      mockClientFetch.mockRejectedValueOnce(new Error("Testimonials error"));
 
       const testimonials = await getTestimonials();
       expect(testimonials).toEqual([]);
@@ -162,21 +224,22 @@ describe("api library mappings", () => {
     it("should fetch and map articles successfully", async () => {
       const mockArticlesData = [
         {
-          id: "a1",
+          _id: "a1",
           title: "Article One",
-          slug: "article-one",
-          excerpt: "Excerpt of article",
+          slug: { current: "article-one" },
+          description: "Excerpt of article",
           publishedAt: "2024-06-13",
           coverImage: "https://example.com/cover.png",
-          author: "John Doe",
-          tags: ["Tech", "Education"],
+          authorName: "John Doe",
+          authorImage: "http://author.img",
+          categories: [
+            { title: "Tech", description: "" },
+            { title: "Education", description: "" },
+          ],
         },
       ];
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockArticlesData,
-      });
+      mockClientFetch.mockResolvedValueOnce(mockArticlesData);
 
       const articles = await getArticles();
       expect(articles).toHaveLength(1);
@@ -189,7 +252,7 @@ describe("api library mappings", () => {
         imageUrl: "https://example.com/cover.png",
         author: {
           name: "John Doe",
-          image: null,
+          image: "http://author.img",
         },
         categories: [
           { title: "Tech", description: "" },
@@ -199,10 +262,7 @@ describe("api library mappings", () => {
     });
 
     it("should return empty array if articles fetch fails", async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 500,
-      });
+      mockClientFetch.mockRejectedValueOnce(new Error("Articles error"));
 
       const articles = await getArticles();
       expect(articles).toEqual([]);
@@ -212,21 +272,19 @@ describe("api library mappings", () => {
   describe("getArticleBySlug", () => {
     it("should fetch single article by slug successfully", async () => {
       const mockArticle = {
-        id: "a1",
+        _id: "a1",
         title: "Article One",
-        slug: "article-one",
-        excerpt: "Excerpt of article",
+        slug: { current: "article-one" },
+        description: "Excerpt of article",
         content: "Markdown body content",
         publishedAt: "2024-06-13",
         coverImage: "https://example.com/cover.png",
-        author: "John Doe",
-        tags: ["Tech"],
+        authorName: "John Doe",
+        authorImage: null,
+        categories: [{ title: "Tech", description: "" }],
       };
 
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => mockArticle,
-      });
+      mockClientFetch.mockResolvedValueOnce(mockArticle);
 
       const article = await getArticleBySlug("article-one");
       expect(article).not.toBeNull();
@@ -247,10 +305,7 @@ describe("api library mappings", () => {
     });
 
     it("should return null if single article fetch fails", async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 404,
-      });
+      mockClientFetch.mockRejectedValueOnce(new Error("Not found"));
 
       const article = await getArticleBySlug("article-one");
       expect(article).toBeNull();
