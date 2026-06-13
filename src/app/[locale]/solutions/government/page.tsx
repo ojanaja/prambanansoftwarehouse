@@ -5,6 +5,7 @@ import Link from "next/link";
 import SecurityComplianceSection from "@/components/section/SecurityCompliance";
 import ContactSection from "@/components/section/Contact";
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 interface PageParams {
   params: {
@@ -42,19 +43,19 @@ export default async function GovernmentSolutionsPage({ params: { locale } }: Pa
         "@type": "ListItem",
         "position": 1,
         "name": locale === 'id' ? "Beranda" : "Home",
-        "item": `https://prambanandigital.web.id/${locale}`
+        "item": `${siteConfig.url}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": locale === 'id' ? "Solusi" : "Solutions",
-        "item": `https://prambanandigital.web.id/${locale}/solutions`
+        "item": `${siteConfig.url}/${locale}/solutions`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": t("govTitle"),
-        "item": `https://prambanandigital.web.id/${locale}/solutions/government`
+        "item": `${siteConfig.url}/${locale}/solutions/government`
       }
     ]
   };

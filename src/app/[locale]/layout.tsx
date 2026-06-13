@@ -24,6 +24,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/section/Footer";
+import { siteConfig } from "@/config/site";
 
 const poppins = Poppins({
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
   try {
     const t = await getTranslations({ locale });
     return {
-      metadataBase: new URL("https://prambanandigital.web.id"),
+      metadataBase: new URL(siteConfig.url),
       title: t('metadata.title'),
       description: t('metadata.description'),
       keywords: t('metadata.keywords').split(', '),
@@ -99,8 +100,8 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Prambanan Digital",
-    "image": "https://prambanandigital.web.id/logo.png",
-    "url": "https://prambanandigital.web.id",
+    "image": `${siteConfig.url}/logo.png`,
+    "url": siteConfig.url,
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bandung",
@@ -113,12 +114,12 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Prambanan Digital",
-    "url": `https://prambanandigital.web.id/${locale}`,
+    "url": `${siteConfig.url}/${locale}`,
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": `https://prambanandigital.web.id/${locale}/insights?q={search_term_string}`
+        "urlTemplate": `${siteConfig.url}/${locale}/insights?q={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }

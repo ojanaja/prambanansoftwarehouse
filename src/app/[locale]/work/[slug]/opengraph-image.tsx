@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getPortfolioBySlug } from "@/lib/api";
+import { siteConfig } from "@/config/site";
 
 export const runtime = "edge";
 
@@ -107,7 +108,7 @@ export default async function Image({ params }: ImageProps) {
             }}
           >
             <div style={{ fontSize: "18px", color: "#ec4323", fontWeight: "bold" }}>
-              prambanandigital.web.id
+              {siteConfig.url.replace("https://", "")}
             </div>
           </div>
         </div>

@@ -40,11 +40,11 @@
 - [x] Confirm transition SaaS domain: `https://app.prambanandigital.web.id`
 - [x] Confirm transition tenant wildcard: `*.prambanandigital.web.id`
 - [ ] Define and approve the final-release marketing and SaaS domain boundary separately
-- [ ] Centralize public marketing base URL in one validated server-side configuration
-- [ ] Replace hardcoded `prambanandigital.com` references with the transition domain in metadata, sitemap, robots, JSON-LD, and OpenRouter referrer
-- [ ] Configure canonical URL to `https://prambanandigital.web.id`
+- [x] Centralize public marketing base URL in one validated server-side configuration
+- [x] Replace hardcoded `prambanandigital.com` references with the transition domain in metadata, sitemap, robots, JSON-LD, and OpenRouter referrer
+- [x] Configure canonical URL to `https://prambanandigital.web.id`
 - [ ] Configure optional `www.prambanandigital.web.id` redirect to the canonical transition domain
-- [ ] Configure marketing CTA and `NEXT_PUBLIC_SAAS_URL` to `https://app.prambanandigital.web.id`
+- [x] Configure marketing CTA and `NEXT_PUBLIC_SAAS_URL` to `https://app.prambanandigital.web.id`
 - [ ] Verify DNS and TLS for `prambanandigital.web.id`, `app.prambanandigital.web.id`, and `*.prambanandigital.web.id`
 - [ ] Verify analytics, Search Console, CORS, Supabase, Sanity, and external API allowlists for the transition domain
 - [ ] Prepare redirect and canonical migration checklist for the future final domain

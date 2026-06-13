@@ -10,13 +10,15 @@ const FALLBACK_MODELS = [
   "google/gemini-flash-1.5-8b"
 ];
 
+import { siteConfig } from "@/config/site";
+
 async function callOpenRouter(model: string, messages: any[], apiKey: string, signal: AbortSignal) {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://prambanandigital.web.id", // Updated domain referrer
+      "HTTP-Referer": siteConfig.url, // Centralized domain referrer
       "X-Title": "Prambanan Digital Assistant",
     },
     body: JSON.stringify({

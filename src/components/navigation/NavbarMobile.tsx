@@ -20,8 +20,10 @@ interface NavbarMobileProps {
   onClose: () => void;
 }
 
+import { siteConfig } from "@/config/site";
+
 export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
-  const saasUrl = process.env.NEXT_PUBLIC_SAAS_URL || "http://app.localhost";
+  const saasUrl = siteConfig.saasUrl;
   const t = useTranslations("navigation");
   const locale = useLocale();
   const router = useRouter();

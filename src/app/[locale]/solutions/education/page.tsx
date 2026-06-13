@@ -5,6 +5,7 @@ import StatsSection from "@/components/section/Stats";
 import SecurityComplianceSection from "@/components/section/SecurityCompliance";
 import FAQSection from "@/components/section/FAQ";
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 interface PageParams {
   params: {
@@ -31,19 +32,19 @@ export default async function EducationPage({ params: { locale } }: PageParams) 
         "@type": "ListItem",
         "position": 1,
         "name": locale === 'id' ? "Beranda" : "Home",
-        "item": `https://prambanandigital.web.id/${locale}`
+        "item": `${siteConfig.url}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": locale === 'id' ? "Solusi" : "Solutions",
-        "item": `https://prambanandigital.web.id/${locale}/solutions`
+        "item": `${siteConfig.url}/${locale}/solutions`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": locale === 'id' ? "Pendidikan & SIAKAD" : "Education & SIAKAD",
-        "item": `https://prambanandigital.web.id/${locale}/solutions/education`
+        "item": `${siteConfig.url}/${locale}/solutions/education`
       }
     ]
   };

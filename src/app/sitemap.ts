@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
+import { siteConfig } from '@/config/site';
 import { getPortfolios, getArticles } from '@/lib/api';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://prambanandigital.web.id';
+  const baseUrl = siteConfig.url;
   const languages = ['id', 'en'];
 
   const staticRoutes = [

@@ -3,6 +3,7 @@ import { getArticleBySlug } from "@/lib/api";
 import SlugCard from "@/components/card/SlugCard";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 interface PageParams {
   params: {
@@ -28,7 +29,7 @@ export async function generateMetadata({ params: { locale, slug } }: PageParams)
       title,
       description,
       type: "article",
-      url: `https://prambanandigital.web.id/${locale}/insights/${slug}`,
+      url: `${siteConfig.url}/${locale}/insights/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -45,7 +46,7 @@ export default async function BlogPost({ params: { locale, slug } }: PageParams)
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "@id": `https://prambanandigital.web.id/${locale}/insights/${slug}`,
+    "@id": `${siteConfig.url}/${locale}/insights/${slug}`,
     "headline": post.title,
     "image": [
       post.imageUrl || "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80"
@@ -55,7 +56,7 @@ export default async function BlogPost({ params: { locale, slug } }: PageParams)
     "author": [{
       "@type": "Person",
       "name": post.author?.name || "Prambanan Editorial",
-      "url": "https://prambanandigital.web.id"
+      "url": siteConfig.url
     }]
   };
 
@@ -67,19 +68,19 @@ export default async function BlogPost({ params: { locale, slug } }: PageParams)
         "@type": "ListItem",
         "position": 1,
         "name": locale === 'id' ? "Beranda" : "Home",
-        "item": `https://prambanandigital.web.id/${locale}`
+        "item": `${siteConfig.url}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": locale === 'id' ? "Wawasan" : "Insights",
-        "item": `https://prambanandigital.web.id/${locale}/insights`
+        "item": `${siteConfig.url}/${locale}/insights`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": post.title,
-        "item": `https://prambanandigital.web.id/${locale}/insights/${slug}`
+        "item": `${siteConfig.url}/${locale}/insights/${slug}`
       }
     ]
   };

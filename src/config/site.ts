@@ -11,10 +11,24 @@ export interface ContactConfig {
 export interface SiteConfig {
   name: string;
   contact: ContactConfig;
+  url: string;
+  saasUrl: string;
+}
+
+const url = "https://prambanandigital.web.id";
+const saasUrl = process.env.NEXT_PUBLIC_SAAS_URL || "https://app.prambanandigital.web.id";
+
+if (!url.startsWith("https://")) {
+  throw new Error("Base marketing URL must use HTTPS.");
+}
+if (!saasUrl.startsWith("https://")) {
+  throw new Error("SaaS URL must use HTTPS.");
 }
 
 export const siteConfig: SiteConfig = {
   name: "Prambanan Digital",
+  url,
+  saasUrl,
   contact: {
     email: "prambanandigital@gmail.com",
     phone: "+6281221779294", // Main WA from ContactBottom

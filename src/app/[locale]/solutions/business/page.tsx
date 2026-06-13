@@ -5,6 +5,7 @@ import Link from "next/link";
 import StatsSection from "@/components/section/Stats";
 import ContactSection from "@/components/section/Contact";
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 interface PageParams {
   params: {
@@ -42,19 +43,19 @@ export default async function BusinessSolutionsPage({ params: { locale } }: Page
         "@type": "ListItem",
         "position": 1,
         "name": locale === 'id' ? "Beranda" : "Home",
-        "item": `https://prambanandigital.web.id/${locale}`
+        "item": `${siteConfig.url}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": locale === 'id' ? "Solusi" : "Solutions",
-        "item": `https://prambanandigital.web.id/${locale}/solutions`
+        "item": `${siteConfig.url}/${locale}/solutions`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": t("bizTitle"),
-        "item": `https://prambanandigital.web.id/${locale}/solutions/business`
+        "item": `${siteConfig.url}/${locale}/solutions/business`
       }
     ]
   };

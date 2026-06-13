@@ -6,6 +6,7 @@ import { HiArrowLeft } from "react-icons/hi";
 import { notFound } from "next/navigation";
 import { getPortfolioBySlug } from "@/lib/api";
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 interface PageParams {
   params: {
@@ -46,7 +47,7 @@ export async function generateMetadata({ params: { locale, slug } }: PageParams)
       title,
       description,
       type: "website",
-      url: `https://prambanandigital.web.id/${locale}/work/${slug}`,
+      url: `${siteConfig.url}/${locale}/work/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -81,19 +82,19 @@ export default async function ProjectDetail({ params: { locale, slug } }: PagePa
         "@type": "ListItem",
         "position": 1,
         "name": locale === 'id' ? "Beranda" : "Home",
-        "item": `https://prambanandigital.web.id/${locale}`
+        "item": `${siteConfig.url}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": locale === 'id' ? "Portofolio" : "Portfolio",
-        "item": `https://prambanandigital.web.id/${locale}/work`
+        "item": `${siteConfig.url}/${locale}/work`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": project.title,
-        "item": `https://prambanandigital.web.id/${locale}/work/${slug}`
+        "item": `${siteConfig.url}/${locale}/work/${slug}`
       }
     ]
   };

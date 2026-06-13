@@ -18,8 +18,10 @@ interface NavbarProps {
   disabledScroll?: boolean;
 }
 
+import { siteConfig } from "@/config/site";
+
 export default function Navbar({ disabledScroll = false }: NavbarProps) {
-  const saasUrl = process.env.NEXT_PUBLIC_SAAS_URL || "http://app.localhost";
+  const saasUrl = siteConfig.saasUrl;
   const t = useTranslations("navigation");
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
