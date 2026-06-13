@@ -472,5 +472,16 @@
     "cmsTitle": "CMS Landing Page",
     "cmsDesc": "A high-conversion SaaS landing page builder with built-in multi-language management, fast load speed, and SEO capabilities.",
     "cmsButton": "Learn More About CMS"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "backHome": "Back to Home"
+  },
+  "errorPage": {
+    "title": "Something Went Wrong",
+    "description": "An unexpected error occurred. Our team has been notified. Please try again or return home.",
+    "retry": "Try Again",
+    "backHome": "Back to Home"
   }
 }

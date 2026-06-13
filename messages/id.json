@@ -472,5 +472,16 @@
     "cmsTitle": "CMS Landing Page",
     "cmsDesc": "Pembuat halaman arahan SaaS dengan konversi tinggi, dilengkapi dengan manajemen multi-bahasa bawaan, kecepatan pemuatan cepat, dan kemampuan SEO.",
     "cmsButton": "Pelajari Selengkapnya Tentang CMS"
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda cari mungkin telah dihapus, namanya diubah, atau tidak tersedia untuk sementara waktu.",
+    "backHome": "Kembali ke Beranda"
+  },
+  "errorPage": {
+    "title": "Terjadi Kesalahan",
+    "description": "Terjadi kesalahan yang tidak terduga. Tim kami telah diberitahu. Silakan coba lagi atau kembali ke beranda.",
+    "retry": "Coba Lagi",
+    "backHome": "Kembali ke Beranda"
   }
 }
