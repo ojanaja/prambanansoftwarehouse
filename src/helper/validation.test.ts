@@ -1,4 +1,4 @@
-import { validateContactPayload, validateChatPayload } from "./validation";
+import { validateContactPayload, validateChatPayload, cleanContent } from "./validation";
 
 describe("validation helpers", () => {
   describe("validateContactPayload", () => {
@@ -85,4 +85,29 @@ describe("validation helpers", () => {
       expect(validateChatPayload(payload2).success).toBe(false);
     });
   });
+
+  describe("cleanContent", () => {
+    it("should return an empty string if htmlContent is falsy", () => {
+      expect(cleanContent(undefined)).toBe("");
+      expect(cleanContent("")).toBe("");
+    });
+
+    it("should strip out all <img> tags, including those with properties", () => {
+      const input = '<p>Hello world</p><img src="test.png" alt="Test image" /><p>Goodbye world</p>';
+      const expected = "<p>Hello world</p><p>Goodbye world</p>";
+      expect(cleanContent(input)).toBe(expected);
+    });
+
+    it("should strip standard non-self-closing <img> tags if any are present", () => {
+      const input = '<div>Text <img src="logo.jpg"> More Text</div>';
+      const expected = "<div>Text  More Text</div>";
+      expect(cleanContent(input)).toBe(expected);
+    });
+
+    it("should preserve other HTML elements and plain text", () => {
+      const input = "<h1>Title</h1><p>Paragraph with <strong>bold</strong> text.</p>";
+      expect(cleanContent(input)).toBe(input);
+    });
+  });
 });
+

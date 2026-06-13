@@ -58,3 +58,11 @@ export function validateChatPayload(body: any): { success: boolean; error?: stri
 
   return { success: true };
 }
+
+export const ALLOWED_CONTENT_TAGS = /<img[^>]*>/g;
+
+export function cleanContent(htmlContent?: string): string {
+  if (!htmlContent) return "";
+  return htmlContent.replace(ALLOWED_CONTENT_TAGS, "");
+}
+

@@ -8,12 +8,12 @@ import Image from "next/image";
 import { useTranslations, useFormatter } from "next-intl";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { Article } from "@/lib/api";
+import { cleanContent } from "@/helper/validation";
 
 interface SlugCardProps {
   slug: string;
 }
 
-const ALLOWED_CONTENT_TAGS = /<img[^>]*>/g;
 const skeletonStyle = "bg-gray-300 animate-pulse rounded-lg";
 
 // Local helper to handle legacy Sanity image formats if present
@@ -63,10 +63,7 @@ export default function SlugCard({ slug }: SlugCardProps) {
     });
   };
 
-  const cleanContent = (htmlContent?: string) => {
-    if (!htmlContent) return "";
-    return htmlContent.replace(ALLOWED_CONTENT_TAGS, "");
-  };
+
 
   // Custom components for PortableText to match Sanity Editor visual style
   const ptComponents: PortableTextComponents = {
