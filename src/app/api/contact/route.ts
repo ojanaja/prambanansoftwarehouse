@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
 import { validateContactPayload } from "@/helper/validation";
+import { supabase } from "@/helper/supabase";
 import axios from "axios";
 
 export async function POST(req: NextRequest) {
@@ -34,7 +35,47 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: validation.error }, { status: 400 });
     }
 
-    const { name, institution, whatsapp, email, appType } = body;
+    const { 
+      name, 
+      institution, 
+      whatsapp, 
+      email, 
+      appType,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      utm_term,
+      utm_content,
+      referrer 
+    } = body;
+
+    const sanitize = (val: any, maxLen: number): string | null => {
+      if (typeof val !== "string") return null;
+      return val.replace(/<[^>]*>/g, "").trim().substring(0, maxLen);
+    };
+
+    // 1. Save lead to Supabase (non-blocking fallback design)
+    try {
+      const { error: dbError } = await supabase.from("leads").insert({
+        name: sanitize(name, 100),
+        institution: sanitize(institution, 150),
+        whatsapp: sanitize(whatsapp, 20),
+        email: email ? sanitize(email, 100) : null,
+        app_type: sanitize(appType, 100),
+        utm_source: utm_source ? sanitize(utm_source, 150) : null,
+        utm_medium: utm_medium ? sanitize(utm_medium, 150) : null,
+        utm_campaign: utm_campaign ? sanitize(utm_campaign, 150) : null,
+        utm_term: utm_term ? sanitize(utm_term, 150) : null,
+        utm_content: utm_content ? sanitize(utm_content, 150) : null,
+        referrer: referrer ? sanitize(referrer, 500) : null,
+      });
+
+      if (dbError) {
+        console.warn("Database storage failed for lead (non-blocking):", dbError.message);
+      }
+    } catch (dbErr) {
+      console.warn("Database connection failed for lead (non-blocking):", dbErr);
+    }
 
     // Retrieve server-only EmailJS credentials
     const serviceId = process.env.EMAILJS_SERVICE_ID;

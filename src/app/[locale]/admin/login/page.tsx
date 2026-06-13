@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { supabase } from "@/helper/supabase";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -19,13 +20,22 @@ export default function AdminLoginPage() {
 
   // If already authenticated, redirect to admin chat page immediately
   useEffect(() => {
+    let active = true;
     const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        router.replace(`/${locale}/admin/chat`);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!active) return;
+        if (session) {
+          router.replace("/admin/chat");
+        }
+      } catch (err) {
+        console.error("Check user failed:", err);
       }
     };
     checkUser();
+    return () => {
+      active = false;
+    };
   }, [router, locale]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -47,7 +57,7 @@ export default function AdminLoginPage() {
       }
 
       toast.success(locale === "en" ? "Logged in successfully!" : "Berhasil masuk!");
-      router.replace(`/${locale}/admin/chat`);
+      router.replace("/admin/chat");
     } catch (err: any) {
       console.error("Login Error:", err);
       toast.error(

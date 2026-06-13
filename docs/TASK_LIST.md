@@ -201,14 +201,14 @@
 
 ## Phase 11 - Analytics and Conversion
 
-- [ ] Define consent-aware analytics architecture
-- [ ] Track primary CTA clicks
-- [ ] Track consultation form start, validation failure, and success
-- [ ] Track SaaS product/signup outbound clicks
-- [ ] Track case-study and solution engagement
-- [ ] Preserve UTM and referrer attribution
-- [ ] Add privacy-safe conversion dashboard
-- [ ] Remove duplicate or unused analytics integrations
+- [x] Define consent-aware analytics architecture
+- [x] Track primary CTA clicks
+- [x] Track consultation form start, validation failure, and success
+- [x] Track SaaS product/signup outbound clicks
+- [x] Track case-study and solution engagement
+- [x] Preserve UTM and referrer attribution
+- [x] Add privacy-safe conversion dashboard
+- [x] Remove duplicate or unused analytics integrations
 
 ## Phase 12 - Deployment and Operations
 

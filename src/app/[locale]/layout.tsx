@@ -8,6 +8,9 @@ import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
 import dynamic from "next/dynamic";
 import { Metadata } from "next";
+import Script from "next/script";
+import CookieConsent from "@/components/ui/CookieConsent";
+import UtmTracker from "@/components/analytics/UtmTracker";
 
 const CursorGlow = dynamic(
   () => import("@/components/particles/CursorGlow"),
@@ -136,6 +139,24 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
+        {/* Google Analytics Consent Mode Default Configuration */}
+        <Script id="google-analytics-consent-mode" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            
+            // Read saved consent or default to denied
+            var consent = localStorage.getItem('cookie-consent');
+            var status = consent === 'accepted' ? 'granted' : 'denied';
+            
+            gtag('consent', 'default', {
+              'analytics_storage': status,
+              'ad_storage': status,
+              'ad_user_data': status,
+              'ad_personalization': status
+            });
+          `}
+        </Script>
       </head>
       <body className={poppins.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>
@@ -146,6 +167,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
             disableTransitionOnChange
           >
             <CallGoogleAnalytics />
+            <UtmTracker />
             <CursorGlow />
             <ScrollProgress />
             <SmoothScroll>
@@ -155,6 +177,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
             </SmoothScroll>
             <ChatWidget />
             <Toaster position="top-center" richColors />
+            <CookieConsent />
             <Analytics />
           </ThemeProvider>
         </NextIntlClientProvider>

@@ -483,5 +483,11 @@
     "description": "Terjadi kesalahan yang tidak terduga. Tim kami telah diberitahu. Silakan coba lagi atau kembali ke beranda.",
     "retry": "Coba Lagi",
     "backHome": "Kembali ke Beranda"
+  },
+  "cookieConsent": {
+    "title": "Cookie & Privasi",
+    "description": "Kami menggunakan cookie untuk menganalisis lalu lintas situs dan meningkatkan pengalaman browsing Anda. Silakan pilih apakah Anda menyetujui semua cookie pelacakan.",
+    "accept": "Setujui Semua",
+    "decline": "Tolak"
   }
 }

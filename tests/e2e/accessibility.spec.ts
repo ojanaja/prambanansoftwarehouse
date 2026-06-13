@@ -39,9 +39,10 @@ test.describe('Accessibility E2E Tests', () => {
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(1500);
 
-      // Run Axe accessibility scan
+      // Run Axe accessibility scan, excluding the animating cookie banner to avoid contrast race conditions
       const scanResults = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        .exclude('#cookie-consent-banner')
         .analyze();
 
       // Check if there are any violations, if so print details for easy debugging
@@ -62,4 +63,33 @@ test.describe('Accessibility E2E Tests', () => {
       expect(scanResults.violations).toEqual([]);
     });
   }
+
+  test('should have no accessibility violations on Cookie Consent banner when fully settled', async ({ page }) => {
+    await page.goto('/');
+
+    // Wait for the cookie consent banner to appear (2000ms delay + buffer)
+    const banner = page.locator('#cookie-consent-banner');
+    await expect(banner).toBeVisible({ timeout: 5000 });
+
+    // Additional wait to ensure opacity transitions are 100% complete
+    await page.waitForTimeout(1000);
+
+    // Run Axe specifically on the page with the settled cookie consent banner
+    const scanResults = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+
+    if (scanResults.violations.length > 0) {
+      console.error('Accessibility violations on settled Cookie Consent banner:');
+      for (const violation of scanResults.violations) {
+        console.error(`- [${violation.id}] ${violation.help}`);
+        console.error(`  Nodes affected:`);
+        for (const node of violation.nodes) {
+          console.error(`    * HTML: ${node.html}`);
+        }
+      }
+    }
+
+    expect(scanResults.violations).toEqual([]);
+  });
 });

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { useSearchParams, useRouter, useParams } from "next/navigation";
+import { useSearchParams, useParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { supabase } from "@/helper/supabase";
-import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText, IoArrowBack, IoLogOutOutline } from "react-icons/io5";
+import { IoSend, IoPerson, IoChatbubbles, IoTime, IoDocumentText, IoArrowBack, IoLogOutOutline, IoAnalytics } from "react-icons/io5";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -52,30 +53,49 @@ export default function AdminChatPage() {
 
   // Auth Guard
   useEffect(() => {
+    let active = true;
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        router.replace(`/${locale}/admin/login`);
-      } else {
-        setIsAuthenticated(true);
-        setAuthLoading(false);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!active) return;
+        if (!session) {
+          router.replace("/admin/login");
+        } else {
+          setIsAuthenticated(true);
+          setAuthLoading(false);
+        }
+      } catch (err) {
+        console.error("Auth check failed:", err);
+        if (active) {
+          router.replace("/admin/login");
+        }
       }
     };
 
     checkAuth();
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session) {
-        router.replace(`/${locale}/admin/login`);
-      } else {
-        setIsAuthenticated(true);
-        setAuthLoading(false);
-      }
-    });
+    let subscription: any = null;
+    try {
+      const { data } = supabase.auth.onAuthStateChange((event, session) => {
+        if (!active) return;
+        if (!session) {
+          router.replace("/admin/login");
+        } else {
+          setIsAuthenticated(true);
+          setAuthLoading(false);
+        }
+      });
+      subscription = data?.subscription;
+    } catch (err) {
+      console.error("Auth listener registration failed:", err);
+    }
 
     return () => {
-      subscription.unsubscribe();
+      active = false;
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     };
   }, [router, locale]);
 
@@ -207,7 +227,7 @@ export default function AdminChatPage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.replace(`/${locale}/admin/login`);
+    router.replace("/admin/login");
   };
 
   if (authLoading || isLoading) {
@@ -231,13 +251,22 @@ export default function AdminChatPage() {
             </h1>
             <p className="text-xs text-neutral-500 mt-1">Manage visitor inquiries</p>
           </div>
-          <button
-            onClick={handleLogout}
-            title={locale === "en" ? "Sign Out" : "Keluar"}
-            className="p-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-600 dark:text-neutral-300 transition-all shadow-sm"
-          >
-            <IoLogOutOutline size={20} />
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => router.push("/admin/analytics")}
+              title={locale === "en" ? "Analytics Dashboard" : "Dashboard Analitik"}
+              className="p-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-600 dark:text-neutral-300 transition-all shadow-sm"
+            >
+              <IoAnalytics size={20} />
+            </button>
+            <button
+              onClick={handleLogout}
+              title={locale === "en" ? "Sign Out" : "Keluar"}
+              className="p-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-600 dark:text-neutral-300 transition-all shadow-sm"
+            >
+              <IoLogOutOutline size={20} />
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto" data-lenis-prevent="true">
           {conversations.length === 0 ? (

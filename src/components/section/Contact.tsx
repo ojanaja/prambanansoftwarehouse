@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import { HiArrowRight } from "react-icons/hi";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
+import { getPreservedUtmAndReferrer } from "@/helper/utm";
+import { trackEvent } from "@/helper/analytics";
 
 const ParticleBackground = dynamic(
   () => import("../particles/ParticleBackground"),
@@ -29,6 +31,14 @@ export default function ContactSection() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasStartedForm, setHasStartedForm] = useState(false);
+
+  const handleFormFocus = () => {
+    if (!hasStartedForm) {
+      setHasStartedForm(true);
+      trackEvent("contact_form_start");
+    }
+  };
 
   const handleWhatsappInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.value = event.target.value.replace(/[^0-9]/g, "");
@@ -45,6 +55,7 @@ export default function ContactSection() {
 
     if (formData.whatsapp.length < 10) {
       toast.error(t("whatsappMinDigits"));
+      trackEvent("contact_form_validation_failure", { reason: "whatsapp_too_short" });
       return;
     }
 
@@ -52,20 +63,27 @@ export default function ContactSection() {
     const toastId = toast.loading(t("sending"));
 
     try {
+      const utmData = getPreservedUtmAndReferrer();
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          ...utmData,
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
+        trackEvent("contact_form_validation_failure", { reason: errorData.error || "server_error" });
         throw new Error(errorData.error || "Failed to submit form.");
       }
 
       toast.success(t("sendSuccess"), { id: toastId });
+      trackEvent("contact_form_success", { app_type: formData.appType });
       // Reset form on success
       setFormData({ name: "", institution: "", whatsapp: "", email: "", appType: "" });
+      setHasStartedForm(false);
     } catch (error: any) {
       toast.error(error.message || t("sendError"), { id: toastId });
       console.error("Error sending contact form:", error);
@@ -119,6 +137,7 @@ export default function ContactSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
+                      onFocus={handleFormFocus}
                       placeholder={t("namePlaceholder")}
                       aria-label={t("namePlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
@@ -131,6 +150,7 @@ export default function ContactSection() {
                       name="institution"
                       value={formData.institution}
                       onChange={handleInputChange}
+                      onFocus={handleFormFocus}
                       placeholder={t("institutionPlaceholder")}
                       aria-label={t("institutionPlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
@@ -143,6 +163,7 @@ export default function ContactSection() {
                       name="whatsapp"
                       value={formData.whatsapp}
                       onChange={handleWhatsappInput}
+                      onFocus={handleFormFocus}
                       inputMode="numeric"
                       placeholder={t("whatsappPlaceholder")}
                       aria-label={t("whatsappPlaceholder")}
@@ -156,6 +177,7 @@ export default function ContactSection() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
+                      onFocus={handleFormFocus}
                       placeholder={t("emailPlaceholder")}
                       aria-label={t("emailPlaceholder")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 placeholder:text-white/40 transition-all duration-300 text-sm"
@@ -166,6 +188,7 @@ export default function ContactSection() {
                       name="appType"
                       value={formData.appType}
                       onChange={handleInputChange}
+                      onFocus={handleFormFocus}
                       aria-label={t("selectAppType")}
                       className="w-full p-3.5 bg-white/10 border border-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:border-primary-400/50 transition-all duration-300 text-sm appearance-none cursor-pointer"
                       required

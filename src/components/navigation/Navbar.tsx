@@ -19,6 +19,7 @@ interface NavbarProps {
 }
 
 import { siteConfig } from "@/config/site";
+import { trackEvent } from "@/helper/analytics";
 
 export default function Navbar({ disabledScroll = false }: NavbarProps) {
   const saasUrl = siteConfig.saasUrl;
@@ -186,6 +187,7 @@ export default function Navbar({ disabledScroll = false }: NavbarProps) {
 
               <a
                 href={`${saasUrl}/signup`}
+                onClick={() => trackEvent("click_saas_link", { location: "navbar" })}
                 className={`ml-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${scrolled
                   ? "bg-gradient-to-r from-primary-500 to-primary-400 text-white shadow-md shadow-primary-400/20 hover:shadow-lg hover:shadow-primary-400/30 hover:scale-[1.03]"
                   : "bg-white/15 text-white border border-white/25 hover:bg-white/25"

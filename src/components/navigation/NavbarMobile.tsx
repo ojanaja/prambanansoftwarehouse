@@ -21,6 +21,7 @@ interface NavbarMobileProps {
 }
 
 import { siteConfig } from "@/config/site";
+import { trackEvent } from "@/helper/analytics";
 
 export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
   const saasUrl = siteConfig.saasUrl;
@@ -239,7 +240,10 @@ export default function NavbarMobile({ isOpen, onClose }: NavbarMobileProps) {
                 >
                   <a
                     href={`${saasUrl}/signup`}
-                    onClick={onClose}
+                    onClick={() => {
+                      trackEvent("click_saas_link", { location: "navbar_mobile" });
+                      onClose();
+                    }}
                     className="btn-primary w-full text-lg shadow-lg shadow-primary-500/20"
                   >
                     {t("requestDemo")}

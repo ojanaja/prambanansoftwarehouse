@@ -3,9 +3,17 @@ import { POST } from "./route";
 import axios from "axios";
 import { rateLimit } from "@/helper/rateLimit";
 
+import { supabase } from "@/helper/supabase";
+
 jest.mock("axios");
 jest.mock("@/helper/rateLimit", () => ({
   rateLimit: jest.fn(),
+}));
+jest.mock("@/helper/supabase", () => ({
+  supabase: {
+    from: jest.fn().mockReturnThis(),
+    insert: jest.fn().mockResolvedValue({ error: null }),
+  },
 }));
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -151,5 +159,47 @@ describe("POST /api/contact", () => {
       },
       expect.any(Object)
     );
+  });
+
+  it("should process and store UTM parameters in Supabase leads database", async () => {
+    mockedAxios.post.mockResolvedValueOnce({ data: "OK" });
+    const mockInsert = jest.fn().mockResolvedValue({ error: null });
+    jest.spyOn(supabase, "from").mockReturnValue({
+      insert: mockInsert,
+    } as any);
+
+    const req = new NextRequest("http://localhost/api/contact", {
+      method: "POST",
+      body: JSON.stringify({
+        name: "John Doe",
+        institution: "School Foundation",
+        whatsapp: "085123456789",
+        email: "john@doe.com",
+        appType: "SIAKAD",
+        utm_source: "google",
+        utm_medium: "cpc",
+        utm_campaign: "promo",
+        utm_term: "software",
+        utm_content: "banner",
+        referrer: "https://google.com",
+      }),
+    });
+
+    const res = await POST(req);
+    expect(res.status).toBe(200);
+    expect(supabase.from).toHaveBeenCalledWith("leads");
+    expect(mockInsert).toHaveBeenCalledWith({
+      name: "John Doe",
+      institution: "School Foundation",
+      whatsapp: "085123456789",
+      email: "john@doe.com",
+      app_type: "SIAKAD",
+      utm_source: "google",
+      utm_medium: "cpc",
+      utm_campaign: "promo",
+      utm_term: "software",
+      utm_content: "banner",
+      referrer: "https://google.com",
+    });
   });
 });

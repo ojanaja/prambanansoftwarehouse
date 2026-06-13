@@ -6,6 +6,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { trackEvent } from "@/helper/analytics";
 
 interface ProjectCardProps {
   slug: string;
@@ -24,6 +25,7 @@ export default function ProjectCard({ slug, company, name, imageUrl, index = 0 }
   return (
     <Link
       href={`/${locale}/work/${slug}`}
+      onClick={() => trackEvent("view_project", { slug, title: company })}
       className="group relative w-full h-[380px] md:h-[420px] rounded-2xl overflow-hidden cursor-pointer block"
     >
       {/* Accent bar */}

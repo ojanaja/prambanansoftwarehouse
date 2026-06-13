@@ -483,5 +483,11 @@
     "description": "An unexpected error occurred. Our team has been notified. Please try again or return home.",
     "retry": "Try Again",
     "backHome": "Back to Home"
+  },
+  "cookieConsent": {
+    "title": "Cookie & Privacy",
+    "description": "We use cookies to analyze site traffic and improve your browsing experience. Please choose whether you accept all tracking cookies.",
+    "accept": "Accept All",
+    "decline": "Decline"
   }
 }
