@@ -227,15 +227,15 @@
 
 ## Phase 13 - Launch Gate
 
-- [ ] All P0 security tasks completed
+- [x] All P0 security tasks completed
 - [ ] Positioning and CTA architecture approved
 - [ ] Indonesian and English content approved
-- [ ] No empty or broken homepage section
+- [x] No empty or broken homepage section
 - [ ] Core Web Vitals budgets pass
-- [ ] WCAG 2.2 AA core-flow audit passes
-- [ ] SEO metadata, sitemap, robots, redirects, and structured data pass
-- [ ] Contact and SaaS outbound conversion tracking pass
-- [ ] Cross-browser and responsive E2E pass
+- [x] WCAG 2.2 AA core-flow audit passes
+- [x] SEO metadata, sitemap, robots, redirects, and structured data pass
+- [x] Contact and SaaS outbound conversion tracking pass
+- [x] Cross-browser and responsive E2E pass
 - [ ] Staging stakeholder UAT approved
 - [ ] Production rollback tested
 - [ ] Production release approved
