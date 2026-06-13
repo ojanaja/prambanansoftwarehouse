@@ -187,7 +187,7 @@
 
 - [x] Add unit test foundation
 - [x] Add tests for validation, locale helpers, CMS mapping, and sanitization
-- [ ] Add integration tests for contact and chat APIs
+- [x] Add integration tests for contact and chat APIs
 - [x] Add Playwright configuration
 - [x] Test Indonesian and English homepage
 - [x] Test navigation and language switching
