@@ -4,14 +4,14 @@ const DB_VERSION = 1;
 
 export interface MessageData {
   id: string;
-  sender: "user" | "admin" | "ai";
+  sender: "user" | "admin" | "ai" | "bot";
   text?: string;
-  timestamp: string;
+  timestamp: string | Date;
   attachment?: {
     name: string;
     type: string;
     data: string;
-  };
+  } | null;
   isAdmin?: boolean;
 }
 
