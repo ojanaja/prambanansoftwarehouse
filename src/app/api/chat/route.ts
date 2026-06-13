@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
+import { validateChatPayload } from "@/helper/validation";
 
 const PRIMARY_MODEL = "qwen/qwen3.6-plus:free";
 const FALLBACK_MODELS = [
@@ -54,7 +55,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const validation = validateChatPayload(body);
+    if (!validation.success) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
+    }
+
+    const { messages } = body;
     const apiKey = process.env.OPENROUTER_API_KEY;
 
     if (!apiKey) {
@@ -63,10 +70,6 @@ export async function POST(req: NextRequest) {
         { error: "Chat service is temporarily unavailable." },
         { status: 500 }
       );
-    }
-
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
-      return NextResponse.json({ error: "Invalid request payload." }, { status: 400 });
     }
 
     const systemPrompt = `You are the official AI Assistant for Prambanan Digital, a premier software house specializing in Digital Transformation for the Public Sector and Education in Indonesia.

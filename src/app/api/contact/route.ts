@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "@/helper/rateLimit";
+import { validateContactPayload } from "@/helper/validation";
 import axios from "axios";
-
-// Helper regexes for validation
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const WHATSAPP_REGEX = /^\d{10,15}$/;
 
 export async function POST(req: NextRequest) {
   // Extract client IP address for rate limiting
@@ -32,28 +29,12 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
+    const validation = validateContactPayload(body);
+    if (!validation.success) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
+    }
+
     const { name, institution, whatsapp, email, appType } = body;
-
-    // Validation
-    if (!name || typeof name !== "string" || name.trim().length === 0 || name.length > 100) {
-      return NextResponse.json({ error: "Invalid name (required, max 100 characters)." }, { status: 400 });
-    }
-
-    if (!institution || typeof institution !== "string" || institution.trim().length === 0 || institution.length > 150) {
-      return NextResponse.json({ error: "Invalid institution/yayasan (required, max 150 characters)." }, { status: 400 });
-    }
-
-    if (!whatsapp || !WHATSAPP_REGEX.test(whatsapp)) {
-      return NextResponse.json({ error: "Invalid WhatsApp number (digits only, 10 to 15 digits required)." }, { status: 400 });
-    }
-
-    if (email && (typeof email !== "string" || !EMAIL_REGEX.test(email) || email.length > 100)) {
-      return NextResponse.json({ error: "Invalid email format." }, { status: 400 });
-    }
-
-    if (!appType || typeof appType !== "string" || appType.trim().length === 0 || appType.length > 100) {
-      return NextResponse.json({ error: "Invalid app type selected." }, { status: 400 });
-    }
 
     // Retrieve server-only EmailJS credentials
     const serviceId = process.env.EMAILJS_SERVICE_ID;
