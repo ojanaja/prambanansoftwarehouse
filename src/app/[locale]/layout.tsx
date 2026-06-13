@@ -82,7 +82,6 @@ interface RootLayoutProps {
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   const { locale } = params;
-  console.log('RootLayout locale:', locale);
 
   // Re-enable this to see if it catches the throw in request.js
   const messages = await getMessages();

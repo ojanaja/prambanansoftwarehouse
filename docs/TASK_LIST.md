@@ -167,35 +167,35 @@
 
 ## Phase 9 - Technical Modernization
 
-- [ ] Add TypeScript configuration
-- [ ] Convert config, utilities, and data contracts to TypeScript first
-- [ ] Convert server routes and CMS adapters
-- [ ] Convert shared components
-- [ ] Convert page components
-- [ ] Add strict linting and formatting
-- [ ] Remove dead dependencies and legacy helpers
-- [ ] Use `npm ci` in Docker
-- [ ] Align Next standalone configuration and runtime command
-- [ ] Install and verify `sharp` for standalone image optimization
-- [ ] Verify all marketing content sources are reachable in standalone Docker runtime
-- [ ] Plan Next 14 -> current supported Next migration using official docs
-- [ ] Plan React 18 -> React 19 migration
-- [ ] Plan Tailwind 3 -> Tailwind 4 migration separately from visual revamp
-- [ ] Upgrade dependencies in controlled batches
+- [x] Add TypeScript configuration
+- [x] Convert config, utilities, and data contracts to TypeScript first
+- [x] Convert server routes and CMS adapters
+- [x] Convert shared components
+- [x] Convert page components
+- [x] Add strict linting and formatting
+- [x] Remove dead dependencies and legacy helpers
+- [x] Use `npm ci` in Docker
+- [x] Align Next standalone configuration and runtime command
+- [x] Install and verify `sharp` for standalone image optimization
+- [x] Verify all marketing content sources are reachable in standalone Docker runtime
+- [x] Plan Next 14 -> current supported Next migration using official docs
+- [x] Plan React 18 -> React 19 migration
+- [x] Plan Tailwind 3 -> Tailwind 4 migration separately from visual revamp
+- [x] Upgrade dependencies in controlled batches
 
 ## Phase 10 - Testing and Quality
 
-- [ ] Add unit test foundation
-- [ ] Add tests for validation, locale helpers, CMS mapping, and sanitization
+- [x] Add unit test foundation
+- [x] Add tests for validation, locale helpers, CMS mapping, and sanitization
 - [ ] Add integration tests for contact and chat APIs
-- [ ] Add Playwright configuration
-- [ ] Test Indonesian and English homepage
-- [ ] Test navigation and language switching
-- [ ] Test consultation form positive and negative cases
-- [ ] Test solution, product, work, and insight routes
-- [ ] Test responsive desktop, tablet, and mobile viewports
-- [ ] Test reduced-motion mode
-- [ ] Test admin chat authorization denial
+- [x] Add Playwright configuration
+- [x] Test Indonesian and English homepage
+- [x] Test navigation and language switching
+- [x] Test consultation form positive and negative cases
+- [x] Test solution, product, work, and insight routes
+- [x] Test responsive desktop, tablet, and mobile viewports
+- [x] Test reduced-motion mode
+- [x] Test admin chat authorization denial
 - [ ] Add visual regression screenshots for critical routes
 - [ ] Add build, lint, test, and accessibility CI gate
 
@@ -212,11 +212,11 @@
 
 ## Phase 12 - Deployment and Operations
 
-- [ ] Rewrite repository README with architecture, local setup, environment contract, and deployment
-- [ ] Add health endpoint and Docker healthcheck
-- [ ] Add production security headers
-- [ ] Document Docker build arguments and runtime environment variables
-- [ ] Validate non-root standalone container
+- [/] Rewrite repository README with architecture, local setup, environment contract, and deployment
+- [x] Add health endpoint and Docker healthcheck
+- [x] Add production security headers
+- [x] Document Docker build arguments and runtime environment variables
+- [x] Validate non-root standalone container
 - [ ] Add staging deployment
 - [ ] Add uptime and error monitoring
 - [ ] Add structured server logging
