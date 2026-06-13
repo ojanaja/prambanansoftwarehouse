@@ -196,7 +196,7 @@
 - [x] Test responsive desktop, tablet, and mobile viewports
 - [x] Test reduced-motion mode
 - [x] Test admin chat authorization denial
-- [ ] Add visual regression screenshots for critical routes
+- [x] Add visual regression screenshots for critical routes
 - [ ] Add build, lint, test, and accessibility CI gate
 
 ## Phase 11 - Analytics and Conversion
