@@ -138,9 +138,9 @@
 
 ## Phase 7 - Performance and Asset Optimization
 
-- [ ] Set homepage First Load JS budget <= 180 kB
+- [x] Set homepage First Load JS budget <= 180 kB
 - [ ] Set LCP <= 2.5 s, CLS <= 0.1, and INP <= 200 ms targets
-- [ ] Audit and reduce `"use client"` boundaries
+- [x] Audit and reduce `"use client"` boundaries
 - [ ] Remove overlapping animation libraries where possible
 - [x] Lazy-load chat and optional interactive widgets
 - [x] Replace raw `<img>` elements with optimized media components where appropriate

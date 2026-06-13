@@ -1,14 +1,39 @@
 import React from "react";
-import ContactSection from "@/components/section/Contact";
+import dynamic from "next/dynamic";
 import HeroSection from "@/components/section/Hero";
-import OurProjectSection from "@/components/section/OurProject";
-import ProcessSection from "@/components/section/Process";
-import SpecializedSolutionsSection from "@/components/section/SpecializedSolutions";
-import SecurityComplianceSection from "@/components/section/SecurityCompliance";
 import StatsSection from "@/components/section/Stats";
-import TestimonialsSection from "@/components/section/Testimonials";
 import { getServices, getShowcaseProducts, getPortfolios, getTestimonials } from "@/lib/api";
 import { Metadata } from "next";
+
+const SpecializedSolutionsSection = dynamic(
+  () => import("@/components/section/SpecializedSolutions"),
+  { ssr: true }
+);
+
+const SecurityComplianceSection = dynamic(
+  () => import("@/components/section/SecurityCompliance"),
+  { ssr: true }
+);
+
+const ProcessSection = dynamic(
+  () => import("@/components/section/Process"),
+  { ssr: true }
+);
+
+const OurProjectSection = dynamic(
+  () => import("@/components/section/OurProject"),
+  { ssr: false }
+);
+
+const TestimonialsSection = dynamic(
+  () => import("@/components/section/Testimonials"),
+  { ssr: true }
+);
+
+const ContactSection = dynamic(
+  () => import("@/components/section/Contact"),
+  { ssr: false }
+);
 
 export const revalidate = 60; // Revalidate every 60 seconds
 
